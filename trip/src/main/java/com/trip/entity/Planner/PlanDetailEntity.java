@@ -3,6 +3,11 @@ package com.trip.entity.Planner;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,11 +15,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PlanDetailEntity {
-
-	private int plan_detail_id;
-	private int plan_date_id;
-	private int place_id;
-	private LocalDateTime visit_time;
-	private LocalDateTime end_time;
-	private int the_day_order;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int planDetailId;
+	private int planDateId;
+	private int placeId;
+	private LocalDateTime visitTime;
+	private LocalDateTime endTime;
+	private int theDayOrder;
 }

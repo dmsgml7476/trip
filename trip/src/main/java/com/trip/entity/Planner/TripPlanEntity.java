@@ -3,6 +3,9 @@ package com.trip.entity.Planner;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 @Entity
@@ -10,11 +13,13 @@ import lombok.Setter;
 @Setter
 public class TripPlanEntity {
 
-	private int plan_id;
-	private String member_id;
-	private String plan_title;
-	private LocalDate trip_start_date;
-	private LocalDate trip_finish_date;
-	private LocalDate write_date;
-	private LocalDate plan_modified_date;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int planId;
+	private String memberId;
+	private String planTitle;
+	private LocalDate tripStartDate;
+	private LocalDate tripFinishDate;
+	private LocalDate writeDate;
+	private LocalDate planModifiedDate;
 }

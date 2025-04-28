@@ -1,6 +1,11 @@
 package com.trip.entity.Planner;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,9 +14,13 @@ import lombok.Setter;
 @Setter
 public class RegionEntity {
 
-	private Long region_id;
-	private String region_name;
-	private Long upper_region;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@OneToMany
+	@JoinColumn(name="region_id")
+	private Long regionId;
+	private String regionName;
+	private Long upperRegion;
 	private float latitude;
 	private float longitude;
 }
