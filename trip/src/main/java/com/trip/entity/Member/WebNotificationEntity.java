@@ -3,6 +3,8 @@ package com.trip.entity.Member;
 import java.time.LocalDateTime;
 
 import com.trip.constant.Member.NotificationType;
+import com.trip.entity.Lets.StoryEntity;
+import com.trip.entity.Planner.TripPlanEntity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,6 +27,7 @@ public class WebNotificationEntity {
 	@JoinColumn(name="user_id", nullable=false)
 	private UserEntity user;
 	
+
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "story_id")
     private StoryEntity story;
@@ -44,5 +47,5 @@ public class WebNotificationEntity {
 	private boolean isRead = false;
 	private LocalDateTime createAt = LocalDateTime.now();
 	
-	
+
 }
