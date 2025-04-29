@@ -2,6 +2,8 @@ package com.trip.entity.Planner;
 
 import java.time.LocalDate;
 
+import com.trip.entity.Member.UserEntity;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;

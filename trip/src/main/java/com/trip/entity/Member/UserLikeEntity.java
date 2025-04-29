@@ -2,6 +2,8 @@ package com.trip.entity.Member;
 
 import java.time.LocalDateTime;
 
+import com.trip.entity.Lets.StoryEntity;
+
 import jakarta.persistence.*;
 import lombok.*;
 

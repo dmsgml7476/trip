@@ -3,6 +3,8 @@ package com.trip.entity.Member;
 import java.time.LocalDateTime;
 
 import com.trip.constant.Member.NotificationType;
+import com.trip.entity.Lets.StoryEntity;
+import com.trip.entity.Planner.TripPlanEntity;
 
 import jakarta.persistence.*;
 import lombok.*;
