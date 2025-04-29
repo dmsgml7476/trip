@@ -11,23 +11,39 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+<<<<<<< HEAD
 import jakarta.persistence.ManyToOne;
+=======
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+>>>>>>> branch 'main' of https://github.com/dmsgml7476/trip.git
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 
 public class StoryEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
 		@Column(name = "story_id")
 		private Long id;
+=======
+		private Long storyId;
+>>>>>>> branch 'main' of https://github.com/dmsgml7476/trip.git
 		
+		@ManyToOne(fetch=FetchType.LAZY)
+		@JoinColumn(name="user_id", nullable=false)
+		private UserEntity user;
+	
 		@Enumerated(EnumType.STRING)
 		@Column(nullable = false)
 		private StoryCategory storyCate;
@@ -48,9 +64,9 @@ public class StoryEntity {
 	    @Column(nullable = false)
 		private OpenArea openArea;
 		
-		  @Column(nullable = false)
-		private LocalDateTime createdAt;
+		private LocalDateTime writeAt;
 		
+<<<<<<< HEAD
 		@ManyToOne
 		@Column()
 		private UserEntity userEntity;
@@ -58,4 +74,6 @@ public class StoryEntity {
 		public StoryEntity() {
 			this.createdAt=LocalDateTime.now();
 		}
+=======
+>>>>>>> branch 'main' of https://github.com/dmsgml7476/trip.git
 }
