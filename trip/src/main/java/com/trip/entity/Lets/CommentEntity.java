@@ -25,7 +25,7 @@ public class CommentEntity {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	
-			private Long CommentId;
+			private Long commentId;
 	
 	      @ManyToOne(fetch=FetchType.LAZY)
 	      @JoinColumn(name="story_id", nullable=false)
