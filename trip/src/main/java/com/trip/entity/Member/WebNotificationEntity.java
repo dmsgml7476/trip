@@ -26,7 +26,7 @@ public class WebNotificationEntity {
 	private Long userId;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(nullable=false)
+	@Column(name="notification_type", nullable=false)
 	private NotificationType type;
 	
 	@Column(nullable=false)
