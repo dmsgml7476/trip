@@ -1,5 +1,9 @@
 package com.trip.repository.Lets;
 
-public interface MyStoryRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.trip.entity.Lets.MyStoryEntity;
+
+public interface MyStoryRepository extends JpaRepository<MyStoryEntity, Long>{
+	
 }
