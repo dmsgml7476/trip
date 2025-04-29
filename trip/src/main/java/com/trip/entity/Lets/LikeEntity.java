@@ -2,7 +2,8 @@ package com.trip.entity.Lets;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
+import com.trip.entity.Member.UserEntity;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -28,9 +29,9 @@ public class LikeEntity {
 		    @JoinColumn(name="story_id", nullable=false)
 			private StoryEntity story;
 	       
-	       @ManyToOne(fetch=FetchType.LAZY)
+	       @ManyToOne(fetch=FetchType.LAZY)  
 	       @JoinColumn(name="user_id")
-			private LikeEntity like;
+			private UserEntity user;
 			
 			private LocalDateTime likedAt;
 			
