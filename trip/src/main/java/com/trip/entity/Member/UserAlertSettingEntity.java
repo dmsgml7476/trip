@@ -24,10 +24,10 @@ public class UserAlertSettingEntity {
 	private UserEntity user;
 	
 	@Column(name="comm_alert")
-	private boolean commAlert=false;
+	private boolean commAlert;
 	
 	@Column(name="trip_alert")
-	private boolean tripAlert=false;
+	private boolean tripAlert;
 	
 	public static UserAlertSettingEntity from(UserSignUpDto dto, UserEntity user) {
 		boolean agreed = dto.isAgreedAllAlerts();

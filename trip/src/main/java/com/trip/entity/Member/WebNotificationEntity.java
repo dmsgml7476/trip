@@ -38,8 +38,8 @@ public class WebNotificationEntity {
 	
 	private Long targetId;
 	
-	private boolean isRead = false;
-	private LocalDateTime createAt = LocalDateTime.now();
+	private boolean isRead;
+	private LocalDateTime createAt;
 	
 	
 }

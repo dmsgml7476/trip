@@ -27,6 +27,6 @@ public class CustomerServiceAnswerEntity {
 	private String answerText;
 	
 	@Column(name="answer_time", nullable=false)
-	private LocalDateTime answerTime = LocalDateTime.now();
+	private LocalDateTime answerTime;
 	
 }

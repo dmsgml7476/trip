@@ -25,7 +25,7 @@ public class UserLikeEntity {
 	
 	private Long storyId;
 	
-	private LocalDateTime likeTime = LocalDateTime.now();
+	private LocalDateTime likeTime;
 	
 	
 	

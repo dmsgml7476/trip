@@ -37,7 +37,7 @@ public class CustomerServiceEntity {
 	private String questionText;
 	
 	@Column(name="question_time", nullable=false, updatable = false)
-	private LocalDateTime questionTime = LocalDateTime.now();
+	private LocalDateTime questionTime;
 	
 	@OneToOne(mappedBy = "customerService", cascade = CascadeType.ALL, orphanRemoval = true)
 	private CustomerServiceAnswerEntity answer;

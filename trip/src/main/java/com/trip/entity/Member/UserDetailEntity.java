@@ -15,7 +15,7 @@ import lombok.*;
 @Table(name = "user_detail")
 public class UserDetailEntity {
 	@Id
-	@Column(name = "user_Entity_id")
+	@Column(name = "user_id")
 	private Long userId;
 	
 	@OneToOne(fetch = FetchType.LAZY)

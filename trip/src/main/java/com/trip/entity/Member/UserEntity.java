@@ -41,7 +41,7 @@ public class UserEntity {
 	private Role role = Role.USER;
 	
 	@Column(name="created_time", nullable=false, updatable=false)
-	private LocalDateTime createdTime = LocalDateTime.now();
+	private LocalDateTime createdTime;
 	
 	@Column(name="withdraw_time")
 	private LocalDateTime withdrawTime;
@@ -52,33 +52,33 @@ public class UserEntity {
 	private UserDetailEntity userDetail;
 	
 // ==========기능메서드========
-
-	public static UserEntity from(UserSignUpDto dto, PasswordEncoder passwordEncoder) {
-		return UserEntity.builder()
-				.loginId(dto.getLoginId())
-				.password(passwordEncoder.encode(dto.getPassword()))
-				.nickname(dto.getNickname()!=null ? dto.getNickname():dto.getLoginId())
-				.role(Role.USER)
-				.build();
-	}
-	
-	public void updateNickname(String nickname) {
-	    if (nickname != null && !nickname.isBlank()) {
-	        this.nickname = nickname;
-	    }
-	}
-	
-	public void withdraw() {
-		this.role=Role.WITHDRAW;
-		this.withdrawTime=LocalDateTime.now();
-	}
-	
-	public void updatePassword(String encodedPassword) {
-		if(encodedPassword != null && !encodedPassword.isBlank()) {
-			this.password = encodedPassword;
-		}
-	}
-	
-	
+//
+//	public static UserEntity from(UserSignUpDto dto, PasswordEncoder passwordEncoder) {
+//		return UserEntity.builder()
+//				.loginId(dto.getLoginId())
+//				.password(passwordEncoder.encode(dto.getPassword()))
+//				.nickname(dto.getNickname()!=null ? dto.getNickname():dto.getLoginId())
+//				.role(Role.USER)
+//				.build();
+//	}
+//	
+//	public void updateNickname(String nickname) {
+//	    if (nickname != null && !nickname.isBlank()) {
+//	        this.nickname = nickname;
+//	    }
+//	}
+//	
+//	public void withdraw() {
+//		this.role=Role.WITHDRAW;
+//		this.withdrawTime=LocalDateTime.now();
+//	}
+//	
+//	public void updatePassword(String encodedPassword) {
+//		if(encodedPassword != null && !encodedPassword.isBlank()) {
+//			this.password = encodedPassword;
+//		}
+//	}
+//	
+//	
 
 }
