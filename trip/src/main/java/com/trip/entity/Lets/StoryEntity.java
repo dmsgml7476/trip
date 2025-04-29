@@ -45,7 +45,7 @@ public class StoryEntity {
 		@Column(length = 50)
 		private String storyContent;
 		
-		@Column(nullable = false)
+		@Enumerated(EnumType.STRING)
 		private LocationInfo locationInfo;
 		
 		 @Column(length = 500)
