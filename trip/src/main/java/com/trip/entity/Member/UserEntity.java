@@ -1,0 +1,102 @@
+package com.trip.entity.Member;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.trip.constant.Member.Role;
+import com.trip.dto.Member.UserSignUpDto;
+import com.trip.entity.Lets.StoryEntity;
+import com.trip.entity.Planner.TripPlanEntity;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+
+@Entity
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name="user")
+public class UserEntity {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="user_id")
+	private Long id;
+	@Column(name="login_id", nullable=false, unique=true)
+	private String loginId;
+	
+	@Column(nullable=false)
+	private String password;
+	
+	@Column(nullable=false, unique=true)
+	private String nickname;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="role", nullable=false)
+	private Role role = Role.USER;
+	
+	@Column(name="created_time", nullable=false, updatable=false)
+	private LocalDateTime createdTime = LocalDateTime.now();
+	
+	@Column(name="withdraw_time")
+	private LocalDateTime withdrawTime;
+	
+//	========연관관계 매핑========
+	
+	@OneToOne(mappedBy="user", fetch=FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+	private UserDetailEntity userDetail;
+	
+	@OneToMany(mappedBy="user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+	private List<UserHashtagEntity> userHashtags = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserMainStoryEntity> mainStories = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CustomerServiceAnswerEntity> customerServices = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "user")
+    private List<TripPlanEntity> travelPlans = new ArrayList<>();
+	
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, orphanRemoval = true)
+	private List<StoryEntity> stories= new ArrayList<>();
+	
+// ==========기능메서드========
+	
+
+	public static UserEntity from(UserSignUpDto dto, PasswordEncoder passwordEncoder) {
+		return UserEntity.builder()
+				.loginId(dto.getLoginId())
+				.password(passwordEncoder.encode(dto.getPassword()))
+				.nickname(dto.getNickname()!=null ? dto.getNickname():dto.getLoginId())
+				.role(Role.USER)
+				.build();
+	}
+	
+	public void updateNickname(String nickname) {
+	    if (nickname != null && !nickname.isBlank()) {
+	        this.nickname = nickname;
+	    }
+	}
+
+	
+	
+	public void withdraw() {
+		this.role=Role.WITHDRAW;
+		this.withdrawTime=LocalDateTime.now();
+	}
+	
+	public void updatePassword(String encodedPassword) {
+		if(encodedPassword != null && !encodedPassword.isBlank()) {
+			this.password = encodedPassword;
+		}
+	}
+	
+	
+
+}
