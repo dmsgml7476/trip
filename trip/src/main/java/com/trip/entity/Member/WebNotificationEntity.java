@@ -25,6 +25,14 @@ public class WebNotificationEntity {
 	@JoinColumn(name="user_id", nullable=false)
 	private UserEntity user;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "story_id")
+    private StoryEntity story;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "trip_plan_id")
+	private TripPlanEntity tripPlan;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable=false)
 	private NotificationType type;
@@ -36,11 +44,5 @@ public class WebNotificationEntity {
 	private boolean isRead = false;
 	private LocalDateTime createAt = LocalDateTime.now();
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "story_id")
-    private StoryEntity story;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "trip_plan_id")
-	private TripPlanEntity tripPlan;
 }
