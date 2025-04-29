@@ -19,7 +19,6 @@ public class PlaceEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long placeId;
 	private String placeName;
-	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="region_id", nullable=false)
 	private Long regionId;
