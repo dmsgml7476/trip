@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-//today
+//4.29
 @Entity
 @Getter
 @Setter
