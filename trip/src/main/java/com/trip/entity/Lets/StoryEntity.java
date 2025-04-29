@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.trip.enumType.OpenArea;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Entity
 public class StoryEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
