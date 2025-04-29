@@ -20,7 +20,7 @@ public class RegionEntity {
 	@JoinColumn(name="region_id")
 	private Long regionId;
 	private String regionName;
-	private Long upperRegion;
+	private String upperRegion;
 	private float latitude;
 	private float longitude;
 }

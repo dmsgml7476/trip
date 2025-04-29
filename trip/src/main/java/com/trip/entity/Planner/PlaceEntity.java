@@ -18,12 +18,11 @@ public class PlaceEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int placeId;
 	private String placeName;
-	private Long categoryId;
 	private Long regionId;
 	private String placeAddress;
 	private String placeInfo;
-	private float latitude;
-	private float longitude;
+	private float placeLatitude;
+	private float placeLongitude;
 	private String placeTel;
 	private LocalDate createDate;
 	private LocalDate placeModifiedDate;
