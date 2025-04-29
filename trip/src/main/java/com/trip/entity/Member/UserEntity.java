@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.trip.constant.Member.Role;
 import com.trip.dto.Member.UserSignUpDto;
+import com.trip.entity.Lets.StoryEntity;
+import com.trip.entity.Planner.TripPlanEntity;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -5,6 +5,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 import com.trip.constant.Member.MainStoryNum;
+import com.trip.entity.Lets.StoryEntity;
 
 import jakarta.persistence.*;
 
