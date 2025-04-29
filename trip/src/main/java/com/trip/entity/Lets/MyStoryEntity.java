@@ -2,13 +2,27 @@ package com.trip.entity.Lets;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
 public class MyStoryEntity {
-			private Long id;
-			private String imageUrl;
 			private Long userId;
+			private Long storyId;
+			
+			@OneToOne
+			@JoinColumn(name = "storyId", referencedColumnName = "storyId")
+			private StoryEntity story;
+			private String imageUrl;
 			private LocalDateTime createdAt;
 			
 			public MyStoryEntity() {
 				this.createdAt=LocalDateTime.now();
+				
 			}
 }

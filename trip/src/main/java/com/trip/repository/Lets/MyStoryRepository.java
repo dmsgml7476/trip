@@ -1,9 +1,9 @@
 package com.trip.repository.Lets;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MyStoryRepository extends JpaRepository<MyStoryRepository, Long>{
-	List<MyStoryRepository> findByUserId(Long userId);
+import com.trip.entity.Lets.MyStoryEntity;
+
+public interface MyStoryRepository extends JpaRepository<MyStoryEntity, Long>{
+	
 }
