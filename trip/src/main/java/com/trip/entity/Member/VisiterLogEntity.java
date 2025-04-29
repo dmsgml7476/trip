@@ -19,12 +19,8 @@ public class VisiterLogEntity {
 	@Column(name="visiter_log_id")
 	private Long id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
-	private UserEntity user;
+	private Long userId;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="session_id", nullable=false)
 	private String sessionId;
 	
 

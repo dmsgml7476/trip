@@ -23,9 +23,7 @@ public class CustomerServiceEntity {
 	@Column(name="customer_service_id")
 	private Long id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id", nullable=false)
-	private UserEntity user;
+	private Long userId;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="option", nullable=false)

@@ -2,6 +2,7 @@ package com.trip.entity.Lets;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,8 +21,9 @@ import lombok.Setter;
 public class MyStoryEntity {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-			private Long userId;
-			private Long storyId;
+	@Column(name = "my_story_id")
+	private Long id;
+	
 			
 			@OneToOne
 			@JoinColumn(name = "storyId", referencedColumnName = "storyId")

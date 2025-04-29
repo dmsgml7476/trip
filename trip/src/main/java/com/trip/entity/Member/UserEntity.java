@@ -51,23 +51,7 @@ public class UserEntity {
 	@OneToOne(mappedBy="user", fetch=FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
 	private UserDetailEntity userDetail;
 	
-	@OneToMany(mappedBy="user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
-	private List<UserHashtagEntity> userHashtags = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserMainStoryEntity> mainStories = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CustomerServiceAnswerEntity> customerServices = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "user")
-    private List<TripPlanEntity> travelPlans = new ArrayList<>();
-	
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, orphanRemoval = true)
-	private List<StoryEntity> stories= new ArrayList<>();
-	
 // ==========기능메서드========
-	
 
 	public static UserEntity from(UserSignUpDto dto, PasswordEncoder passwordEncoder) {
 		return UserEntity.builder()
@@ -83,8 +67,6 @@ public class UserEntity {
 	        this.nickname = nickname;
 	    }
 	}
-
-	
 	
 	public void withdraw() {
 		this.role=Role.WITHDRAW;

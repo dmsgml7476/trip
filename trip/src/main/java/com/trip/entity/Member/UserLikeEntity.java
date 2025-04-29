@@ -21,13 +21,9 @@ public class UserLikeEntity {
 	@Column(name="user_like_id")
 	private Long id;
 	
-	@ManyToOne (fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id", nullable=false)
-	private UserEntity user;
+	private Long userId;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="story_id", nullable=false)
-	private StoryEntity story;
+	private Long storyId;
 	
 	private LocalDateTime likeTime = LocalDateTime.now();
 	

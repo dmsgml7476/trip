@@ -19,7 +19,7 @@ public class CustomerServiceAnswerEntity {
     @Column(name = "customer_service_answer_id")
 	private Long id;
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name="customer_service_id", nullable=false)
 	private CustomerServiceEntity customerService;
 	
