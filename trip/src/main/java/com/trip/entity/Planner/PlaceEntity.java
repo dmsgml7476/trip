@@ -3,6 +3,7 @@ package com.trip.entity.Planner;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,6 +19,9 @@ public class PlaceEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int placeId;
 	private String placeName;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="region_id", nullable=false)
 	private Long regionId;
 	private String placeAddress;
 	private String placeInfo;

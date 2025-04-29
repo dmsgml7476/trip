@@ -68,20 +68,20 @@ public class UserEntity {
 	
 // ==========기능메서드========
 	
-	public static UserEntity from(UserSignUpDto dto, PasswordEncoder passwordEncoder) {
-		return UserEntity.builder()
-				.loginId(dto.getLoginId())
-				.password(passwordEncoder.encode(dto.getPassword()))
-				.nickname(dto.getNickname()!=null ? dto.getNickname():dto.getLoginId())
-				.role(Role.USER)
-				.build();
-	}
-	
-	public void updateNickname(String nickname) {
-	    if (nickname != null && !nickname.isBlank()) {
-	        this.nickname = nickname;
-	    }
-	}
+//	public static UserEntity from(UserSignUpDto dto, PasswordEncoder passwordEncoder) {
+//		return UserEntity.builder()
+//				.loginId(dto.getLoginId())
+//				.password(passwordEncoder.encode(dto.getPassword()))
+//				.nickname(dto.getNickname()!=null ? dto.getNickname():dto.getLoginId())
+//				.role(Role.USER)
+//				.build();
+//	}
+//	
+//	public void updateNickname(String nickname) {
+//	    if (nickname != null && !nickname.isBlank()) {
+//	        this.nickname = nickname;
+//	    }
+//	}
 	
 	
 	public void withdraw() {
