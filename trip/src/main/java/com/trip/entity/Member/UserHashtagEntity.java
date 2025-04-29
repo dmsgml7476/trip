@@ -19,7 +19,7 @@ import jakarta.persistence.*;
 public class UserHashtagEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="user_hashtag")
+	@Column(name="user_hashtag_id")
 	private Long id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -27,7 +27,7 @@ public class UserHashtagEntity {
 	private UserEntity user;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
+	@JoinColumn(name = "hashtags_id", nullable = false)
 	private HashtagsEntity hashtags;
 	
 	
