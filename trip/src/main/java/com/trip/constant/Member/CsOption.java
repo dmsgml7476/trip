@@ -1,5 +1,5 @@
 package com.trip.constant.Member;
 
-public enum Option {
+public enum CsOption {
 	COMPLAIN, ETC
 }

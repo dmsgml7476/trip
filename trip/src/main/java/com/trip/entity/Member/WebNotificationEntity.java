@@ -23,18 +23,11 @@ public class WebNotificationEntity {
 	@Column(name="web_notification_id")
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id", nullable=false)
-	private UserEntity user;
+	private Long userId;
 	
-
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "story_id")
-    private StoryEntity story;
+    private Long storyId;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "trip_plan_id")
-	private TripPlanEntity tripPlan;
+	private Long tripPlanId;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable=false)
@@ -44,8 +37,16 @@ public class WebNotificationEntity {
 	private String message;
 	
 	private Long targetId;
-	private boolean isRead = false;
-	private LocalDateTime createAt = LocalDateTime.now();
 	
-
+	private boolean isRead;
+	private LocalDateTime createAt;
+	
+	@PrePersist
+	public void prePersist() {
+	    if (this.createAt == null) {
+	        this.createAt = LocalDateTime.now();
+	    }
+	}
+	
+	
 }

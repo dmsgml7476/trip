@@ -21,13 +21,9 @@ public class UserMainStoryEntity {
 	@Column(name="user_main_story_id")
 	private Long id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id", nullable=false)
-	private UserEntity user;
+	private Long userId;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="story_id", nullable=false)
-	private StoryEntity story;
+	private Long storyId;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="main_story_num", nullable=false)
