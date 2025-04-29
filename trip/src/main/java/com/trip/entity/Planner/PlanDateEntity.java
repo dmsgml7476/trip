@@ -17,12 +17,10 @@ import lombok.Setter;
 public class PlanDateEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@OneToOne
-	@JoinColumn(name="plan_date_id")
 	private Long planDateId;
 	@OneToOne
 	@JoinColumn(name="plan_id")
-	private int planId;
+	private TripPlanEntity tripPlan;
 	private int planOrder;
 	private LocalDate planDate;
 	private String memo;

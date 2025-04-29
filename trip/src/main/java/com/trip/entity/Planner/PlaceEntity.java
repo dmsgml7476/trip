@@ -21,7 +21,7 @@ public class PlaceEntity {
 	private String placeName;
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="region_id", nullable=false)
-	private Long regionId;
+	private RegionEntity region;
 	private String placeAddress;
 	private String placeInfo;
 	private float placeLatitude;
