@@ -15,13 +15,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-<<<<<<< HEAD
-import jakarta.persistence.ManyToOne;
-=======
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
->>>>>>> branch 'main' of https://github.com/dmsgml7476/trip.git
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,12 +29,7 @@ import lombok.Setter;
 public class StoryEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-<<<<<<< HEAD
-		@Column(name = "story_id")
-		private Long id;
-=======
 		private Long storyId;
->>>>>>> branch 'main' of https://github.com/dmsgml7476/trip.git
 		
 		@ManyToOne(fetch=FetchType.LAZY)
 		@JoinColumn(name="user_id", nullable=false)
@@ -66,14 +57,4 @@ public class StoryEntity {
 		
 		private LocalDateTime writeAt;
 		
-<<<<<<< HEAD
-		@ManyToOne
-		@Column()
-		private UserEntity userEntity;
-		  
-		public StoryEntity() {
-			this.createdAt=LocalDateTime.now();
-		}
-=======
->>>>>>> branch 'main' of https://github.com/dmsgml7476/trip.git
 }
