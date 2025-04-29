@@ -3,10 +3,12 @@ package com.trip.entity.Planner;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
@@ -21,9 +23,9 @@ public class PlanDetailEntity {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long planDetailId;
 	private int planDateId;
-	@OneToMany
-	@JoinColumn(name="place_id")
-	private int placeId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="place_id", nullable=false)
+	private PlaceEntity place;
 	private LocalDateTime visitTime;
 	private LocalDateTime endTime;
 	private int theDayOrder;
