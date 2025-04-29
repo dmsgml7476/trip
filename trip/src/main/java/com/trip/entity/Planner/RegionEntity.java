@@ -19,11 +19,13 @@ public class RegionEntity {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@OneToMany
+	@JoinColumn(name="region_id")
 	private Long regionId;
 	private String regionName;
 	private String upperRegion;
-	private float latitude;
-	private float longitude;
+	private float regionLatitude;
+	private float regionLongitude;
 	
 	@OneToMany(mappedBy="region")
 	private List<PlaceEntity> places = new ArrayList<>();

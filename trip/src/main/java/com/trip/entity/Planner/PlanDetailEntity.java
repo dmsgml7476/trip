@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,8 @@ public class PlanDetailEntity {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long planDetailId;
 	private int planDateId;
+	@OneToMany
+	@JoinColumn(name="place_id")
 	private int placeId;
 	private LocalDateTime visitTime;
 	private LocalDateTime endTime;
