@@ -16,7 +16,7 @@ public class PlanTrafficEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int planTrafficId;
+	private Long planTrafficId;
 	private int planDateId;
 	private int departPlaceId;
 	private int arrivalPlaceId;

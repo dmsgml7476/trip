@@ -19,7 +19,7 @@ public class PlanDateEntity {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@OneToOne
 	@JoinColumn(name="plan_date_id")
-	private int planDateId;
+	private Long planDateId;
 	@OneToOne
 	@JoinColumn(name="plan_id")
 	private int planId;

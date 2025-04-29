@@ -16,7 +16,7 @@ import lombok.Setter;
 public class PlaceEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int placeId;
+	private Long placeId;
 	private String placeName;
 	private Long regionId;
 	private String placeAddress;
