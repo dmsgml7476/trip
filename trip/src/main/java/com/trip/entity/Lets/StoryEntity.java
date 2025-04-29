@@ -2,7 +2,9 @@ package com.trip.entity.Lets;
 
 import java.time.LocalDateTime;
 
+import com.trip.enumType.LocationInfo;
 import com.trip.enumType.OpenArea;
+import com.trip.enumType.StoryCategory;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +28,7 @@ public class StoryEntity {
 		
 		@Enumerated(EnumType.STRING)
 		@Column(nullable = false)
-		private Long storyCate;
+		private StoryCategory storyCate;
 		
 		@Column(length = 255, nullable = false)
 		private String storyTitle;
@@ -35,7 +37,7 @@ public class StoryEntity {
 		private String storyContent;
 		
 		@Column(nullable = false)
-		private Long locationInfo;
+		private LocationInfo locationInfo;
 		
 		 @Column(length = 500)
 		private String imageUrl;
