@@ -25,10 +25,6 @@ public class WebNotificationEntity {
 	
 	private Long userId;
 	
-    private Long storyId;
-	
-	private Long tripPlanId;
-	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable=false)
 	private NotificationType type;
