@@ -68,6 +68,7 @@ public class UserEntity {
 	
 // ==========기능메서드========
 	
+
 	public static UserEntity from(UserSignUpDto dto, PasswordEncoder passwordEncoder) {
 		return UserEntity.builder()
 				.loginId(dto.getLoginId())
@@ -82,6 +83,7 @@ public class UserEntity {
 	        this.nickname = nickname;
 	    }
 	}
+
 	
 	
 	public void withdraw() {

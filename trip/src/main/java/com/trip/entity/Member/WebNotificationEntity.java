@@ -27,6 +27,7 @@ public class WebNotificationEntity {
 	@JoinColumn(name="user_id", nullable=false)
 	private UserEntity user;
 	
+
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "story_id")
     private StoryEntity story;
@@ -46,5 +47,5 @@ public class WebNotificationEntity {
 	private boolean isRead = false;
 	private LocalDateTime createAt = LocalDateTime.now();
 	
-	
+
 }

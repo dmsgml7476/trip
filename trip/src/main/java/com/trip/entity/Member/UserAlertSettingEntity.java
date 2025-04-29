@@ -29,6 +29,7 @@ public class UserAlertSettingEntity {
 	@Column(name="trip_alert")
 	private boolean tripAlert=false;
 	
+  
 	public static UserAlertSettingEntity from(UserSignUpDto dto, UserEntity user) {
 		boolean agreed = dto.isAgreedAllAlerts();
         return UserAlertSettingEntity.builder()
@@ -42,4 +43,5 @@ public class UserAlertSettingEntity {
 		this.commAlert = dto.isCommAlert();
 		this.tripAlert = dto.isTripAlert();
 	}
+
 }
