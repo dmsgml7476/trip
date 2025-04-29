@@ -5,7 +5,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 import com.trip.constant.Member.CustomerServiceCategory;
-import com.trip.constant.Member.Option;
+import com.trip.constant.Member.CsOption;
 
 import jakarta.persistence.*;
 
@@ -26,8 +26,8 @@ public class CustomerServiceEntity {
 	private Long userId;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="option", nullable=false)
-	private Option option;
+	@Column(name="cs_option", nullable=false)
+	private CsOption csoOtion;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="category", nullable=false)

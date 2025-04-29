@@ -41,5 +41,12 @@ public class WebNotificationEntity {
 	private boolean isRead;
 	private LocalDateTime createAt;
 	
+	@PrePersist
+	public void prePersist() {
+	    if (this.createAt == null) {
+	        this.createAt = LocalDateTime.now();
+	    }
+	}
+	
 	
 }
