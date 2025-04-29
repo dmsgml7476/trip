@@ -41,6 +41,7 @@ public class UserEntity {
 	@Column(name="created_time", nullable=false, updatable=false)
 	private LocalDateTime createdTime = LocalDateTime.now();
 	
+	@Column(name="withdraw_time")
 	private LocalDateTime withdrawTime;
 	
 //	========연관관계 매핑========
@@ -56,6 +57,12 @@ public class UserEntity {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CustomerServiceAnswerEntity> customerServices = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "user")
+    private List<TripPlanEntity> travelPlans = new ArrayList<>();
+	
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, orphanRemoval = true)
+	private List<StoryEntity> stories= new ArrayList<>();
 	
 // ==========기능메서드========
 	

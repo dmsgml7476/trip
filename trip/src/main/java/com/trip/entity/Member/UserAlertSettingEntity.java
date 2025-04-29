@@ -23,8 +23,10 @@ public class UserAlertSettingEntity {
 	@JoinColumn(name="user_id", nullable=false)
 	private UserEntity user;
 	
+	@Column(name="comm_alert")
 	private boolean commAlert=false;
 	
+	@Column(name="trip_alert")
 	private boolean tripAlert=false;
 	
 	public static UserAlertSettingEntity from(UserSignUpDto dto, UserEntity user) {

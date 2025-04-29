@@ -23,6 +23,7 @@ public class CustomerServiceAnswerEntity {
 	@JoinColumn(name="customer_service_id", nullable=false)
 	private CustomerServiceEntity customerService;
 	
+	@Column(name="answer_text", nullable=false)
 	private String answerText;
 	
 	@Column(name="answer_time", nullable=false)

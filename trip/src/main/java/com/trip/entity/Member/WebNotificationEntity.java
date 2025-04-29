@@ -35,4 +35,12 @@ public class WebNotificationEntity {
 	private Long targetId;
 	private boolean isRead = false;
 	private LocalDateTime createAt = LocalDateTime.now();
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "story_id")
+    private StoryEntity story;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "trip_plan_id")
+	private TripPlanEntity tripPlan;
 }

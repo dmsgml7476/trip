@@ -28,11 +28,11 @@ public class CustomerServiceEntity {
 	private UserEntity user;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(nullable=false)
+	@Column(name="option", nullable=false)
 	private Option option;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(nullable=false)
+	@Column(name="category", nullable=false)
 	private CustomerServiceCategory category;
 	
 	@Column(name="question_text", nullable=false, length=255)

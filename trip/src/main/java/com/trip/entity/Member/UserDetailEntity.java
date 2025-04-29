@@ -1,9 +1,6 @@
 package com.trip.entity.Member;
 
-import java.time.LocalDate;
 
-
-import com.trip.constant.Member.Gender;
 import com.trip.dto.Member.UserSignUpDto;
 
 import jakarta.persistence.*;
@@ -18,6 +15,7 @@ import lombok.*;
 @Table(name = "user_detail")
 public class UserDetailEntity {
 	@Id
+	@Column(name = "user_id")
 	private Long userId;
 	
 	@OneToOne(fetch = FetchType.LAZY)
@@ -28,15 +26,14 @@ public class UserDetailEntity {
 	@Column(name="email", nullable=false)
 	private String email;
 	
-	
+	@Column(name="address")
 	private String address;
+	
+	@Column(name="tel")
 	private String tel;
+	
+	@Column(name="profileImg")
 	private String profileImg;
-	private boolean socialVerified = false;
-	private String name;
-	@Enumerated(EnumType.STRING)
-	private Gender gender;
-	private LocalDate birthday;
 	
 	public static UserDetailEntity from(UserSignUpDto dto, UserEntity user) {
 		return UserDetailEntity.builder()
