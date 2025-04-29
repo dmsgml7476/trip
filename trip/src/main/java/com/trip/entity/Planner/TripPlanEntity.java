@@ -20,7 +20,7 @@ public class TripPlanEntity {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int planId;
+	private Long planId;
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id",nullable = false)
 	private UserEntity user;

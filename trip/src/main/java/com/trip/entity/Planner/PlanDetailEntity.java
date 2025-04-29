@@ -18,7 +18,7 @@ public class PlanDetailEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int planDetailId;
+	private Long planDetailId;
 	private int planDateId;
 	private int placeId;
 	private LocalDateTime visitTime;

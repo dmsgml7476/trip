@@ -19,7 +19,9 @@ import jakarta.persistence.*;
 public class UserHashtagEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	@Column(name="user_hashtags_id")
+
 	private Long id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
