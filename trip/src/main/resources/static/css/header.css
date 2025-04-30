@@ -15,14 +15,14 @@
   width: 90vw;
   min-width: 740px;
 }
-.wrap {
+.h-wrap {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.wrap > div {
+.h-wrap > div {
   margin: 40px;
 }
 .link-ul {
