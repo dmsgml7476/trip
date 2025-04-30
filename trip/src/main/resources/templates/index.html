@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/default}">
+<head>
+	<th:block layout:fragment="css"></th:block>
+	<link rel="stylesheet" th:href="@{./css/index.css}">
+
+	<th:block layout:fragment="script"></th:block>
+</head>
+
+<div layout:fragment="main" id="main">
+	<div class="wrap">
+		
+			<div class="planner-img-box">
+				<img src="image/slider/Planner1.png" alt="Planner1">
+				<img src="image/slider/Planner2.png" alt="Planner2">
+				<img src="image/slider/Planner3.png" alt="Planner3">
+				<img src="image/slider/Planner4.png" alt="Planner4">
+				<img src="image/slider/Planner5.png" alt="Planner5">
+			</div>
+			
+			<div class="story-recommend-area">
+				<div class="story-recommend-box">
+					<div class="story-img">
+						<!-- <img src="image/beach-4405371_1280.jpg"> -->
+					</div>
+					<div class="story-info-box">
+						<div class="story-writer">
+							떡잎마을방범대
+						</div>
+						<div class="story-date">
+							2024.06.05
+						</div>
+					</div>
+					<div class="story-text">
+						부산에서 일광욕~~~
+					</div>
+				</div>
+				
+				<div class="story-recommend-box">
+				
+				</div>
+			
+			</div>
+		
+	
+	</div>
+</div>
+
+</html>
