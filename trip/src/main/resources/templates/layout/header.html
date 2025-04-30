@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      
+<div th:fragment="header" id="header">
+	<nav class="nav-box">
+      <div class="wrap">
+        <div class="logo">Let's Trip</div>
 
+        <div class="link-box">
+          <ul class="link-ul">
+            <div class="a-box">
+              <a class="nav-link" href="">HOME</a>
+            </div>
+            <div class="a-box">
+              <a class="nav-link" href="">Let's</a>
+            </div>
+            <div class="a-box">
+              <a class="nav-link" href="">Trip</a>
+            </div>
+          </ul>
+        </div>
+        <div class="profil-icon-box">
+          <img
+            src="image/user.png"
+            alt="프로필"
+            class="profile-icon"
+          />
 
-		<div th:fragment="head" id="header">
-			<ul id="menuList">
-				<li class="menu"><a href="/bookSearch">도서검색</a></li>
-				<li class="menu"><a href="/loans">대출</a></li>
-				<li class="menu"><a href="/return">반납</a></li>
-				<li th:if="${session.user =='admin'}" class="menu"><a href="/admin/bookEnroll">도서등록</a></li>
-				<li class="menu"><a href="/goldLIbrary">황금도서관</a></li>
-			</ul>
-		
-			<div th:if="${session.user != null}" id="userBox">
-				<div id ="userMenu">
-					<p th:text="${session.user}" class="user-email"></p>
-					<p><a href="">MY-INFO</a></p>
-					<a href="/logout">LOGOUT</a>
-				</div>
-				<div id="menuToggle">
-					<p class = "menuShow">
-						<i class="bi bi-caret-right-square-fill"></i>
-					</p>
-					<p class = "menuHide">
-						<i class="bi bi-caret-left-square-fill"></i>
-					</p>
-				</div>
-			</div>
-		</div>
+        </div>
+      </div>
+    </nav>
+
+</div>
 
 </html>
