@@ -9,7 +9,5 @@ import com.trip.entity.Planner.PlaceEntity;
 public interface PlaceRepository extends JpaRepository<PlaceEntity, Long>{
 
 
-	public String findByPlaceName(PlaceEntity placeEntity);
-	public String findByAddress(PlaceEntity placeEntity);
-	public String placeSave(PlaceEntity placeEntity);
+
 }
