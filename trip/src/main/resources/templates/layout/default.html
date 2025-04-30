@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymleaf/laout">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>온라인 도서관</title>
+
+<!-- 부트스트랩 CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<!-- jQurey CDN -->
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="/css/default.css">
+<script th:src="@{/javascript/default.js}"></script>
+<th:block layout:fragment="css"></th:block>  
+<th:block layout:fragmnet="script"></th:block>
+
+</head>
+<body>
+
+	<div id = "wrap">
+		<th:block th:replace="layout/header :: head"></th:block>
+
+		<th:block layout:fragment="main"></th:block>
+		
+		<th:block th:replace="layout/footer :: foot"></th:block>
+	</div>
+
+</body>
+</html>
+
+<!-- 
+
+	thymeleaf 에서 jsp jnclude 와 같은 방법
+	
+	th:replace, th:include
+	<div th:replac="~{aa.html}"></div>
+	하면 <div>태그는 사라지고 그 자리에 aa.html내용으로 대체된다.
+	
+	<div th:inclued="~{bb.html}"></div?
+	하면 <div> 태그 안에 bb.html이 삽입된다.
+	
+
+ -->
