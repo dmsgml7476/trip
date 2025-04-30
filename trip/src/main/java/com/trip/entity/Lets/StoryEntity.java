@@ -39,10 +39,10 @@ public class StoryEntity {
 		@Column(nullable = false)
 		private StoryCategory storyCate;
 		
-		@Column(length = 255, nullable = false)
+		@Column(length = 50, nullable = false)
 		private String storyTitle;
 		
-		@Column(length = 50)
+		@Column(length = 255)
 		private String storyContent;
 		
 		@Enumerated(EnumType.STRING)
