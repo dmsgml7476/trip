@@ -27,7 +27,7 @@ public class CustomerServiceEntity {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="cs_option", nullable=false)
-	private CsOption csoOtion;
+	private CsOption csOtion;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="category", nullable=false)
