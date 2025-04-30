@@ -22,11 +22,11 @@ public class UserHashtagEntity {
 	@Column(name="user_hashtags_id")
 	private Long id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id", nullable=false)
-	private UserEntity user;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+	private UserEntity user; 
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "hashtags_id", nullable = false)
 	private HashtagsEntity hashtags;
 	
