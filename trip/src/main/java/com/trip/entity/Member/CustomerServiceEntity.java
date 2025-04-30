@@ -5,7 +5,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 import com.trip.constant.Member.CustomerServiceCategory;
-import com.trip.constant.Member.Option;
+import com.trip.constant.Member.CsOption;
 
 import jakarta.persistence.*;
 
@@ -23,13 +23,11 @@ public class CustomerServiceEntity {
 	@Column(name="customer_service_id")
 	private Long id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id", nullable=false)
-	private UserEntity user;
+	private Long userId;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="option", nullable=false)
-	private Option option;
+	@Column(name="cs_option", nullable=false)
+	private CsOption csOtion;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="category", nullable=false)
@@ -39,7 +37,7 @@ public class CustomerServiceEntity {
 	private String questionText;
 	
 	@Column(name="question_time", nullable=false, updatable = false)
-	private LocalDateTime questionTime = LocalDateTime.now();
+	private LocalDateTime questionTime;
 	
 	@OneToOne(mappedBy = "customerService", cascade = CascadeType.ALL, orphanRemoval = true)
 	private CustomerServiceAnswerEntity answer;

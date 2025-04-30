@@ -2,7 +2,7 @@ package com.trip.entity.Member;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.persistence.*;
 
@@ -14,21 +14,15 @@ import jakarta.persistence.*;
 @Builder
 @Table(name="visiter_log")
 public class VisiterLogEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="visiter_log_id")
-	private Long id;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
-	private UserEntity user;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="session_id", nullable=false)
-	private String sessionId;
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="visiter_log_id")
+    private Long id;
 
-	@Column(name="visited_at", nullable=false, updatable=false)
-	private LocalDateTime visitedAt=LocalDateTime.now();
+    @Column(name = "visit_date", nullable = false, unique = true)
+    private LocalDate visitDate;  
+
+    @Column(name = "visit_count", nullable = false)
+    private int visitCount; 
 	
 }

@@ -19,17 +19,16 @@ public class UserAlertSettingEntity {
 	@Column(name="user_alert_setting_id")
 	private Long id;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name="user_id", nullable=false)
 	private UserEntity user;
 	
 	@Column(name="comm_alert")
-	private boolean commAlert=false;
+	private boolean commAlert;
 	
 	@Column(name="trip_alert")
-	private boolean tripAlert=false;
+	private boolean tripAlert;
 	
-  
 	public static UserAlertSettingEntity from(UserSignUpDto dto, UserEntity user) {
 		boolean agreed = dto.isAgreedAllAlerts();
         return UserAlertSettingEntity.builder()
