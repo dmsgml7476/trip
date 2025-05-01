@@ -2,9 +2,34 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-	<div th:fragment="footer" id="footer">
-		<p>
-			 공부잘하는 도서관 / 대전광역시 은진구 선우동 201
-		</p>
-	</div>
+      
+<div th:fragment="footer" id="footer">
+<div class="footer-wrap">
+	<div class="footer-title">Let's Trip을 SNS에서 만나보세요!</div>
+
+      <div class="footer-sns">
+        <div class="sns-box">
+          <a href="https://twitter.com">
+            <img src="image/twitter.png" alt="트위터" />
+          </a>
+        </div>
+        <div class="sns-box">
+          <a href="https://instagram.com">
+            <img src="image/instagram.png" alt="인스타그램" />
+          </a>
+        </div>
+        <div class="sns-box">
+          <a href="https://www.facebook.com">
+            <img src="image/facebook.png" alt="페이스북" />
+          </a>
+        </div>
+      </div>
+      <div class="footer-link">
+        <div class="text">개인정보처리방침</div>
+        <div class="text">이용약관</div>
+        <div class="text">위치기반서비스</div>
+        <div class="text"><a href="">고객센터</a></div>
+      </div>
+    </div>
+</div>
 </html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+    <th:block layout:fragment="css">
+    	<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.wrap {
+	min-height: 800px;
+}
+
+.login-area {
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-name {
+  margin: 0 auto;
+  margin-top: 10px;
+  font-size: 25px;
+}
+
+
+
+.login-form {
+
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+input {
+  height: 40px;
+  margin: 0 auto;
+  margin-top: 10px;
+  width: 300px;
+  border-radius: 7px;
+  padding-left: 7px;
+}
+
+input:focus {
+  border: 2px solid rgb(170, 170, 170);
+}
+
+.btn {
+  border: none;
+  background-color: rgb(161, 217, 255);
+  width: 95%;
+  height: 35px;
+  margin: 0 auto;
+  margin-top: 30px;
+  display: inline-block;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 0.6;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.login-ops {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 5px;
+  justify-content: space-evenly;
+  width: 320px;
+  font-size: 15px;
+  color: rgb(131, 131, 131);
+}
+
+.login-op > a:visited {
+  color: rgb(131, 131, 131);
+}
+
+.login-op > a:hover {
+  color: black;
+}
+
+.error-msg {
+	color: red;
+}
+    	</style>
+    </th:block>
+    <th:block layout:fragment="script"></th:block>
+
+<div layout:fragment="main" id="main">
+
+ 	<div class="wrap">
+      <div class="login-area">
+        <div class="site-name">Let's Trip</div>
+        <div class="login-box">
+          <form method="post" action="/login" class="login-form">
+            <div class="id-box">
+              <input
+                type="text"
+                name="loginId"
+                placeholder="아이디를 입력하세요"
+              />
+            </div>
+            <div class="password-box">
+              <input
+                type="password"
+                name="password"
+                placeholder="비밀번호를 입력하세요"
+              />
+            </div>
+
+            <p
+              th:if="${loginErrorMsg}"
+              class="error-msg"
+              th:text="${loginErrorMsg}"
+            ></p>
+            <button type="submit" class="btn">로그인</button>
+          </form>
+          <div class="login-ops">
+            <div class="login-op find-id"><a href="">아이디찾기</a></div>
+            <div class="login-op find-password">
+              <a href="">비밀번호찾기</a>
+            </div>
+            <div class="login-op signUp"><a href="">회원가입</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+</html>

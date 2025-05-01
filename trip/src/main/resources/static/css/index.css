@@ -13,6 +13,8 @@
 	border:1px solid;
 	display: flex;
 	width: 90vw;
+	min-width: 740px;
+	min-height: 900px;
 	justify-content: center; 
 	flex-direction: column;
 }
@@ -57,7 +59,7 @@
 /* 추천 스토리 */
 
 .story-recommend-area {
-	width: 80%;
+	width: 690px;
 	height: 400px;
 	border: 1px solid;
 	display: flex;

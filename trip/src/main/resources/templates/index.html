@@ -20,40 +20,24 @@
 				<img src="image/slider/Planner5.png" alt="Planner5">
 			</div>
 			
-			<div class="story-recommend-area">
-				<div class="story-recommend-box">
+			<div class="story-recommend-area" th:if="${#lists.isEmpty(storyList) == false}">
+				<div class="story-recommend-box" th:each="story:${storyList}">
 					<div class="story-img">
-						<img src="image/beach-4405371_1280.jpg">
+						<img th:src="@{${story.imageUrl}}">
 					</div>
 					<div class="story-info-box">
-						<div class="story-writer">
+						<div class="story-writer" th:text="${story.nickname}">
 							떡잎마을방범대
 						</div>
-						<div class="story-date">
+						<div class="story-date" th:text="${#temporals.format(story.writeAt, 'yyyy.MM.dd')}">
 							2024.06.05
 						</div>
 					</div>
-					<div class="story-text">
+					<div class="story-text" th:text="${story.storyTitle}">
 						부산에서 일광욕~~~
 					</div>
 				</div>
 				
-				<div class="story-recommend-box">
-					<div class="story-img">
-						<img src="image/beach-4405371_1280.jpg">
-					</div>
-					<div class="story-info-box">
-						<div class="story-writer">
-							떡잎마을방범대
-						</div>
-						<div class="story-date">
-							2024.06.05
-						</div>
-					</div>
-					<div class="story-text">
-						부산에서 일광욕~~~
-					</div>
-				</div>
 			
 			</div>
 		
