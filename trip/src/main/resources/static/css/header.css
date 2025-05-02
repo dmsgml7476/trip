@@ -74,6 +74,20 @@
 
 .profil-icon-box {
   display: flex;
+  justify-content: center;
+  align-items: center;  
+
+  border-radius: 50%;
+  overflow: hidden;
+  width: 60px;
+  height: 60px;
+}
+
+.profile-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .sidebar-header {

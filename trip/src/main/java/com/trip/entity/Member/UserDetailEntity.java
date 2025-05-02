@@ -32,7 +32,7 @@ public class UserDetailEntity {
 	@Column(name="tel")
 	private String tel;
 	
-	@Column(name="profileImg")
+	@Column(name="profile_img")
 	private String profileImg;
 	
 
