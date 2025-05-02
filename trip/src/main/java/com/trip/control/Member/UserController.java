@@ -20,5 +20,11 @@ public class UserController {
     	return "member/signIn";
     }
     
+    @GetMapping("/signUp")
+    public String join() {
+    	return "member/signUp";
+    }
+    
+    
     
 }
