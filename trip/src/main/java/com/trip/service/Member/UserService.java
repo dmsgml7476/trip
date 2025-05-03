@@ -47,6 +47,9 @@ public class UserService implements UserDetailsService {
 				
 	}
 	
+	public boolean existsByLoginId(String loginId) {
+	    return userRepository.existsByLoginId(loginId);
+	}
 	
 	@Override
 	public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {

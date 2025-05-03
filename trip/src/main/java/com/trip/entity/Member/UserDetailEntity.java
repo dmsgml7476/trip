@@ -36,31 +36,31 @@ public class UserDetailEntity {
 	private String profileImg;
 	
 
-//	public static UserDetailEntity from(UserSignUpDto dto, UserEntity user) {
-//		return UserDetailEntity.builder()
-//				.user(user)
-//				.email(dto.getEmail())
-//				.tel(dto.getTel())
-//				.address(dto.getAddress())
-//				.build();
-//	}
-//	
-//	public void update(String email, String tel, String address) {
-//	    if (email != null && !email.isBlank()) {
-//	        this.email = email;
-//	    }
-//	    if (tel != null && !tel.isBlank()) {
-//	        this.tel = tel;
-//	    }
-//	    if (address != null && !address.isBlank()) {
-//	        this.address = address;
-//	    }
-//	}
-//	
-//	public void updateProfileImg(String profileImg) {
-//	    if (profileImg != null && !profileImg.isBlank()) {
-//	        this.profileImg = profileImg;
-//	    }
-//	}
-//	
+	public static UserDetailEntity from(UserSignUpDto dto, UserEntity user) {
+		return UserDetailEntity.builder()
+				.user(user)
+				.email(dto.getEmail())
+				.tel(dto.getTel())
+				.address(dto.getAddress())
+				.build();
+	}
+	
+	public void update(String email, String tel, String address) {
+	    if (email != null && !email.isBlank()) {
+	        this.email = email;
+	    }
+	    if (tel != null && !tel.isBlank()) {
+	        this.tel = tel;
+	    }
+	    if (address != null && !address.isBlank()) {
+	        this.address = address;
+	    }
+	}
+	
+	public void updateProfileImg(String profileImg) {
+	    if (profileImg != null && !profileImg.isBlank()) {
+	        this.profileImg = profileImg;
+	    }
+	}
+	
 }

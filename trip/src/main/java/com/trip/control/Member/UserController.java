@@ -1,11 +1,14 @@
 package com.trip.control.Member;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.trip.dto.Member.UserSignUpDto;
 import com.trip.entity.Member.UserAlertSettingEntity;
@@ -39,7 +42,8 @@ public class UserController {
     }
     
     @GetMapping("/signUp")
-    public String joinform() {
+    public String joinform(Model model) {
+    	model.addAttribute("userSignUpDto", new UserSignUpDto());
     	return "member/signUp";
     }
     
@@ -55,6 +59,13 @@ public class UserController {
     	userService.register(dto, setting);
 
         return "redirect:/login";
+    }
+    
+    @GetMapping("/api/check-id")
+    @ResponseBody
+    public Map<String, Boolean> checkId(@RequestParam("loginId") String loginId) {
+        boolean exists = userService.existsByLoginId(loginId);
+        return Map.of("available", !exists);
     }
     
     

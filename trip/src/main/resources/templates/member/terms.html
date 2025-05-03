@@ -25,34 +25,7 @@
     </style>
     </th:block>
     <th:block layout:fragment="script">
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const agree1Radios = document.querySelectorAll('input[name="agree1"]');
-        const agree2Radios = document.querySelectorAll('input[name="agree2"]');
-        const nextbtn = document.getElementById("nextbtn");
-
-        function isChecked(radioGroup) {
-          return Array.from(radioGroup).some((radio) => radio.checked);
-        }
-
-        function updateButtonState() {
-          const agreed1 = isChecked(agree1Radios);
-          const agreed2 = isChecked(agree2Radios);
-          nextbtn.disabled = !(agreed1 && agreed2);
-        }
-
-        // 각각의 라디오 버튼에 change 이벤트 등록
-        agree1Radios.forEach((r) =>
-          r.addEventListener("change", updateButtonState)
-        );
-        agree2Radios.forEach((r) =>
-          r.addEventListener("change", updateButtonState)
-        );
-
-        // 초기 상태 설정
-        updateButtonState();
-      });
-    </script>
+   
     </th:block>
 
 <div layout:fragment="main" id="main">
@@ -93,9 +66,9 @@
           <div class="agree-row">
             <span class="required">(필수)</span>
             <span> 위의 내용에 동의합니다.</span>
-            <input type="radio" name="agree1" />
+            <input type="radio" name="agree1" value="agree" />
             <span class="warning">비동의</span>
-            <input type="radio" name="agree1" />
+            <input type="radio" name="agree1" value="disagree" />
           </div>
         </div>
 
@@ -168,22 +141,64 @@
           <div class="agree-row">
             <span class="required">(필수)</span>
             <span> 위의 내용에 동의합니다.</span>
-            <input type="radio" name="agree2" />
+            <input type="radio" name="agree2" value="agree" />
             <span class="warning">비동의</span>
-            <input type="radio" name="agree2" />
+            <input type="radio" name="agree2" value="disagree" />
           </div>
         </div>
 
         <form action="/signUp" method="get">
           <label>
             (선택) 사이트의 알림을 받으시겠습니까? 동의
-            <input type="radio" name="alertAgree" value="true" />
+            <input type="radio" name="agreedAllAlerts" value="true" />
             비동의
-            <input type="radio" name="alertAgree" value="false" />
+            <input type="radio" name="agreedAllAlerts" value="false" />
           </label>
 
           <button type="submit" id="nextbtn" disabled>다음</button>
         </form>
+        
+         <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const agree1Radios = document.querySelectorAll('input[name="agree1"]');
+        const agree2Radios = document.querySelectorAll('input[name="agree2"]');
+        const alertAgreeRadios = document.querySelectorAll(
+          'input[name="agreedAllAlerts"]'
+        );
+        const nextbtn = document.getElementById("nextbtn");
+
+        function isAgreed(radioGroup) {
+          return Array.from(radioGroup).some(
+            (radio) => radio.checked && radio.value === "agree"
+          );
+        }
+
+        function isAnySelected(radioGroup) {
+          return Array.from(radioGroup).some((radio) => radio.checked);
+        }
+
+        function updateButtonState() {
+          const agreed1 = isAgreed(agree1Radios);
+          const agreed2 = isAgreed(agree2Radios);
+          const alertSelected = isAnySelected(alertAgreeRadios);
+          nextbtn.disabled = !(agreed1 && agreed2 && alertSelected);
+        }
+
+        // 각각의 라디오 버튼에 change 이벤트 등록
+        agree1Radios.forEach((r) =>
+          r.addEventListener("change", updateButtonState)
+        );
+        agree2Radios.forEach((r) =>
+          r.addEventListener("change", updateButtonState)
+        );
+        alertAgreeRadios.forEach((r) =>
+          r.addEventListener("change", updateButtonState)
+        );
+
+        // 초기 상태 설정
+        updateButtonState();
+      });
+    </script>
       </div>
     </div>
 
