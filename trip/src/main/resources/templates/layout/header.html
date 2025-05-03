@@ -11,7 +11,7 @@
         <div class="link-box">
           <ul class="link-ul">
             <div class="a-box">
-              <a class="nav-link" href="">HOME</a>
+              <a class="nav-link" href="/">HOME</a>
             </div>
             <div class="a-box">
               <a class="nav-link" href="">Let's</a>
@@ -22,16 +22,28 @@
           </ul>
         </div>
         <div class="profil-icon-box">
-          <img
-            src="image/user.png"
-            alt="프로필"
-            class="profile-icon"
-          />
+        	<th:block th:if="${#authentication.authenticated}">
+				<a href="#">
+    			<img th:if="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}"
+    				th:src="@{/upload/profile/{img}(img=${userDetail.profileImg})}"
+        			alt="프로필"
+        	 		class="profile-icon"
+      			    style="cursor: pointer; width: 60px; height: 60px;" />
+				</a>
+ 			</th:block>
 
+			<th:block th:if="${#authentication.principal == 'anonymousUser'}">
+ 				<a href="/login">
+    			<img src="/image/user.png"
+       				alt="프로필"
+         			class="profile-icon"
+         			style="cursor: pointer; width: 60px; height: 60px;" />
+  				</a>
+			</th:block>
+	
         </div>
       </div>
     </nav>
-
 </div>
 
 </html>
