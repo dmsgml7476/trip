@@ -1,5 +1,6 @@
 package com.trip.control.Member;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -11,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.trip.dto.Member.UserSignUpDto;
+import com.trip.entity.Member.HashtagsEntity;
 import com.trip.entity.Member.UserAlertSettingEntity;
+import com.trip.repository.Member.HashtagsRepository;
 import com.trip.service.Member.UserService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 
@@ -22,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 	
 	private final UserService userService;
+	private final HashtagsRepository hashtagsRepository;
 	
     @GetMapping("/login")
     public String login(Model model) {
@@ -44,11 +49,21 @@ public class UserController {
     @GetMapping("/signUp")
     public String joinform(Model model) {
     	model.addAttribute("userSignUpDto", new UserSignUpDto());
+    	List<HashtagsEntity> generalTags = hashtagsRepository.findByIsMbtiFalse();
+    	model.addAttribute("hashtags", generalTags);
+
+    	List<HashtagsEntity> mbtiTags = hashtagsRepository.findByIsMbtiTrue();
+    	model.addAttribute("mbtiTags", mbtiTags);
     	return "member/signUp";
     }
     
     @PostMapping("/signUp")
-    public String signup(@ModelAttribute UserSignUpDto dto, @RequestParam(required =false) String alertAgree) {
+    public String signup(@ModelAttribute UserSignUpDto dto, @RequestParam(name = "alertAgree", required = false) String alertAgree, HttpSession session) {
+        Boolean isVerified = (Boolean) session.getAttribute("authSuccess");
+        if (isVerified == null || !isVerified) {
+            throw new IllegalStateException("이메일 인증이 완료되지 않았습니다.");
+        }
+    	
     	boolean agree = "true".equals(alertAgree);
     	
     	UserAlertSettingEntity setting = UserAlertSettingEntity.builder()
@@ -66,6 +81,13 @@ public class UserController {
     public Map<String, Boolean> checkId(@RequestParam("loginId") String loginId) {
         boolean exists = userService.existsByLoginId(loginId);
         return Map.of("available", !exists);
+    }
+    
+    @GetMapping("/api/check-nickname")
+    @ResponseBody
+    public Map<String, Boolean> checkNickname(@RequestParam("nickname") String nickname) {
+    	boolean exists = userService.existsByNickname(nickname);
+    	return Map.of("available", !exists);
     }
     
     

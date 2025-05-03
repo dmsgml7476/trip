@@ -54,12 +54,18 @@ public class UserEntity {
 // ==========기능메서드========
 
 	public static UserEntity from(UserSignUpDto dto, PasswordEncoder passwordEncoder) {
-		return UserEntity.builder()
-				.loginId(dto.getLoginId())
-				.password(passwordEncoder.encode(dto.getPassword()))
-				.nickname(dto.getNickname()!=null ? dto.getNickname():dto.getLoginId())
-				.role(Role.USER)
-				.build();
+		   String rawNickname = dto.getNickname();
+		   String nickname = (rawNickname == null || rawNickname.trim().isEmpty())
+			        ? dto.getLoginId()
+			        : rawNickname.trim();
+		
+		    return UserEntity.builder()
+		            .loginId(dto.getLoginId())
+		            .password(passwordEncoder.encode(dto.getPassword()))
+		            .nickname(nickname)
+		            .role(Role.USER)
+		            .createdTime(LocalDateTime.now())
+		            .build();
 	}
 	
 	public void updateNickname(String nickname) {

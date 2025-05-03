@@ -5,7 +5,9 @@
       layout:decorate="~{layout/default}">
 <head>
 
-    <th:block layout:fragment="css"></th:block>
+    <th:block layout:fragment="css">
+    	<link rel="stylesheet" type="text/css" href="/css/signUp.css">
+    </th:block>
     <th:block layout:fragment="script">
     	<script th:src="@{/javascript/signUp.js}"></script>
     </th:block>
@@ -82,13 +84,99 @@
         </div>
         
         
+        <div class="nickname-box">
+          <div class="box-name">
+            <p>닉네임</p>
+          </div>
+          <input type="text" th:field="*{nickname}" id="nicknameInput" />
+          <div class="msg" id="nicknameChkMsg"></div>
+        </div>
+        
+        <div class="address-box">
+          <div class="box-name">
+            <p>주소</p>
+            <input
+              type="text"
+              id="sample6_address"
+              name="address"
+              th:field="*{address}"
+              placeholder="주소"
+            /><br />
+            <input
+              type="button"
+              onclick="sample6_execDaumPostcode()"
+              value="주소 찾기"
+            /><br />
+          </div>
+        </div>
+
+        <div class="tel-box">
+          <div class="box-name">
+            <p>전화번호</p>
+          </div>
+
+          <input
+            type="text"
+            id="telInput"
+            th:field="*{tel}"
+            placeholder="010-1234-5678"
+          />
+
+          <div class="msg" id="telCheckMsg"></div>
+        </div>
+
+        <div class="hashtag-box">
+          <div class="box-name">
+            <p>해시태그로 날 표현해보세요</p>
+          </div>
+
+          <div id="hashtagContainer">
+  <!-- 일반 해시태그 -->
+  <th:block th:each="tag : ${hashtags}">
+    <span class="hashtag"
+          th:data-id="${tag.id}"
+          th:text="'#' + ${tag.hashtag}"></span>
+  </th:block>
+
+  <!-- MBTI 해시태그 (숨김 처리) -->
+  <th:block th:each="mbti : ${mbtiTags}">
+    <span class="hashtag mbti-hidden"
+          th:data-id="${mbti.id}"
+          th:text="'#' + ${mbti.hashtag}"></span>
+  </th:block>
+</div>
+
+          <input type="hidden" name="hashtagIds" id="selectedHashtags" />
+        </div>
+        
+        <div class="mbti-selector">
+  <p>MBTI 선택</p>
+  <div>
+    <label><input type="radio" name="mbti1" value="E"> E</label>
+    <label><input type="radio" name="mbti1" value="I"> I</label>
+  </div>
+  <div>
+    <label><input type="radio" name="mbti2" value="S"> S</label>
+    <label><input type="radio" name="mbti2" value="N"> N</label>
+  </div>
+  <div>
+    <label><input type="radio" name="mbti3" value="T"> T</label>
+    <label><input type="radio" name="mbti3" value="F"> F</label>
+  </div>
+  <div>
+    <label><input type="radio" name="mbti4" value="J"> J</label>
+    <label><input type="radio" name="mbti4" value="P"> P</label>
+  </div>
+  
+  <input type="hidden" name="mbtiTag" id="mbtiTag" />
+</div>
 
  	 <!-- alertAgree 값을 hidden으로 다시 넘김 -->
  	 <input type="hidden" name="alertAgree" th:value="${param.alertAgree}" />
 	
-	 <button type="submit" disabled>회원가입</button>
+	 <button type="submit">회원가입</button>
 </form>
-
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </div>
 
 </html>

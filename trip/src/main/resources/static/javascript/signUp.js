@@ -168,8 +168,122 @@ document.addEventListener("DOMContentLoaded", function () {
 		  });
 
       });
+	  
+	  // 닉네임
+
+	    const nicknameInput = document.getElementById("nicknameInput");
+	    const nicknameChkMsg = document.getElementById("nicknameChkMsg");
+		
+		
+		nicknameInput.addEventListener("blur", function () {
+		  const nickname = nicknameInput.value.trim();
+
+		  if (!nickname) {
+		    nicknameChkMsg.textContent = "닉네임을 입력해주세요.";
+		    nicknameChkMsg.style.color = "red";
+		    return;
+		  }
+
+		  fetch(`/api/check-nickname?nickname=${encodeURIComponent(nickname)}`)
+		    .then((res) => res.json())
+		    .then((data) => {
+		      if (data.available) {
+		        nicknameChkMsg.textContent = "사용 가능한 닉네임입니다.";
+		        nicknameChkMsg.style.color = "green";
+		      } else {
+		        nicknameChkMsg.textContent = "이미 사용 중인 닉네임입니다.";
+		        nicknameChkMsg.style.color = "red";
+		      }
+		    })
+		    .catch(() => {
+		      nicknameChkMsg.textContent = "서버 오류가 발생했습니다.";
+		      nicknameChkMsg.style.color = "red";
+		    });
+		});
   
-  
+		// 주소
+
+		window.sample6_execDaumPostcode = function () {
+		  new daum.Postcode({
+		    oncomplete: function (data) {
+		      let addr =
+		        data.userSelectedType === "R" ? data.roadAddress : data.jibunAddress;
+		      document.getElementById("sample6_address").value = addr;
+		    },
+		  }).open();
+		};
+
+		// 전화번호
+
+		const telInput = document.getElementById("telInput");
+		const telCheckMsg = document.getElementById("telCheckMsg");
+
+		telInput.addEventListener("blur", function () {
+		  const tel = telInput.value.trim();
+		  const telRegex = /^\d{3}-\d{3,4}-\d{4}$/;
+
+		  if (!tel) {
+		    telCheckMsg.textContent = "전화번호를 입력해주세요.";
+		    telCheckMsg.style.color = "red";
+		    return;
+		  }
+
+		  if (!telRegex.test(tel)) {
+		    telCheckMsg.textContent =
+		      "전화번호 형식이 올바르지 않습니다. 예: 010-1234-5678";
+		    telCheckMsg.style.color = "red";
+		  } else {
+		    telCheckMsg.textContent = "";
+		  }
+		});
+		
+		//   해시태그
+
+		const selectedInput = document.getElementById("selectedHashtags");
+		const selectedIds = new Set();
+
+		document.querySelectorAll("#hashtagContainer .hashtag").forEach((tagElem) => {
+		  tagElem.addEventListener("click", () => {
+		    const tagId = tagElem.dataset.id;
+
+		    if (tagElem.classList.contains("selected")) {
+		      tagElem.classList.remove("selected");
+		      selectedIds.delete(tagId);
+		    } else {
+		      if (selectedIds.size >= 5) {
+		        alert("해시태그는 최대 5개까지 선택 가능합니다.");
+		        return;
+		      }
+		      tagElem.classList.add("selected");
+		      selectedIds.add(tagId);
+		    }
+
+		    selectedInput.value = [...selectedIds].join(",");
+		  });
+		});
+		
+		function updateMbtiTag() {
+		  const mbti =
+		    document.querySelector('input[name="mbti1"]:checked')?.value +
+		    document.querySelector('input[name="mbti2"]:checked')?.value +
+		    document.querySelector('input[name="mbti3"]:checked')?.value +
+		    document.querySelector('input[name="mbti4"]:checked')?.value;
+
+		  if (mbti.length === 4) {
+		    document.querySelectorAll(".hashtag").forEach((tagElem) => {
+		      if (tagElem.textContent === `#${mbti}`) {
+		        tagElem.classList.add("selected");
+		        selectedIds.add(tagElem.dataset.id);
+		        selectedInput.value = [...selectedIds].join(",");
+		      }
+		    });
+		  }
+		}
+
+		// 라디오 버튼 변경 시 MBTI 해시태그 자동 선택
+		document.querySelectorAll('.mbti-selector input[type="radio"]').forEach((el) => {
+		  el.addEventListener("change", updateMbtiTag);
+		});
   
   
 });

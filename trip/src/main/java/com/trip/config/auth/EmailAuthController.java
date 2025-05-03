@@ -29,6 +29,7 @@ public class EmailAuthController {
         session.setAttribute("authCode", code);
         
         
+        
         try {
         	SimpleMailMessage message=new SimpleMailMessage();
         	
@@ -62,7 +63,8 @@ public class EmailAuthController {
         boolean success = inputCode != null && inputCode.equals(savedCode);
         Map<String, Boolean> response = new HashMap<>();
         response.put("success", success);
-
+        session.setAttribute("authSuccess", success);
+        System.out.println("[DEBUG] 이메일 인증 결과: " + success);
         return response;
     }
 	
