@@ -100,4 +100,76 @@ document.addEventListener("DOMContentLoaded", function () {
       pwChkMsg.textContent = "";
     }
   }
+  
+  
+  // 이메일 인증
+  
+  
+  const emailInput = document.getElementById("emailInput");
+      const emailSendMsg = document.getElementById("emailSendMsg");
+      const sendBtn = document.getElementById("sendChkNum");
+
+      const emailCodeInput = document.getElementById("emailCodeInput");
+      const verifyBtn = document.getElementById("chkNumCheck");
+      const verifyMsg = document.getElementById("emailVerifyMsg");
+
+      sendBtn.addEventListener("click", () => {
+        const email = emailInput.value.trim();
+        if (!email) {
+          emailSendMsg.textContent = "이메일을 입력해주세요.";
+          emailSendMsg.style.color = "red";
+          return;
+        }
+
+		fetch("/auth/email/send", {
+		  method: "POST",
+		  headers: { "Content-Type": "application/json" },
+		  body: JSON.stringify({ email }),
+		})
+		  .then((res) => res.json())
+		  .then((data) => {
+		    if (data.status === "sent") {
+		      emailSendMsg.textContent = "인증번호가 전송되었습니다.";
+		      emailSendMsg.style.color = "green";
+		    } else {
+		      emailSendMsg.textContent = "이메일 전송 실패.";
+		      emailSendMsg.style.color = "red";
+		    }
+		  })
+		  .catch(() => {
+		    emailSendMsg.textContent = "서버 오류가 발생했습니다.";
+		    emailSendMsg.style.color = "red";
+		  });
+
+      });
+
+      verifyBtn.addEventListener("click", () => {
+        const code = emailCodeInput.value.trim();
+        if (!code) {
+          verifyMsg.textContent = "인증번호를 입력해주세요.";
+          verifyMsg.style.color = "red";
+          return;
+        }
+
+		fetch("/auth/email/verify", {
+		  method: "POST",
+		  headers: { "Content-Type": "application/json" },
+		  body: JSON.stringify({ code }),
+		})
+		  .then((res) => res.json())
+		  .then((data) => {
+		    if (data.success) {
+		      verifyMsg.textContent = "이메일 인증 성공.";
+		      verifyMsg.style.color = "green";
+		    } else {
+		      verifyMsg.textContent = "인증번호가 일치하지 않습니다.";
+		      verifyMsg.style.color = "red";
+		    }
+		  });
+
+      });
+  
+  
+  
+  
 });
