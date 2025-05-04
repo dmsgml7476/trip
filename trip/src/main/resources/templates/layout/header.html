@@ -30,6 +30,9 @@
         	 		class="profile-icon"
         	 		onclick="toggleSidebar()"
       			    style="cursor: pointer; width: 60px; height: 60px;" />
+      			   	<div th:if="${unreadNotificationCount > 0}"
+	      			   	class="notification-badge"
+	      			   	th:text="${unreadNotificationCount}">4</div>
 				</span>
  			</th:block>
 
@@ -79,18 +82,30 @@
           </div>
         </div>
 
-        <div class="my-trip-wrap">
+        <div class="my-trip-wrap" th:if="${tripTitle != null}">
           <div class="my-trip-title">
-            <p>힐링하자아아아아</p>
+            <p th:text="${tripTitle}">여행 제목</p>
           </div>
           <div class="d-day">
-            <p>D-day 5</p>
+            <p th:text="'D-Day ' + ${dDay}">D-day 5</p>
           </div>
         </div>
 
-        <div class="alert-area">
-          <p>스토리에 댓글이 달렸습니다</p>
-        </div>
+		<div class="alert-area">
+ 			 <!-- STORY 알림 -->
+ 			<div th:each="notification : ${notifications}" 
+  		    	th:if="${notification.type.name() == 'STORY'}"
+   		    	class="alert-box"
+       			th:text="${notification.message + '에 댓글이 달렸습니다.'}">
+			</div>
+
+			  <!-- TRIP_START 알림 -->
+ 			<div th:each="notification : ${notifications}" 
+ 				th:if="${notification.type.name() == 'TRIP_START'}"
+      			class="alert-box"
+       			th:text="${notification.message + ' 일정까지 5일 남았습니다'}">
+  			</div>
+		</div>
 
         <div class="close" onclick="toggleSidebar()">
           <img src="image/right-arrow.png" alt="닫기" width="20px" />

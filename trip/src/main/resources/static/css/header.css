@@ -78,11 +78,29 @@
   display: flex;
   justify-content: center;
   align-items: center;  
+  position:relative;
 
-  border-radius: 50%;
-  overflow: hidden;
+
   width: 60px;
   height: 60px;
+}
+
+.notification-badge {
+  position: absolute;
+  top: 0px;         /* 조정된 위치 */
+  right: 0px;       /* 조정된 위치 */
+  background-color: red;
+  color: white;
+  font-size: 11px;  /* 작게 조정 */
+  font-weight: bold;
+  border-radius: 50%;
+  width: 20px;      /* 조금 더 작게 */
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  box-shadow: 0 0 0 2px white;
 }
 
 .profile-icon {
@@ -119,11 +137,16 @@
 }
 
 .alert-area {
-  border: 1px solid;
-  margin: 10px 0;
-  border-radius: 10px;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  background-color: rgb(221, 221, 221);
+	margin: 10px 0;
+  display: block;
+}
+
+.alert-box {
+	border: 2px solid;
+	border-radius:10px;
+	padding: 10px 15px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	text-align: center;
+	background-color: rgb(221, 221, 221);
 }
