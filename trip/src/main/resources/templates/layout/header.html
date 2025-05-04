@@ -2,7 +2,7 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-      
+<body>
 <div th:fragment="header" id="header">
 	<nav class="nav-box">
       <div class="h-wrap">
@@ -23,13 +23,14 @@
         </div>
         <div class="profil-icon-box">
         	<th:block th:if="${#authentication.authenticated}">
-				<a href="#">
+				<span >
     			<img th:if="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}"
     				th:src="@{/upload/profile/{img}(img=${userDetail.profileImg})}"
         			alt="프로필"
         	 		class="profile-icon"
+        	 		onclick="toggleSidebar()"
       			    style="cursor: pointer; width: 60px; height: 60px;" />
-				</a>
+				</span>
  			</th:block>
 
 			<th:block th:if="${#authentication.principal == 'anonymousUser'}">
@@ -44,6 +45,61 @@
         </div>
       </div>
     </nav>
+    
+    <!-- 사이드바 -->
+    
+    
+    
+    <div
+      id="sidebar"
+      class="profile-sidebar"
+
+    >
+      <div class="sideber-box">
+        <div class="sidebar-header">
+          <div class="profile-box">
+          <th:block th:if="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}">
+            <img th:src="@{/upload/profile/{img}(img=${userDetail.profileImg})}" alt="프로필" class="profile-icon" />
+          </th:block>
+          
+          <div class="user-info" th:if="${userDetail != null}">
+          	<div class="nickname" th:text="${nickname}">유자냠냠이</div>
+              <div class="user-hashtag">
+              	<th:block th:each="tag : ${userHashtags}">
+             		<span th:text="'#' + ${tag}">#태그</span>
+              	</th:block>
+              </div>
+            </div>
+      
+          </div>
+          <div class="user-op-box">
+            <div class="mypage">마이페이지</div>
+            <div class="setting">설정</div>
+            <a href="/logout" class="logout">로그아웃</a>
+          </div>
+        </div>
+
+        <div class="my-trip-wrap">
+          <div class="my-trip-title">
+            <p>힐링하자아아아아</p>
+          </div>
+          <div class="d-day">
+            <p>D-day 5</p>
+          </div>
+        </div>
+
+        <div class="alert-area">
+          <p>스토리에 댓글이 달렸습니다</p>
+        </div>
+
+        <div class="close" onclick="toggleSidebar()">
+          <img src="image/right-arrow.png" alt="닫기" width="20px" />
+        </div>
+      </div>
+    </div>
+    
+    
 </div>
 
+</body>   
 </html>

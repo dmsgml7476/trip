@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
-	@Autowired
+
 	private final UserRepository userRepository;
 	private final UserAlertSettingRepository userAlertSettingRepository;
 	private final PasswordEncoder passwordEncoder;
