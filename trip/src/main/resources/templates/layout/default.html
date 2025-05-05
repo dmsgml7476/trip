@@ -22,7 +22,7 @@
           th:with="authentication=${#authentication}"></th:block>
 
   </div>
-  <script>
+    <script>
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
       sidebar.classList.toggle("show");
@@ -36,5 +36,8 @@
         document.getElementById("openCustomerModal").style.display = "none";
       }
   </script>
+  <th:block layout:fragment="script">
+
+  </th:block>
 </body>
 </html>

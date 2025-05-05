@@ -4,10 +4,164 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 
-    <th:block layout:fragment="css"></th:block>
-    <th:block layout:fragment="script"></th:block>
+    <th:block layout:fragment="css">
+    	<link rel="stylesheet" type="text/css" href="/css/myPage.css">
+    </th:block>
+    <th:block layout:fragment="script">
+    	<script th:src="@{/javascript/myPage.js}"></script>
+    </th:block>
 
 <div layout:fragment="main" id="main">
+
+<div class="wrap">
+
+      <div class="mypage-box">
+        <div class="mybox">
+          <div class="my-info">
+            <div class="my-info-op-area">
+              <div class="my-info-op">
+                <div class="more-btn" id="moreBtn">
+                  <img
+                    src="image/morebutton.png"
+                    style="width: 15px; height: 15px"
+                  />
+                </div>
+                
+                <div class="more-menu" id="moreMenu">
+                	<ul>
+                		<li><a href="/mypage/edit">회원정보수정</a></li>
+                		<li><a href="/mypage/cslist">문의 내역</a></li>
+                		<li><a href="/logout">로그아웃</a></li>
+                	</ul>
+                </div>
+              </div>
+              <div class="my-info-profile-area">
+                <div class="profile-box">
+
+                  <img class="profile-img" th:if="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}" th:src="@{/upload/profile/{img}(img=${userDetail.profileImg})}" alt="프로필" />
+      
+                </div>
+              </div>
+              <div class="nickname-area">
+                닉네임의 발자취
+                <img src="image/footprint.png" />
+              </div>
+              <div class="hashtag-area">
+                <div class="hashtag-box">해시태그들</div>
+                <div class="hashtag-box">해시태그들</div>
+                <div class="hashtag-box">해시태그들</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="my-calendar">달력영역</div>
+        </div>
+        <!-- 대표스토리영역 -->
+
+        <div class="my-mainstory-area">
+          <div class="my-mainstory-boxs">
+            <div class="my-mainstory-box">
+              <a href="">
+                <img class="plus-icon" src="image/plus.png" />
+              </a>
+            </div>
+            <div class="my-mainstory-box">
+              <img
+                src="https://cdn.pixabay.com/photo/2025/03/31/21/30/italy-9505446_1280.jpg"
+              />
+            </div>
+            <div class="my-mainstory-box"><img src="" /></div>
+            <div class="my-mainstory-box"><img src="" /></div>
+            <div class="my-mainstory-box"><img src="" /></div>
+            <div class="my-mainstory-box"><img src="" /></div>
+          </div>
+        </div>
+
+        <!-- 호감 스토리 목록 -->
+
+        <div class="like-story-area">
+          <div class="left">
+            <img src="image/left-arrow.png" />
+          </div>
+
+          <div class="like-story-box-area">
+            <div class="like-story-small-box" id="prev-story-box">
+              <div class="story-img">
+                <img
+                  src="https://cdn.pixabay.com/photo/2022/01/06/07/25/south-korea-6918828_1280.jpg"
+                />
+              </div>
+
+              <div class="story-box">
+                <div class="story-nickname-box">
+                  <div class="story-nickname">0000님의 일정</div>
+                  <img src="image/heart.png" class="like" />
+                </div>
+                <div class="story-title-box">
+                  <div class="story-title">쓸쓸한 강가</div>
+
+                  <div class="story-date">2025.05.24</div>
+                </div>
+
+                <div class="story-content">스토리 내용 우다다다다</div>
+              </div>
+            </div>
+
+            <div class="like-story-main-box" id="currend-story-box">
+              <div class="story-img">
+                <img
+                  src="https://cdn.pixabay.com/photo/2024/04/22/16/38/buildings-8713025_1280.jpg"
+                />
+              </div>
+
+              <div class="story-box">
+                <div class="story-nickname-box">
+                  <div class="story-nickname">0000님의 일정</div>
+                  <img src="image/heart.png" class="like" />
+                </div>
+                <div class="story-title-box">
+                  <div class="story-title">쓸쓸한 강가</div>
+
+                  <div class="story-date">2025.05.24</div>
+                </div>
+
+                <div class="story-content">스토리 내용 우다다다다</div>
+              </div>
+            </div>
+
+            <div class="like-story-small-box" id="next-story-box">
+              <div class="story-img">
+                <img
+                  src="https://cdn.pixabay.com/photo/2025/04/27/07/01/industry-9562428_1280.jpg"
+                />
+              </div>
+
+              <div class="story-box">
+                <div class="story-nickname-box">
+                  <div class="story-nickname">0000님의 일정</div>
+                  <img src="image/heart.png" class="like" />
+                </div>
+                <div class="story-title-box">
+                  <div class="story-title">쓸쓸한 강가</div>
+
+                  <div class="story-date">2025.05.24</div>
+                </div>
+
+                <div class="story-content">스토리 내용 우다다다다</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="right"><img src="image/right-arrow.png" /></div>
+        </div>
+
+        <div class="user-customer">
+          <div>고객센터</div>
+          <div>회원탈퇴</div>
+        </div>
+      </div>
+    </div>
+
 
 </div>
 
