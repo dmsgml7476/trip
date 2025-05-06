@@ -20,4 +20,8 @@ public class HashtagsEntity {
 	@Column(name="hashtag", unique=true, nullable=false)
 	private String hashtag;
 	
+	
+	@Column(name = "is_mbti", nullable = false)
+	private Boolean isMbti = false;
+	
 }

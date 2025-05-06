@@ -69,3 +69,77 @@
 a:visited {
   color: black;
 }
+
+
+/* 고객문의 창 */
+
+.modal {
+  display: none; /* 처음엔 숨김 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* 화면 전체 높이 */
+  background-color: rgba(0, 0, 0, 0.4); /* 반투명 배경 */
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  width: 500px;
+  height: 550px;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-header > div {
+  width: 20px;
+}
+
+.select-box {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px 0;
+}
+
+.select-drop {
+  height: 30px;
+  width: 150px;
+}
+
+.content-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.close {
+	  cursor: pointer;
+}
+
+.content-box > button {
+  background-color: rgb(255, 231, 200);
+  border: none;
+  width: 60px;
+  height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.content {
+  margin: 10px 0;
+  height: 340px;
+  width: 100%;
+}
+
+textarea {
+  resize: none;
+  padding: 10px;
+}

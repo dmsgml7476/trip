@@ -27,7 +27,7 @@ public class CustomerServiceEntity {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="cs_option", nullable=false)
-	private CsOption csOtion;
+	private CsOption csOption;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="category", nullable=false)
@@ -41,4 +41,11 @@ public class CustomerServiceEntity {
 	
 	@OneToOne(mappedBy = "customerService", cascade = CascadeType.ALL, orphanRemoval = true)
 	private CustomerServiceAnswerEntity answer;
+	
+	@PrePersist
+	public void prePersist() {
+	    if (this.questionTime == null) {
+	        this.questionTime = LocalDateTime.now();
+	    }
+	}
 }

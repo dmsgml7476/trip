@@ -6,8 +6,12 @@
 	<th:block layout:fragment="css"></th:block>
 	<link rel="stylesheet" th:href="@{./css/index.css}">
 
-	<th:block layout:fragment="script"></th:block>
+	<th:block layout:fragment="script">
+		
+	</th:block>
 </head>
+
+<body>
 
 <div layout:fragment="main" id="main">
 	<div class="wrap">
@@ -20,33 +24,62 @@
 				<img src="image/slider/Planner5.png" alt="Planner5">
 			</div>
 			
-			<div class="story-recommend-area" th:if="${#lists.isEmpty(storyList) == false}">
-				<div class="story-recommend-box" th:each="story:${storyList}">
-					<div class="story-img">
-						<img th:src="@{${story.imageUrl}}">
-					</div>
-					<div class="story-info-box">
-						<div class="story-writer" th:text="${story.nickname}">
-							떡잎마을방범대
-						</div>
-						<div class="story-date" th:text="${#temporals.format(story.writeAt, 'yyyy.MM.dd')}">
-							2024.06.05
-						</div>
-					</div>
-					<div class="story-text" th:text="${story.storyTitle}">
-						부산에서 일광욕~~~
-					</div>
-				</div>
-				
-			
-			</div>
-			
-			<form th:action="@{/logout}" method="post">
- 				 <button type="submit">로그아웃</button>
-			</form>
+			<div class="story-recommend-wrapper">
+	  			<button id="arrowLeft" class="arrow">&#60;</button>
+
+  				<div class="story-recommend-area">
+    				<div class="story-track" id="storyTrack" th:data-total="${storyList.size()}">
+      					<div class="story-recommend-box" th:each="story : ${storyList}">
+        					<div class="story-img">
+          						<img th:src="@{${story.imageUrl}}" />
+        					</div>
+        					<div class="story-info-box">
+          						<div class="story-writer" th:text="${story.nickname}"></div>
+          					<div class="story-date" th:text="${#temporals.format(story.writeAt, 'yyyy.MM.dd')}"></div>
+        				</div>
+        			<div class="story-text" th:text="${story.storyTitle}"></div>
+      			</div>
+   			 </div>
+  		</div>
+
+ 		<button id="arrowRight" class="arrow">&#62;</button>
+	</div>
+
 		
 	
 	</div>
 </div>
 
+<th:block layout:fragment="script">
+  <script th:inline="javascript" defer>
+  window.addEventListener("DOMContentLoaded", () => {
+	  const track = document.getElementById("storyTrack");
+	  const totalItems = parseInt(track.dataset.total);
+	  const boxWidth = 320; // box 1개 너비 (px)
+	  const itemsPerPage = 2;
+	  const maxPage = Math.ceil(totalItems / itemsPerPage);
+	  let currentIndex = 0;
+
+	  const updateSlide = () => {
+	    const offset = boxWidth * itemsPerPage * currentIndex;
+	    track.style.transform = `translateX(-${offset}px)`;
+	  };
+
+	  document.getElementById("arrowRight").addEventListener("click", () => {
+	    currentIndex = (currentIndex + 1) % maxPage;
+	    updateSlide();
+	  });
+
+	  document.getElementById("arrowLeft").addEventListener("click", () => {
+	    currentIndex = (currentIndex - 1 + maxPage) % maxPage;
+	    updateSlide();
+	  });
+
+	  updateSlide();
+	});
+
+  </script>
+</th:block>
+
+</body>
 </html>
