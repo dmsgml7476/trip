@@ -41,7 +41,7 @@ public class UserEntity {
 	private Role role = Role.USER;
 	
 	@Column(name="created_time", nullable=false, updatable=false)
-	private LocalDateTime createdTime = LocalDateTime.now();
+	private LocalDateTime createdTime;
 	
 	@Column(name="withdraw_time")
 	private LocalDateTime withdrawTime;
@@ -51,31 +51,24 @@ public class UserEntity {
 	@OneToOne(mappedBy="user", fetch=FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
 	private UserDetailEntity userDetail;
 	
-	@OneToMany(mappedBy="user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<UserHashtagEntity> userHashtags = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserMainStoryEntity> mainStories = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CustomerServiceAnswerEntity> customerServices = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "user")
-    private List<TripPlanEntity> travelPlans = new ArrayList<>();
-	
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, orphanRemoval = true)
-	private List<StoryEntity> stories= new ArrayList<>();
-	
 // ==========기능메서드========
-	
 
 	public static UserEntity from(UserSignUpDto dto, PasswordEncoder passwordEncoder) {
-		return UserEntity.builder()
-				.loginId(dto.getLoginId())
-				.password(passwordEncoder.encode(dto.getPassword()))
-				.nickname(dto.getNickname()!=null ? dto.getNickname():dto.getLoginId())
-				.role(Role.USER)
-				.build();
+		   String rawNickname = dto.getNickname();
+		   String nickname = (rawNickname == null || rawNickname.trim().isEmpty())
+			        ? dto.getLoginId()
+			        : rawNickname.trim();
+		
+		    return UserEntity.builder()
+		            .loginId(dto.getLoginId())
+		            .password(passwordEncoder.encode(dto.getPassword()))
+		            .nickname(nickname)
+		            .role(Role.USER)
+		            .createdTime(LocalDateTime.now())
+		            .build();
 	}
 	
 	public void updateNickname(String nickname) {
@@ -83,8 +76,6 @@ public class UserEntity {
 	        this.nickname = nickname;
 	    }
 	}
-
-	
 	
 	public void withdraw() {
 		this.role=Role.WITHDRAW;

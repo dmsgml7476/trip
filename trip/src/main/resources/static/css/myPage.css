@@ -1,0 +1,326 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+a:visited {
+  color: black;
+}
+
+.wrap {
+  border: 1px solid black;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  min-width: 1200px;
+}
+
+/* 내정보박스 */
+.mypage-box {
+  width: 1000px;
+  border: 1px solid red;
+  margin: 0 auto;
+}
+
+.mybox {
+  border: 1px solid rgb(56, 56, 56);
+  display: flex;
+  width: 100%;
+  height: 400px;
+  margin: 20px 0;
+}
+
+.my-info-op-area {
+  border: 1px solid black;
+  width: 300px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(228, 228, 228);
+}
+
+.my-info-op {
+	 position: relative;
+  margin: 5px;
+  height: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.more-btn {
+  border: 1px solid;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.my-info-profile-area {
+  width: 100%;
+  height: 240px;
+  border: 1px solid rebeccapurple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-box {
+  width: 150px;
+  height: 150px;          
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-box img {
+  display: block;         
+  width: 100%;            
+  height: auto;          
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  display: block;
+}
+
+.nickname-area {
+  font-size: 20px;
+  margin: 0 auto;
+  margin-top: 10px;
+ display: flex;  
+}
+
+
+.nickname-area > img {
+  width: 15px;
+}
+
+.hashtag-area {
+  margin: 10px;
+  border: 1px solid;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* 대표스토리영역 */
+
+.my-mainstory-area {
+  border: 1px solid;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+}
+
+.my-mainstory-boxs {
+  border: 1px solid coral;
+  width: 700px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.my-mainstory-box {
+  width: 90px;
+  height: 90px;
+  border: 3px solid rgb(82, 82, 82);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.my-mainstory-box img {
+  width: 100%;
+  height: 100%;
+  object-fit:cover;
+  display: block;
+}
+
+.a-mainstory-box {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.my-mainstory-box .plus-icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.my-mainstory-box {
+  width: 90px;
+  height: 90px;
+}
+
+/* 호감 스토리 목록 */
+
+.like-story-area {
+  border: 1px solid;
+  margin: 20px 0;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left {
+  border: 1px solid;
+  width: 20px;
+  margin: 20px;
+}
+
+.left > img {
+  width: 20px;
+}
+
+.like-story-box-area {
+  width: 900px;
+  height: 100%;
+  border: 1px solid;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.like-story-main-box {
+  border: 1px solid;
+  width: 30%;
+  height: 90%;
+  padding: 10px;
+}
+
+.story-img {
+  border: 1px solid;
+  width: 100%;
+  height: 60%;
+}
+
+.story-img > img {
+  width: 100%;
+  height: 100%;
+}
+
+.like-story-main-box .story-nickname-box {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.like-story-main-box .story-nickname {
+  font-size: 20px;
+}
+
+.like-story-main-box .story-nickname-box > img {
+  width: 10%;
+  height: 10%;
+}
+
+.like-story-main-box .story-title-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.like-story-main-box .story-content {
+  margin-top: 10px;
+}
+
+.like-story-small-box {
+  border: 1px solid;
+  width: 25%;
+  height: 80%;
+  padding: 8px;
+}
+
+.like-story-small-box .story-nickname-box {
+  display: flex;
+  margin: 8px 0;
+  justify-content: space-between;
+}
+
+.like-story-small-box .story-nickname {
+  font-size: 17px;
+}
+
+.like-story-small-box .story-nickname-box > img {
+  width: 10%;
+  height: 10%;
+}
+
+.like-story-small-box .story-title-box {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.like-story-small-box .story-content {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.right {
+  border: 1px solid;
+  width: 20px;
+  margin: 20px;
+}
+
+.right > img {
+  width: 20px;
+}
+
+/* 고객센터/회원탈퇴 */
+
+.user-customer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.user-customer > div {
+  margin: 10px;
+}
+
+
+/* 더보기 버튼 클릭시 나오는 창 */
+.more-menu {
+  position: absolute;
+  background: white;
+  border: 1px solid black;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  padding: 10px;
+  right: -105px;
+  top: 80%; 
+  display: none;
+  z-index: 100;
+  width: 120px;
+  font-size: 14px;
+}
+
+.more-menu ul {
+  list-style: none;
+}
+
+.more-menu li {
+  padding: 5px 0;
+}
+
+.more-menu li:hover {
+  background-color: #f2f2f2;
+}
+
+.more-menu a {
+  color: black;
+  text-decoration: none;
+}
+

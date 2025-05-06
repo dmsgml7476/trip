@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+<div th:fragment="header" id="header">
+	<nav class="nav-box">
+      <div class="h-wrap">
+        <div class="logo">Let's Trip</div>
+
+        <div class="link-box">
+          <ul class="link-ul">
+            <div class="a-box">
+              <a class="nav-link" href="/">HOME</a>
+            </div>
+            <div class="a-box">
+              <a class="nav-link" href="">Let's</a>
+            </div>
+            <div class="a-box">
+              <a class="nav-link" href="">Trip</a>
+            </div>
+          </ul>
+        </div>
+        <div class="profil-icon-box">
+        	<th:block th:if="${#authentication.authenticated}">
+				<span >
+    			<img th:if="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}"
+    				th:src="@{/upload/profile/{img}(img=${userDetail.profileImg})}"
+        			alt="프로필"
+        	 		class="profile-icon"
+        	 		onclick="toggleSidebar()"
+      			    style="cursor: pointer; width: 60px; height: 60px;" />
+      			   	<div th:if="${unreadNotificationCount > 0}"
+	      			   	class="notification-badge"
+	      			   	th:text="${unreadNotificationCount}">4</div>
+				</span>
+ 			</th:block>
+
+			<th:block th:if="${#authentication.principal == 'anonymousUser'}">
+ 				<a href="/login">
+    			<img src="/image/user.png"
+       				alt="프로필"
+         			class="profile-icon"
+         			style="cursor: pointer; width: 60px; height: 60px;" />
+  				</a>
+			</th:block>
+	
+        </div>
+      </div>
+    </nav>
+    
+    <!-- 사이드바 -->
+    
+    
+    
+    <div
+      id="sidebar"
+      class="profile-sidebar"
+
+    >
+      <div class="sideber-box">
+        <div class="sidebar-header">
+          <div class="profile-box">
+          <th:block th:if="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}">
+            <img th:src="@{/upload/profile/{img}(img=${userDetail.profileImg})}" alt="프로필" class="profile-icon" />
+          </th:block>
+          
+          <div class="user-info" th:if="${userDetail != null}">
+          	<div class="nickname" th:text="${nickname}">유자냠냠이</div>
+              <div class="user-hashtag">
+              	<th:block th:each="tag : ${userHashtags}">
+             		<span th:text="'#' + ${tag}">#태그</span>
+              	</th:block>
+              </div>
+            </div>
+      
+          </div>
+          <div class="user-op-box">
+            <div class="mypage"><a href="/mypage">마이페이지</a></div>
+            <div class="setting">설정</div>
+            <a href="/logout" class="logout">로그아웃</a>
+          </div>
+        </div>
+
+        <div class="my-trip-wrap" th:if="${tripTitle != null}">
+          <div class="my-trip-title">
+            <p th:text="${tripTitle}">여행 제목</p>
+          </div>
+          <div class="d-day">
+            <p th:text="'D-Day ' + ${dDay}">D-day 5</p>
+          </div>
+        </div>
+
+		<div class="alert-area">
+ 			 <!-- STORY 알림 -->
+ 			<div th:each="notification : ${notifications}" 
+  		    	th:if="${notification.type.name() == 'STORY'}"
+   		    	class="alert-box"
+       			th:text="${notification.message + '에 댓글이 달렸습니다.'}">
+			</div>
+
+			  <!-- TRIP_START 알림 -->
+ 			<div th:each="notification : ${notifications}" 
+ 				th:if="${notification.type.name() == 'TRIP_START'}"
+      			class="alert-box"
+       			th:text="${notification.message + ' 일정까지 5일 남았습니다'}">
+  			</div>
+		</div>
+
+        <div class="close" onclick="toggleSidebar()">
+          <img src="image/right-arrow.png" alt="닫기" width="20px" />
+        </div>
+      </div>
+    </div>
+    
+    
+</div>
+
+</body>   
+</html>

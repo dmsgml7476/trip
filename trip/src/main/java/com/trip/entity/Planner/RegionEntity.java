@@ -3,6 +3,7 @@ package com.trip.entity.Planner;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,8 +20,7 @@ public class RegionEntity {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@OneToMany
-	@JoinColumn(name="region_id")
+	@Column(name="region_id")
 	private Long regionId;
 	private String regionName;
 	private String upperRegion;
