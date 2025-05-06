@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head>
+    <th:block layout:fragment="css">
+    <link rel="stylesheet" type="text/css" href="/css/edit.css">
+    </th:block>
+
+</head>
+<body>
+
+<div layout:fragment="main" id="main">
+
+<div class="wrap">
+      <div class="edit-area">
+        <div class="page-name">회원 설정 수정</div>
+
+        <div class="profile-show-box">
+          <div class="profile-img-show">
+             <form id="profileForm" th:action="@{/mypage/profile/upload}" method="post" enctype="multipart/form-data">
+  					<label for="profileInput" class="profile-box">
+  					 <img th:if="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}"
+ 						    th:src="@{'/upload/profile/' + ${userDetail.profileImg} + '?t=' + ${#dates.createNow().time}}"
+     						class="profile-img"
+     						alt="프로필 이미지" />
+ 					  <img th:unless="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}"
+         					src="/image/default-profile.png"
+         					class="profile-img"
+         					alt="기본 이미지" />
+  					</label>
+
+  					<input type="file" id="profileInput" name="profileImg" style="display: none;" accept="/image/*" onchange="submitProfile()" />
+				</form>
+          </div>
+
+          <div class="profile-info-name">
+            <div class="info-name">닉네임</div>
+            <div class="info-name">이메일</div>
+            <div class="info-name">주소</div>
+            <div class="info-name">전화번호</div>
+          </div>
+
+          <div class="profile-info-value" th:if="${userDetail != null}">
+            <div class="info-value" th:text="${user.nickname}">유자냠냠이</div>
+            <div class="info-value" th:text="${userDetail.email}">shin_chan@gmail.com</div>
+            <div class="info-value" th:text="${userDetail.address}">대전시 대덕구 000로 1209</div>
+            <div class="info-value" th:text="${userDetail.tel}">010-5879-7572</div>
+          </div>
+        </div>
+
+        <div class="edit-button-box">
+          <div class="password-edit">
+            <button>비밀번호 변경</button>
+          </div>
+
+          <div class="info-edit">
+            <button>회원정보 변경</button>
+          </div>
+        </div>
+
+        <div class="hashtag-edit-area">
+        	<div class="hashtag-box">
+          <div class="hashtag-edit-title">
+            <p>해시태그로 날 표현해보세요</p>
+          </div>
+
+          <div id="hashtagContainer">
+  			<!-- 일반 해시태그 -->
+  			<th:block th:each="tag : ${hashtags}">
+    			<span class="hashtag"
+          			th:data-id="${tag.id}"
+          			th:text="'#' + ${tag.hashtag}"
+          			th:classappend="${selectedHashtagIds.contains(tag.id)} ? ' selected' : ''"></span>
+  			</th:block>
+
+  				<!-- MBTI 해시태그 (숨김 처리) -->
+  			<th:block th:each="mbti : ${mbtiTags}">
+    			<span class="hashtag mbti-hidden"
+          			th:data-id="${mbti.id}"
+          			th:text="'#' + ${mbti.hashtag}"
+          			th:classappend="${selectedHashtagIds.contains(mbti.id)} ? ' selected' : ''"></span>
+  			</th:block>
+		 </div>
+
+         <input type="hidden" name="hashtagIds" id="selectedHashtags" />
+      </div>
+
+
+
+          <div class="mbti-edit-area">
+            <div class="mbti-edit-title">
+              <p>MBTI</p>
+            </div>
+            <div class="mbti-edit-box">
+              <div class="m-chocie">n vs i</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert-edit-area">
+          <div class="alert-edit-title">
+            <p>알림 설정</p>
+          </div>
+
+          <div class="alert-edit-box">
+            <div class="alert-edit-name">
+              <div class="alert-name my-trip-alert">내 일정 알림</div>
+              <div class="alert-name my-comm-alert">커뮤니티 활동 알림</div>
+            </div>
+            <div class="alert-edit-value">
+              <div class="agree-box my-trip-alert-value">
+                <p>동의</p>
+                <p>비동의</p>
+              </div>
+
+              <div class="agree-box my-comm-alert-value">
+                <p>동의</p>
+                <p>비동의</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="return-mypage"><img src="/image/arrow.png" /></div>
+
+
+      </div>
+    </div>
+
+</div>
+    <th:block layout:fragment="script">
+    <script th:src="@{/javascript/edit.js}" defer></script>
+    </th:block>
+</body>
+</html>

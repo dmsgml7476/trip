@@ -7,10 +7,10 @@
     <th:block layout:fragment="css">
     	<link rel="stylesheet" type="text/css" href="/css/myPage.css">
     </th:block>
-    <th:block layout:fragment="script">
+<!--     <th:block layout:fragment="script">
     	<script th:src="@{/javascript/myPage.js}"></script>
-    </th:block>
-
+    </th:block> -->
+<body>
 <div layout:fragment="main" id="main">
 
 <div class="wrap">
@@ -22,7 +22,7 @@
               <div class="my-info-op">
                 <div class="more-btn" id="moreBtn">
                   <img
-                    src="image/morebutton.png"
+                    src="/image/morebutton.png"
                     style="width: 15px; height: 15px"
                   />
                 </div>
@@ -38,28 +38,19 @@
               <div class="my-info-profile-area">
                 <div class="profile-box">
 
-                  <form id="profileForm" th:action="@{/mypage/profile/upload}" method="post" enctype="multipart/form-data">
-  					<label for="profileInput" class="profile-box">
+  					<div class="profile-box">
   					  <img th:if="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}"
     					    th:src="@{/upload/profile/{img}(img=${userDetail.profileImg})}"
          					class="profile-img"
          					alt="프로필 이미지" />
- 					  <img th:unless="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}"
-         					src="/image/default-profile.png"
-         					class="profile-img"
-         					alt="기본 이미지" />
-  					</label>
+  					</div>
 
-  					<input type="file" id="profileInput" name="profileImg" style="display: none;" accept="image/*" onchange="submitProfile()" />
-				</form>
-
-      
                 </div>
               </div>
               <div class="nickname-area" th:if="${userDetail != null}">
     
                 <div th:text="${user.nickname}">닉네임</div>의 발자취
-                <img src="image/footprint.png" />
+                <img src="/image/footprint.png" />
     
               </div>
               <div class="hashtag-area">
@@ -81,7 +72,7 @@
           <div class="my-mainstory-boxs">
             <div class="my-mainstory-box">
               <a href="">
-                <img class="plus-icon" src="image/plus.png" />
+                <img class="plus-icon" src="/image/plus.png" />
               </a>
             </div>
             <div class="my-mainstory-box">
@@ -126,7 +117,7 @@
 
         <div class="like-story-area">
           <div class="left">
-            <img src="image/left-arrow.png" />
+            <img src="/image/left-arrow.png" />
           </div>
 
           <div class="like-story-box-area">
@@ -140,7 +131,7 @@
               <div class="story-box">
                 <div class="story-nickname-box">
                   <div class="story-nickname">0000님의 일정</div>
-                  <img src="image/heart.png" class="like" />
+                  <img src="/image/heart.png" class="like" />
                 </div>
                 <div class="story-title-box">
                   <div class="story-title">쓸쓸한 강가</div>
@@ -152,7 +143,7 @@
               </div>
             </div>
 
-            <div class="like-story-main-box" id="currend-story-box">
+            <div class="like-story-main-box" id="current-story-box">
               <div class="story-img">
                 <img
                   src="https://cdn.pixabay.com/photo/2024/04/22/16/38/buildings-8713025_1280.jpg"
@@ -162,7 +153,7 @@
               <div class="story-box">
                 <div class="story-nickname-box">
                   <div class="story-nickname">0000님의 일정</div>
-                  <img src="image/heart.png" class="like" />
+                  <img src="/image/heart.png" class="like" />
                 </div>
                 <div class="story-title-box">
                   <div class="story-title">쓸쓸한 강가</div>
@@ -184,7 +175,7 @@
               <div class="story-box">
                 <div class="story-nickname-box">
                   <div class="story-nickname">0000님의 일정</div>
-                  <img src="image/heart.png" class="like" />
+                  <img src="/image/heart.png" class="like" />
                 </div>
                 <div class="story-title-box">
                   <div class="story-title">쓸쓸한 강가</div>
@@ -197,7 +188,7 @@
             </div>
           </div>
 
-          <div class="right"><img src="image/right-arrow.png" /></div>
+          <div class="right"><img src="/image/right-arrow.png" /></div>
         </div>
 
         <div class="user-customer">
@@ -210,4 +201,15 @@
 
 </div>
 
+
+<th:block layout:fragment="script">
+  <script th:inline="javascript">
+  /*<![CDATA[*/
+  window.likeStories = /*[[${likeStoryList}]]*/ [];
+  /*]]>*/
+  </script>
+
+  <script th:src="@{/javascript/myPage.js}"></script>
+</th:block>
+</body>
 </html>

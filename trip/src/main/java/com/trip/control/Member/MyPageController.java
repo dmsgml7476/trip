@@ -14,35 +14,39 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.trip.config.auth.CustomUserDetails;
+import com.trip.dto.Member.LikedStoryDto;
 import com.trip.entity.Lets.StoryEntity;
+import com.trip.entity.Member.HashtagsEntity;
 import com.trip.entity.Member.UserDetailEntity;
 import com.trip.entity.Member.UserEntity;
 import com.trip.entity.Member.UserMainStoryEntity;
 import com.trip.repository.Lets.StoryRepository;
-import com.trip.repository.Member.UserAlertSettingRepository;
+import com.trip.repository.Member.HashtagsRepository;
 import com.trip.repository.Member.UserDetailRepository;
 import com.trip.repository.Member.UserMainStoryRepository;
 import com.trip.repository.Member.UserRepository;
-import com.trip.repository.Member.WebNotificationRepository;
-import com.trip.repository.Planner.TripPlanRepository;
-import com.trip.service.Member.RecommendStoryService;
+import com.trip.service.Member.MyPageService;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/mypage")
 public class MyPageController {
 
 	private final UserDetailRepository userDetailRepository;
 	private final UserRepository userRepository;
 	private final UserMainStoryRepository userMainStoryRepository;
 	private final StoryRepository storyRepository;
+	private final MyPageService myPageService;
+	private final HashtagsRepository hashtagsRepository;
 	
-	@GetMapping("/mypage")
+	@GetMapping("/main")
 	public String myPage(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
 		
 		
@@ -85,6 +89,11 @@ public class MyPageController {
 			model.addAttribute("mainStoryIds", mainStoryIds);		
 			model.addAttribute("mainStoryImages", mainStoryImages);
 			
+			// 내가 좋아요 누른 스토리 목록 추가 
+			
+			List<LikedStoryDto> likedStories = myPageService.getLikedStories(userId);
+		        model.addAttribute("likeStoryList", likedStories);
+			
 			return "member/myPage";
 		}
 		
@@ -92,7 +101,7 @@ public class MyPageController {
 	}
 	
 	
-	@PostMapping("/mypage/profile/upload")
+	@PostMapping("/profile/upload")
 	public String updateProfileImg(@AuthenticationPrincipal CustomUserDetails userDetails, @RequestParam("profileImg") MultipartFile profileImg) throws IOException {
 		UserEntity user = userDetails.getUser();
 		
@@ -109,6 +118,39 @@ public class MyPageController {
 		System.out.println("▶ 저장 경로: " + savePath.toAbsolutePath());
 		System.out.println("▶ 이미지 저장 완료");
 		
-		return "redirect:/mypage";
+		return "redirect:/mypage/edit";
+	}
+	
+	
+	@GetMapping("/edit")
+	public String editForm(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
+		if (userDetails != null) {
+			Long userId = userDetails.getUser().getId();
+
+	        // 지연로딩 방지: 해시태그까지 즉시 로딩
+	        UserEntity user = userRepository.findWithHashtagsById(userId)
+	                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+	        model.addAttribute("user", user);
+
+	        UserDetailEntity userDetail = user.getUserDetail();
+	        model.addAttribute("userDetail", userDetail);
+	        model.addAttribute("nickname", user.getNickname());
+
+	        List<HashtagsEntity> generalTags = hashtagsRepository.findByIsMbtiFalse();
+	        model.addAttribute("hashtags", generalTags);
+
+	        List<HashtagsEntity> mbtiTags = hashtagsRepository.findByIsMbtiTrue();
+	        model.addAttribute("mbtiTags", mbtiTags);
+
+	        List<Long> selectedHashtagIds = user.getUserHashtags().stream()
+	                .map(uh -> uh.getHashtags().getId())
+	                .toList();
+
+	        model.addAttribute("selectedHashtagIds", selectedHashtagIds);
+
+	        return "/member/edit";
+		}
+		return "index";
 	}
 }
