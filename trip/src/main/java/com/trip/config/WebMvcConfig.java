@@ -13,4 +13,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
 				.addResourceLocations("file:///C:/trip-uploads/profile/");
 	}
 
+	
 }

@@ -38,18 +38,37 @@
               <div class="my-info-profile-area">
                 <div class="profile-box">
 
-                  <img class="profile-img" th:if="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}" th:src="@{/upload/profile/{img}(img=${userDetail.profileImg})}" alt="프로필" />
+                  <form id="profileForm" th:action="@{/mypage/profile/upload}" method="post" enctype="multipart/form-data">
+  					<label for="profileInput" class="profile-box">
+  					  <img th:if="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}"
+    					    th:src="@{/upload/profile/{img}(img=${userDetail.profileImg})}"
+         					class="profile-img"
+         					alt="프로필 이미지" />
+ 					  <img th:unless="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}"
+         					src="/image/default-profile.png"
+         					class="profile-img"
+         					alt="기본 이미지" />
+  					</label>
+
+  					<input type="file" id="profileInput" name="profileImg" style="display: none;" accept="image/*" onchange="submitProfile()" />
+				</form>
+
       
                 </div>
               </div>
-              <div class="nickname-area">
-                닉네임의 발자취
+              <div class="nickname-area" th:if="${userDetail != null}">
+    
+                <div th:text="${user.nickname}">닉네임</div>의 발자취
                 <img src="image/footprint.png" />
+    
               </div>
               <div class="hashtag-area">
-                <div class="hashtag-box">해시태그들</div>
-                <div class="hashtag-box">해시태그들</div>
-                <div class="hashtag-box">해시태그들</div>
+                <div class="hashtag-box">
+					<th:block th:each="tag : ${userHashtags}">
+             			<span th:text="'#' + ${tag}">#태그</span>
+             	 	</th:block>
+				</div>
+
               </div>
             </div>
           </div>
@@ -66,14 +85,40 @@
               </a>
             </div>
             <div class="my-mainstory-box">
-              <img
-                src="https://cdn.pixabay.com/photo/2025/03/31/21/30/italy-9505446_1280.jpg"
-              />
+            	<a th:if="${mainStoryImages['ONE']} != null"
+            		th:href="@{/westory/weShow/{id}(id=${mainStoryIds['ONE']})}"
+            		class="a-mainstory-box">
+	              <img alt="대표스토리 ONE" th:src="${mainStoryImages['ONE']}"/>
+            	</a>
             </div>
-            <div class="my-mainstory-box"><img src="" /></div>
-            <div class="my-mainstory-box"><img src="" /></div>
-            <div class="my-mainstory-box"><img src="" /></div>
-            <div class="my-mainstory-box"><img src="" /></div>
+            <div class="my-mainstory-box">
+           		<a th:if="${mainStoryImages['TWO']} != null"
+            		th:href="@{/westory/weShow/{id}(id=${mainStoryIds['TWO']})}"
+            		class="a-mainstory-box">
+	              <img alt="대표스토리 TWO" th:src="${mainStoryImages['TWO']}"/>
+            	</a>
+            </div>
+            <div class="my-mainstory-box">
+            	<a th:if="${mainStoryImages['THREE']} != null"
+            		th:href="@{/westory/weShow/{id}(id=${mainStoryIds['THREE']})}"
+            		class="a-mainstory-box">
+	              <img alt="대표스토리 THREE" th:src="${mainStoryImages['THREE']}"/>
+            	</a>
+            </div>
+            <div class="my-mainstory-box">
+            	<a th:if="${mainStoryImages['FORE']} != null"
+            		th:href="@{/westory/weShow/{id}(id=${mainStoryIds['FORE']})}"
+            		class="a-mainstory-box">
+	              <img alt="대표스토리 FORE" th:src="${mainStoryImages['FORE']}"/>
+            	</a>
+            </div>
+            <div class="my-mainstory-box">
+            	<a th:if="${mainStoryImages['FIVE']} != null"
+            		th:href="@{/westory/weShow/{id}(id=${mainStoryIds['FIVE']})}"
+            		class="a-mainstory-box">
+	              <img alt="대표스토리 FIVE" th:src="${mainStoryImages['FIVE']}"/>
+            	</a>
+            </div>
           </div>
         </div>
 

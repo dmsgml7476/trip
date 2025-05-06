@@ -59,4 +59,7 @@ public class StoryEntity {
 		
 		private LocalDateTime writeAt;
 		
+		@Column(nullable=false)
+		private int likes = 0;
+		
 }

@@ -35,4 +35,9 @@ public interface StoryRepository extends JpaRepository<StoryEntity,Long> {
         ORDER BY COUNT(l) DESC, s.writeAt DESC
         """)
     List<StoryEntity> findTop8PublicStoriesByUserIdsOrderByLikes(@Param("userIds") List<Long> userIds, Pageable pageable);
+
+    //  이미 포함된 스토리를 제외한 인기 스토리
+    @Query("SELECT s FROM StoryEntity s WHERE s.openArea = 'PUBLIC' AND s.storyId NOT IN :excludeIds ORDER BY s.likes DESC")
+    List<StoryEntity> findTopPublicStoriesExcludingIds(@Param("excludeIds") List<Long> excludeIds, Pageable pageable);
+
 }

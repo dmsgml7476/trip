@@ -41,12 +41,12 @@ public class MainController {
 
 	@GetMapping("/")
 	public String showMainPage(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
-	    List<RecommendStoryDto> storyList = recommendStoryService.getRecommendedStoriesForGuest();
-	    model.addAttribute("storyList", storyList);
+	  
+		List<RecommendStoryDto> storyList;
 	    
-
 	    if (userDetails != null) {
 	        Long userId = userDetails.getUser().getId();
+	        storyList = recommendStoryService.getRecommendedStoriesForUser(userId);
 
 	        // 여기서 Fetch Join 사용!
 	        UserEntity user = userRepository.findWithHashtagsById(userId)
@@ -103,8 +103,11 @@ public class MainController {
 	            model.addAttribute("unreadNotificationCount", 0);
 	            model.addAttribute("notifications", List.of()); 
 	        });
+	    } else {
+	    	storyList = recommendStoryService.getRecommendedStoriesForGuest();
 	    }
 	    
+	    model.addAttribute("storyList", storyList);
 
 	    return "index";
 	}

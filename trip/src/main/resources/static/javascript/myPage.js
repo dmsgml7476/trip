@@ -1,11 +1,16 @@
 /*myPage js  */
 
+function submitProfile() {
+	const form =document.getElementById('profileForm');
+	form.submit();
+  }
+
 document.addEventListener("DOMContentLoaded", function () {
-	
-	console.log("js 제대로 들어감?");
 	
 const moreBtn = document.getElementById('moreBtn');
   const moreMenu = document.getElementById('moreMenu');
+  
+  
 
   moreBtn.addEventListener('click', function (e) {
     moreMenu.style.display =
