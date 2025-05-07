@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.trip.config.auth.CustomUserDetails;
+import com.trip.dto.Member.InfoChangeDto;
 import com.trip.dto.Member.LikedStoryDto;
 import com.trip.dto.Member.PasswordChangeDto;
 import com.trip.entity.Lets.StoryEntity;
@@ -333,6 +334,23 @@ public class MyPageController {
 		userService.updatePassword(userDetails.getUser(), dto.getNewPassword());
 		
 		return "redirect:/mypage/edit?pwChanged=true";
+	}
+	
+	// 회원정보 수정
+	
+	@PostMapping("/editInfo")
+	public String changeInfo(@Valid @ModelAttribute InfoChangeDto dto,
+			                BindingResult bindingResult, 
+			                @AuthenticationPrincipal CustomUserDetails userDetails) {
+		
+		if(bindingResult.hasErrors()) {
+			return "member/edit";
+		}
+		
+		userService.changeUserInfo(userDetails.getUser().getId(), dto);
+		
+		return "redirect:/mypage/edit?infoChanged=true";
+		
 	}
 	
 }
