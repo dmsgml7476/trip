@@ -84,7 +84,7 @@
   			</th:block>
 		 </div>
 
-         <input type="hidden" name="hashtagIds" id="selectedHashtags" />
+<!--          <input type="hidden" name="hashtagIds" id="selectedHashtags" /> -->
       </div>
 
 
@@ -137,12 +137,20 @@
             <div class="alert-edit-value">
               <div class="agree-box my-trip-alert-value">
                 <p>동의</p>
+                <input type="radio" name="agreedMyTripAlerts" value="true" 
+                		th:checked="${tripAlert} == true"/>
                 <p>비동의</p>
+                <input type="radio" name="agreedMyTripAlerts" value="false"
+                		th:checked="${tripAlert} == false" />
               </div>
 
               <div class="agree-box my-comm-alert-value">
                 <p>동의</p>
+                <input type="radio" name="agreedCommAlerts" value="true"
+                		th:checked="${commAlert} == true" / />
                 <p>비동의</p>
+                <input type="radio" name="agreedCommAlerts" value="false"
+                		th:checked="${commAlert} == false" />
               </div>
             </div>
           </div>

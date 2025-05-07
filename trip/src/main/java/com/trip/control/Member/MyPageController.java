@@ -12,22 +12,27 @@ import java.util.UUID;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.trip.config.auth.CustomUserDetails;
 import com.trip.dto.Member.LikedStoryDto;
 import com.trip.entity.Lets.StoryEntity;
 import com.trip.entity.Member.HashtagsEntity;
+import com.trip.entity.Member.UserAlertSettingEntity;
 import com.trip.entity.Member.UserDetailEntity;
 import com.trip.entity.Member.UserEntity;
 import com.trip.entity.Member.UserHashtagEntity;
 import com.trip.entity.Member.UserMainStoryEntity;
 import com.trip.repository.Lets.StoryRepository;
 import com.trip.repository.Member.HashtagsRepository;
+import com.trip.repository.Member.UserAlertSettingRepository;
 import com.trip.repository.Member.UserDetailRepository;
 import com.trip.repository.Member.UserMainStoryRepository;
 import com.trip.repository.Member.UserRepository;
@@ -46,6 +51,7 @@ public class MyPageController {
 	private final StoryRepository storyRepository;
 	private final MyPageService myPageService;
 	private final HashtagsRepository hashtagsRepository;
+	private final UserAlertSettingRepository userAlertSettingRepository;
 	
 	@GetMapping("/main")
 	public String myPage(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
@@ -137,7 +143,16 @@ public class MyPageController {
 	        UserDetailEntity userDetail = user.getUserDetail();
 	        model.addAttribute("userDetail", userDetail);
 	        model.addAttribute("nickname", user.getNickname());
-
+	        
+	        
+	        // 알림 설정값 추가
+	        
+	        UserAlertSettingEntity alertSetting = userAlertSettingRepository.findByUserId(userId)
+	                .orElseThrow(() -> new IllegalArgumentException("알림 설정 정보 없음"));
+	        model.addAttribute("commAlert", alertSetting.isCommAlert());
+	        model.addAttribute("tripAlert", alertSetting.isTripAlert());
+	        
+	        //해시태그
 	        List<HashtagsEntity> generalTags = hashtagsRepository.findByIsMbtiFalse();
 	        model.addAttribute("hashtags", generalTags);
 
@@ -208,4 +223,72 @@ public class MyPageController {
 
 	    return "redirect:/mypage/edit"; 
 	}
+	
+	
+	// 해시태그 실시간  수정
+	
+	
+	@PostMapping("/hashtag")
+	@ResponseBody
+	public Map<String, Object> addHashtag(@AuthenticationPrincipal CustomUserDetails userDetails,
+	                                      @RequestBody Map<String, Long> request) {
+	    Long hashtagId = request.get("hashtagId");
+	    Long userId = userDetails.getUser().getId();
+
+	    HashtagsEntity tag = hashtagsRepository.findById(hashtagId)
+	            .orElseThrow(() -> new IllegalArgumentException("해시태그 없음"));
+
+	    UserEntity user = userRepository.findWithHashtagsById(userId)
+	            .orElseThrow(() -> new IllegalArgumentException("유저 없음"));
+
+	    boolean exists = user.getUserHashtags().stream()
+	        .anyMatch(uh -> uh.getHashtags().getId().equals(hashtagId));
+	    if (!exists) {
+	        user.getUserHashtags().add(new UserHashtagEntity(user, tag));
+	        userRepository.save(user);
+	    }
+
+	    return Map.of("success", true);
+	}
+
+	@PostMapping("/hashtag/delete")
+	@ResponseBody
+	public Map<String, Object> removeHashtag(@AuthenticationPrincipal CustomUserDetails userDetails,
+	                                         @RequestBody Map<String, Long> request) {
+	    Long hashtagId = request.get("hashtagId");
+	    Long userId = userDetails.getUser().getId();
+
+	    UserEntity user = userRepository.findWithHashtagsById(userId)
+	            .orElseThrow(() -> new IllegalArgumentException("유저 없음"));
+
+	    user.getUserHashtags().removeIf(uh -> uh.getHashtags().getId().equals(hashtagId));
+	    userRepository.save(user);
+
+	    return Map.of("success", true);
+	}
+	
+	@PostMapping("/alerts/update")
+	@ResponseBody
+	public Map<String, Object> updateAlertSetting(@AuthenticationPrincipal CustomUserDetails userDetails,
+	                                              @RequestBody Map<String, Object> request) {
+	    String alertType = (String) request.get("alertType");  // "TRIP" or "COMM"
+	    boolean agreed = (boolean) request.get("agreed");
+
+	    Long userId = userDetails.getUser().getId();
+
+	    UserAlertSettingEntity setting = userAlertSettingRepository.findByUserId(userId)
+	        .orElseThrow(() -> new IllegalArgumentException("알림 설정 정보 없음"));
+
+	    if ("TRIP".equals(alertType)) {
+	        setting.setTripAlert(agreed);
+	    } else if ("COMM".equals(alertType)) {
+	        setting.setCommAlert(agreed);
+	    }
+
+	    userAlertSettingRepository.save(setting);
+
+	    return Map.of("success", true);
+	}
+	
+	
 }

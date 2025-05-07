@@ -36,6 +36,7 @@ public class UserDetailEntity {
 	private String profileImg;
 	
 
+
 	public static UserDetailEntity from(UserSignUpDto dto, UserEntity user) {
 		return UserDetailEntity.builder()
 				.user(user)
