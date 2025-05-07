@@ -24,6 +24,7 @@ import com.trip.entity.Lets.StoryEntity;
 import com.trip.entity.Member.HashtagsEntity;
 import com.trip.entity.Member.UserDetailEntity;
 import com.trip.entity.Member.UserEntity;
+import com.trip.entity.Member.UserHashtagEntity;
 import com.trip.entity.Member.UserMainStoryEntity;
 import com.trip.repository.Lets.StoryRepository;
 import com.trip.repository.Member.HashtagsRepository;
@@ -148,9 +149,63 @@ public class MyPageController {
 	                .toList();
 
 	        model.addAttribute("selectedHashtagIds", selectedHashtagIds);
+	        
+	        // mbti 추출
+	        
+	        String mbti = user.getUserHashtags().stream()
+	        		.map(uh -> uh.getHashtags().getHashtag())
+	        		.filter(this::isMbti)
+	        		.findFirst()
+	        		.orElse("MBTI 없음");
+	        
+	        model.addAttribute("mbti", mbti);
 
 	        return "/member/edit";
 		}
 		return "index";
+	}
+	
+	private boolean isMbti(String tag) {
+        List<String> mbtiTypes = List.of(
+            "ISTJ", "ISFJ", "INFJ", "INTJ",
+            "ISTP", "ISFP", "INFP", "INTP",
+            "ESTP", "ESFP", "ENFP", "ENTP",
+            "ESTJ", "ESFJ", "ENFJ", "ENTJ"
+        );
+        return mbtiTypes.contains(tag.toUpperCase());
+    }
+	
+	
+//	mbit 수정 
+	
+	@PostMapping("/edit/mbti")
+	public String updateMbti(@AuthenticationPrincipal CustomUserDetails userDetails,
+	                         @RequestParam("mbti") String newMbti) {
+
+		 Long userId = userDetails.getUser().getId();
+
+		    UserEntity user = userRepository.findWithHashtagsById(userId)
+		            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+		    HashtagsEntity mbtiTag = hashtagsRepository.findByHashtag(newMbti)
+		            .orElseThrow(() -> new IllegalArgumentException("해당 MBTI 해시태그 없음: " + newMbti));
+
+		    boolean updated = false;
+
+		    for (UserHashtagEntity uh : user.getUserHashtags()) {
+		        if (isMbti(uh.getHashtags().getHashtag())) {
+		            uh.setHashtags(mbtiTag);  // 기존 MBTI만 바꿔줌
+		            updated = true;
+		            break;
+		        }
+		    }
+
+		    if (!updated) {
+		        user.getUserHashtags().add(new UserHashtagEntity(user, mbtiTag));
+		    }
+
+		    userRepository.save(user);
+
+	    return "redirect:/mypage/edit"; 
 	}
 }

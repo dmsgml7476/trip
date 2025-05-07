@@ -111,9 +111,19 @@ a:visited {
   margin: 10px;
 }
 
+.mbti-edit-area {
+	display: flex;
+}
+
 .mbti-edit-title {
   font-size: 30px;
 }
+
+.my-mbti-box {
+	margin-left: 15px;
+}
+
+
 
 .alert-edit-area {
   width: 600px;
@@ -161,7 +171,7 @@ a:visited {
 
 /* 해시태그  */
 
-  .hashtag {
+.hashtag {
     display: inline-block;
     margin: 5px;
     padding: 6px 12px;
@@ -169,18 +179,40 @@ a:visited {
     border-radius: 15px;
     cursor: pointer;
     transition: 0.3s;
-  }
+}
 
-  .hashtag:hover {
+.hashtag:hover {
     background-color: #ddd;
-  }
+}
 
-  .hashtag.selected {
+.hashtag.selected {
     background-color: orange;
     color: white;
     font-weight: bold;
-  }
+}
   
-  .mbti-hidden {
+.mbti-hidden {
   display: none;
+}
+
+.my-mbti {
+	display: inline-block;
+    margin: 5px;
+    padding: 6px 12px;
+    background-color: #eee;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    height: 80%;
+    border: none;
+}
+
+.my-mbti:hover {
+	background-color: #ddd;
+}
+
+.my-mbti.selected {
+    background-color: orange;
+    color: white;
+    font-weight: bold;
 }

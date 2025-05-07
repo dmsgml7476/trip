@@ -91,11 +91,36 @@
 
           <div class="mbti-edit-area">
             <div class="mbti-edit-title">
-              <p>MBTI</p>
+              <p>나의 MBTI</p>
             </div>
-            <div class="mbti-edit-box">
-              <div class="m-chocie">n vs i</div>
+            <div class="my-mbti-box">
+              <button class="my-mbti" onclick="toggleMbtiEditBox()" th:text="${mbti}">mbti</button>
             </div>
+          </div>
+          <div class="my-mbti-edit-box" id="mbtiEditBox" style="display: none;">
+          	<form method="post" action="/mypage/edit/mbti" id="mbtiForm">
+ 				<div>
+    				<label><input type="radio" name="mbti1" value="E" required> E</label>
+    				<label><input type="radio" name="mbti1" value="I"> I</label>
+  				</div>
+  				<div>
+    				<label><input type="radio" name="mbti2" value="S" required> S</label>
+    				<label><input type="radio" name="mbti2" value="N"> N</label>
+  				</div>
+  				<div>
+    				<label><input type="radio" name="mbti3" value="T" required> T</label>
+    				<label><input type="radio" name="mbti3" value="F"> F</label>
+  				</div>
+  				<div>
+    				<label><input type="radio" name="mbti4" value="J" required> J</label>
+    				<label><input type="radio" name="mbti4" value="P"> P</label>
+  				</div>
+
+  				<!-- 숨겨진 input으로 조합된 MBTI 저장 -->
+  				<input type="hidden" name="mbti" id="finalMbti">
+
+  				<button type="submit" onclick="combineMbti()">저장</button>
+			</form>
           </div>
         </div>
 
@@ -130,6 +155,7 @@
     </div>
 
 </div>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <th:block layout:fragment="script">
     <script th:src="@{/javascript/edit.js}" defer></script>
     </th:block>
