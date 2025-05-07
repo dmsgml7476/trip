@@ -359,3 +359,44 @@ a:visited {
   text-decoration: none;
 }
 
+
+/* 달력 */
+
+.my-calender {
+	width:100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.calender-area {
+  border: 1px solid black;
+  width: 600px;
+  height: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.calendar {
+  width: 560px;
+  border-collapse: collapse;
+}
+
+.day-box {
+  border: 1px solid black;
+  width: 80px;
+  height: 48px;
+}
+
+.arrow {
+  width: 20px;
+  margin: 0 20px;
+}
+
+.year-month {
+  display: flex;
+  margin: 10px 0;
+  font-size: 30px;
+}
+
