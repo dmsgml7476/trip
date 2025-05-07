@@ -25,6 +25,9 @@ function combineMbti(event) {
    document.getElementById('finalMbti').value = finalMbti;
 }
 
+
+
+
 //해시태그 ajax 방식으로 저장
 document.querySelectorAll("#hashtagContainer .hashtag").forEach((tagElem) => {
   tagElem.addEventListener("click", () => {
@@ -93,4 +96,182 @@ document.querySelectorAll('input[name="agreedMyTripAlerts"], input[name="agreedM
 			console.error("알림 설정 저장 실패:", err);
 		});
 	});
+});
+
+
+
+
+// 모달창 열고 닫기
+
+function openPasswordEditModalONE() {
+	const modal=document.getElementById("openPasswordEditModalONE");
+	modal.style.display = "block";
+}
+
+function closePasswordEditModalONE() {
+  const modal = document.getElementById("openPasswordEditModalONE");
+  modal.style.display = "none";
+  
+  modal.querySelectorAll("input").forEach(input => {
+      input.value = "";
+  });
+	
+  const errorMsg = document.getElementById("pwErrorMsg");
+  if (errorMsg) errorMsg.style.display = "none";
+}
+
+window.addEventListener("click", function(event) {
+  const modal = document.getElementById("openPasswordEditModalONE");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+// 비밀번호 확인 및 넘어가기
+
+document.getElementById("pwChkForm").addEventListener("submit", function(event) {
+  event.preventDefault(); // 기본 제출 막기
+
+  const password = document.getElementById("currentPassword").value;
+
+  fetch("/mypage/chkPw", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ password: password })
+  })
+  .then(res => {
+    if (!res.ok) throw new Error("서버 오류");
+    return res.json();
+  })
+  .then(data => {
+    if (data.success) {
+      // 성공 시: 모달 전환
+      nextToPasswordEditModalTWO();
+    } else {
+      // 실패 시: 에러 메시지 보여줌
+      document.getElementById("pwErrorMsg").style.display = "block";
+    }
+  })
+  .catch(err => {
+    console.error("비밀번호 확인 실패", err);
+  });
+});
+
+function nextToPasswordEditModalTWO() {
+	const modalOne = document.getElementById("openPasswordEditModalONE");
+	  modalOne.style.display = "none";
+
+	  modalOne.querySelectorAll("input").forEach(input => {
+	    input.value = "";
+	  });
+
+	  const errorMsg = document.getElementById("pwErrorMsg");
+	  if (errorMsg) errorMsg.style.display = "none";
+
+	  const modalTwo = document.getElementById("openPasswordEditModalTWO");
+	  modalTwo.style.display = "block";
+}
+
+function closePasswordEditModalTWO() {
+	const modal = document.getElementById("openPasswordEditModalTWO");
+	 modal.style.display = "none";
+	 
+	 modal.querySelectorAll("input").forEach(input => {
+	       input.value = "";
+	 });
+	 	
+	 const errorMsg = document.getElementById("pwErrorMsg");
+	 if (errorMsg) errorMsg.style.display = "none";
+}
+
+
+
+// 비밀번호 조건
+
+document.addEventListener("DOMContentLoaded", function () {
+	const pwInput = document.getElementById("newPassword");
+	 const pwMsg = document.getElementById("pwCheckMsg");
+
+	 const pwChkInput = document.getElementById("pwChk");
+	 const pwChkMsg = document.getElementById("pwMismatchMsg");
+	 
+	 const changeBtn = document.getElementById("changePwBtn");
+
+	 let isPwValid = false;
+	 let isPwMatch = false;
+	 
+	pwInput.addEventListener("input", function() {
+		const pw= pwInput.value.trim();
+		
+		if (pw === "") {
+			pwMsg.textContent="";
+			pwMsg.style.display = "none";
+			    isPwValid = false;
+			    checkPwMatch();
+			return;
+		}
+		
+		const lengthValid = pw.length >= 8 && pw.length <=20;
+		const containsLetter = /[A-Za-z]/.test(pw);
+		const containsDigit = /\d/.test(pw);
+		const allowedCharsOnly = /^[A-Za-z\d!@#$%^&*]+$/.test(pw);
+		
+		
+		let messages=[];
+		
+		if (!lengthValid) {
+		     messages.push("비밀번호는 8자 이상 20자 이하로 입력해주세요.");
+		   } else if (!(containsLetter && containsDigit)) {
+		     messages.push("비밀번호에는 영문자와 숫자를 모두 포함해야 합니다.");
+		   }
+
+		   if (!allowedCharsOnly) {
+		     messages.push("특수문자는 !,@,#,$,%,^,&,* 만 사용할 수 있습니다.");
+		   }
+
+		   if (messages.length > 0) {
+		     pwMsg.innerHTML = messages.join("<br>");
+		     pwMsg.style.color = "red";
+			 pwMsg.style.display = "block";
+			 isPwValid = false;
+		   } else {
+		     pwMsg.textContent = "";
+			 pwMsg.style.display = "none";
+			 isPwValid = true;
+		   }
+
+		   checkPwMatch();
+	});
+	 
+	pwChkInput.addEventListener("input", checkPwMatch);
+	
+	function checkPwMatch() {
+		const pw = pwInput.value.trim();
+		   const pwChk = pwChkInput.value.trim();
+
+		   if (pw && pwChk && pw === pwChk) {
+		     pwChkMsg.textContent = "비밀번호가 일치합니다.";
+		     pwChkMsg.style.color = "green";
+			 pwChkMsg.style.display = "block";
+			 isPwMatch = true;
+		   } else if (pwChk.length > 0) {
+		     pwChkMsg.textContent = "비밀번호가 일치하지 않습니다.";
+		     pwChkMsg.style.color = "red";
+			 pwChkMsg.style.display = "block";
+			 isPwMatch = false;
+		   } else {
+		     pwChkMsg.textContent = "";
+			 pwChkMsg.style.display = "none";
+			 isPwMatch = false;
+		   }
+		   
+		   checkValidState();
+	}
+	
+	function checkValidState() {
+			changeBtn.disabled = !(isPwValid && isPwMatch);
+		}
+	
 });

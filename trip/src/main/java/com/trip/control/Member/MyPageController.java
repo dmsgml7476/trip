@@ -10,10 +10,13 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.trip.config.auth.CustomUserDetails;
 import com.trip.dto.Member.LikedStoryDto;
+import com.trip.dto.Member.PasswordChangeDto;
 import com.trip.entity.Lets.StoryEntity;
 import com.trip.entity.Member.HashtagsEntity;
 import com.trip.entity.Member.UserAlertSettingEntity;
@@ -37,7 +41,9 @@ import com.trip.repository.Member.UserDetailRepository;
 import com.trip.repository.Member.UserMainStoryRepository;
 import com.trip.repository.Member.UserRepository;
 import com.trip.service.Member.MyPageService;
+import com.trip.service.Member.UserService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -52,6 +58,8 @@ public class MyPageController {
 	private final MyPageService myPageService;
 	private final HashtagsRepository hashtagsRepository;
 	private final UserAlertSettingRepository userAlertSettingRepository;
+	private final PasswordEncoder passwordEncoder;
+	private final UserService userService;
 	
 	@GetMapping("/main")
 	public String myPage(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
@@ -290,5 +298,41 @@ public class MyPageController {
 	    return Map.of("success", true);
 	}
 	
+	
+	// 모달
+	
+	@PostMapping("/chkPw")
+	@ResponseBody
+	public Map<String, Boolean> checkPassword(@AuthenticationPrincipal CustomUserDetails userDetails,
+	                                          @RequestBody Map<String, String> request) {
+	    String inputPw = request.get("password");
+	    String realPw = userDetails.getUser().getPassword();
+
+	    boolean matches = passwordEncoder.matches(inputPw, realPw);
+	    
+	    System.out.println("비밀번호 체크" + matches);
+	    return Map.of("success", matches);
+	}
+	
+	// 비밀번호 수정
+	
+	@PostMapping("/editPw")
+	public String changePassword(@Valid @ModelAttribute PasswordChangeDto dto,
+								BindingResult bindingResult,
+								@AuthenticationPrincipal CustomUserDetails userDetails) {
+		
+		if(bindingResult.hasErrors()) {
+			return "member/edit";
+		}
+		
+		if (!dto.getNewPassword().equals(dto.getConfirmPassword())) {
+	        bindingResult.rejectValue("confirmPassword", "notMatch", "비밀번호가 일치하지 않습니다.");
+	        return "member/edit";
+	    }
+		
+		userService.updatePassword(userDetails.getUser(), dto.getNewPassword());
+		
+		return "redirect:/mypage/edit?pwChanged=true";
+	}
 	
 }

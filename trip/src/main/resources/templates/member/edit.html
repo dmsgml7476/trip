@@ -52,7 +52,7 @@
 
         <div class="edit-button-box">
           <div class="password-edit">
-            <button>비밀번호 변경</button>
+            <button onclick="openPasswordEditModalONE()">비밀번호 변경</button>
           </div>
 
           <div class="info-edit">
@@ -160,6 +160,62 @@
 
 
       </div>
+      
+      
+      <!-- 모달창 -->
+      
+       <div id="openPasswordEditModalONE" class="modal">
+          <div class="modal-container">
+            <div class="modal-header">
+              <div></div>
+              <h2>비밀번호 변경</h2>
+              <span class="close" onclick="closePasswordEditModalONE()">&times;</span>
+            </div>
+
+			
+            <div class="input-area current-password-chk-area">
+              <form id="pwChkForm">
+                <div class="input-box chk-box">
+                  <p>현재 비밀번호 확인</p>
+                  <input type="password" id="currentPassword" />
+                  <p class="chk-text" id="pwErrorMsg" style="display:none;">비밀번호가 틀렸습니다</p>
+                </div>
+
+                <button type="submit">다음</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 비밀번호 변경창 -->
+
+        <div id="openPasswordEditModalTWO" class="modal">
+          <div class="modal-container">
+            <div class="modal-header">
+              <div></div>
+              <h2>비밀번호 변경</h2>
+              <span class="close" onclick="closePasswordEditModalTWO()">&times;</span>
+            </div>
+
+            <div class="input-area">
+              <form action="/mypage/editPw" method="post" id="changePwForm">
+                <div class="input-box editPs-box">
+                  <p>비밀번호</p>
+                  <input type="password" name="newPassword" id="newPassword" required />
+                  <p class="chk-text" id="pwCheckMsg" style="display: none;">비밀번호는 어쩌구저쩌구</p>
+                  <p>비밀번호 확인</p>
+                  <input type="password" name="confirmPassword" id="pwChk" required />
+                  <p class="chk-text" id="pwMismatchMsg" style="display: none;">비밀번호가 일치하지 않습니다</p>
+                </div>
+
+                <button type="submit" id="changePwBtn" disabled >변경</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 회원정보 변경 전 비번확인창 -->
+      
     </div>
 
 </div>
