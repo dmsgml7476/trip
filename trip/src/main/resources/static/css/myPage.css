@@ -370,22 +370,20 @@ a:visited {
 }
 
 .calender-area {
-  border: 1px solid black;
   width: 600px;
   height: 390px;
   display: flex;
-  flex-direction: column;
   align-items: center;
 }
 
 .calendar {
-  width: 560px;
+  width: 525px;
   border-collapse: collapse;
 }
 
 .day-box {
   border: 1px solid black;
-  width: 80px;
+  width: 75px;
   height: 48px;
 }
 
@@ -394,9 +392,73 @@ a:visited {
   margin: 0 20px;
 }
 
-.year-month {
+.month-select {
   display: flex;
-  margin: 10px 0;
-  font-size: 30px;
+  margin: 0 10px;
+  font-size: 40px;
 }
 
+.month-select > button {
+	width: 30px;
+	display: flex;
+	margin: 0 10px;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+	border: none;
+}
+
+.calender-box {
+	display : flex;
+	flex-direction: column;
+}
+
+.week {
+	display: flex;
+	width: 525px;
+}
+
+.week > div {
+	width: 75px;
+	margin-bottom: 6px; 
+	text-align: center;
+}
+
+.year-arrow {
+	width: 30px;
+}
+
+#yearMinusYear {
+	transform: rotate(90deg);
+}
+
+#yearPlusYear {
+	transform: rotate(-90deg);
+}
+
+.year-month {
+	display: flex;
+	flex-direction: column;
+}
+
+.year-select-box {
+	border: 1px solid;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 20px;
+	height: 80px;
+	font-size: 30px;
+}
+
+.plus-minus {
+	display: flex;
+	justify-content: space-between;
+	height: 20px;
+
+}
+.year-select-box .year {
+	margin: 0 auto;
+	margin-bottom: 5px;
+
+}

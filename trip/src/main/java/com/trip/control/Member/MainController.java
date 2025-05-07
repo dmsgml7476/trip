@@ -24,6 +24,7 @@ import com.trip.repository.Member.WebNotificationRepository;
 import com.trip.repository.Planner.TripPlanRepository;
 import com.trip.service.Member.RecommendStoryService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 
@@ -40,8 +41,8 @@ public class MainController {
     private final UserAlertSettingRepository userAlertSettingRepository;
 
 	@GetMapping("/")
-	public String showMainPage(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
-	  
+	public String showMainPage(Model model, @AuthenticationPrincipal CustomUserDetails userDetails, HttpServletRequest request) {
+		model.addAttribute("requestUri", request.getRequestURI());
 		List<RecommendStoryDto> storyList;
 	    
 	    if (userDetails != null) {
