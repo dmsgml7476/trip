@@ -56,7 +56,7 @@
           </div>
 
           <div class="info-edit">
-            <button>회원정보 변경</button>
+            <button onclick="openInfoEditModalONE()">회원정보 변경</button>
           </div>
         </div>
 
@@ -156,7 +156,7 @@
           </div>
         </div>
 
-        <div class="return-mypage"><img src="/image/arrow.png" /></div>
+        <a class="return-mypage" href="/mypage/main"><img src="/image/arrow.png" /></a>
 
 
       </div>
@@ -174,11 +174,11 @@
 
 			
             <div class="input-area current-password-chk-area">
-              <form id="pwChkForm">
+              <form id="pwChkForm-password">
                 <div class="input-box chk-box">
                   <p>현재 비밀번호 확인</p>
-                  <input type="password" id="currentPassword" />
-                  <p class="chk-text" id="pwErrorMsg" style="display:none;">비밀번호가 틀렸습니다</p>
+                  <input type="password" id="currentPassword-password" />
+                  <p id="pwErrorMsg-password" class="chk-text" style="display:none;">비밀번호가 틀렸습니다</p>
                 </div>
 
                 <button type="submit">다음</button>
@@ -215,6 +215,73 @@
         </div>
         
         <!-- 회원정보 변경 전 비번확인창 -->
+        
+        
+        <div id="openInfoEditModalONE" class="modal">
+          <div class="modal-container">
+            <div class="modal-header">
+              <div></div>
+              <h2>회원정보 변경</h2>
+              <span class="close" onclick="closeInfoEditModalONE()">&times;</span>
+            </div>
+
+			
+            <div class="input-area current-password-chk-area">
+              <form id="pwChkForm-info">
+                <div class="input-box chk-box">
+                  <p>현재 비밀번호 확인</p>
+                  <input type="password" id="currentPassword-info" />
+                  <p class="chk-text" id="pwErrorMsg-info" style="display:none;">비밀번호가 틀렸습니다</p>
+                </div>
+
+                <button type="submit">다음</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        
+                <!-- 회원정보 변경창 -->
+
+        <div id="openInfoEditModalTWO" class="modal">
+          <div class="modal-container">
+            <div class="modal-header">
+              <div></div>
+              <h2>회원정보 변경</h2>
+              <span class="close" onclick="closeInfoEditModalTWO()">&times;</span>
+            </div>
+
+            <div class="input-area">
+              <form action="/mypage/editInfo" method="post">
+                <div class="input-box">
+                  <div class="nickname-edit">
+                    <p>닉네임</p>
+                    <input type="text" name="nickname" th:value="${user.nickname}" />
+                    <p class="chk-text" id="nicknameChkMsg"style="display: none;">경고메세지</p>
+                  </div>
+                  <div class="email-edit">
+                    <p>이메일</p>
+                    <input type="email" name="email" th:value="${userDetail.email}"/>
+                    <p class="chk-text" id="emailChkMsg" style="display: none;">경고메세지</p>
+                  </div>
+                  <div class="address-edit">
+                    <p>주소</p>
+                    <input type="text" name="address" th:value="${userDetail.address}" />
+                    
+                  </div>
+                  <div class="tel-edit">
+                    <p>전화번호</p>
+                    <input type="text" name="tel" th:value="${userDetail.tel}" />
+                    <p class="chk-text" id="telChkMsg" style="display: none;">경고메세지</p>
+                  </div>
+                </div>
+
+                <button type="submit" id="changeInfoBtn">변경</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- 모달창 끝 -->
       
     </div>
 

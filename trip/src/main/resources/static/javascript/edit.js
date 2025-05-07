@@ -101,11 +101,14 @@ document.querySelectorAll('input[name="agreedMyTripAlerts"], input[name="agreedM
 
 
 
-// 모달창 열고 닫기
+// 비번 모달창 열고 닫기
+
+let currentEditType = ""; 
 
 function openPasswordEditModalONE() {
 	const modal=document.getElementById("openPasswordEditModalONE");
 	modal.style.display = "block";
+	currentEditType = "password";
 }
 
 function closePasswordEditModalONE() {
@@ -127,37 +130,39 @@ window.addEventListener("click", function(event) {
   }
 });
 
-// 비밀번호 확인 및 넘어가기
+// 비밀번호 확인 및 넘어가기 (비번 변경)
 
-document.getElementById("pwChkForm").addEventListener("submit", function(event) {
-  event.preventDefault(); // 기본 제출 막기
+function setupPasswordCheck(formId, passwordInputId, errorMsgId, nextModalCallback) {
+  document.getElementById(formId).addEventListener("submit", function (event) {
+    event.preventDefault();
+    const password = document.getElementById(passwordInputId).value;
 
-  const password = document.getElementById("currentPassword").value;
-
-  fetch("/mypage/chkPw", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ password: password })
-  })
-  .then(res => {
-    if (!res.ok) throw new Error("서버 오류");
-    return res.json();
-  })
-  .then(data => {
-    if (data.success) {
-      // 성공 시: 모달 전환
-      nextToPasswordEditModalTWO();
-    } else {
-      // 실패 시: 에러 메시지 보여줌
-      document.getElementById("pwErrorMsg").style.display = "block";
-    }
-  })
-  .catch(err => {
-    console.error("비밀번호 확인 실패", err);
+    fetch("/mypage/chkPw", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password })
+    })
+      .then(res => {
+        if (!res.ok) throw new Error("서버 오류");
+        return res.json();
+      })
+      .then(data => {
+        if (data.success) {
+          nextModalCallback();
+        } else {
+          document.getElementById(errorMsgId).style.display = "block";
+        }
+      })
+      .catch(err => {
+        console.error("비밀번호 확인 실패", err);
+      });
   });
-});
+}
+
+
+setupPasswordCheck("pwChkForm-password", "currentPassword-password", "pwErrorMsg-password", nextToPasswordEditModalTWO);
+setupPasswordCheck("pwChkForm-info", "currentPassword-info", "pwErrorMsg-info", nextToInfoEditModalTWO);
+
 
 function nextToPasswordEditModalTWO() {
 	const modalOne = document.getElementById("openPasswordEditModalONE");
@@ -274,4 +279,65 @@ document.addEventListener("DOMContentLoaded", function () {
 			changeBtn.disabled = !(isPwValid && isPwMatch);
 		}
 	
+		
+	// 회원정보 수정 
+
 });
+
+
+
+// 회원정보 수정 
+
+
+function openInfoEditModalONE() {
+	const modal=document.getElementById("openInfoEditModalONE");
+	modal.style.display = "block";
+	currentEditType="info";
+}
+
+function closeInfoEditModalONE() {
+  const modal = document.getElementById("openInfoEditModalONE");
+  modal.style.display = "none";
+  
+  modal.querySelectorAll("input").forEach(input => {
+      input.value = "";
+  });
+	
+  const errorMsg = document.getElementById("pwErrorMsg");
+  if (errorMsg) errorMsg.style.display = "none";
+}
+
+window.addEventListener("click", function(event) {
+  const modal = document.getElementById("openInfoEditModalONE");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+
+function nextToInfoEditModalTWO() {
+	const modalOne = document.getElementById("openInfoEditModalONE");
+	  modalOne.style.display = "none";
+
+	  modalOne.querySelectorAll("input").forEach(input => {
+	    input.value = "";
+	  });
+
+	  const errorMsg = document.getElementById("pwErrorMsg");
+	  if (errorMsg) errorMsg.style.display = "none";
+
+	  const modalTwo = document.getElementById("openInfoEditModalTWO");
+	  modalTwo.style.display = "block";
+}
+
+
+function closeInfoEditModalTWO() {
+	const modal=document.getElementById("openInfoEditModalTWO");
+	modal.style.display="none";
+	modal.querySelectorAll("input").forEach(input => {
+	      input.value = "";
+	  });
+		
+	  const errorMsg = document.getElementById("pwErrorMsg");
+	  if (errorMsg) errorMsg.style.display = "none";
+}
