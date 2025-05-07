@@ -51,7 +51,7 @@ public class UserEntity {
 	@OneToOne(mappedBy="user", fetch=FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
 	private UserDetailEntity userDetail;
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<UserHashtagEntity> userHashtags = new ArrayList<>();
 	
 // ==========기능메서드========

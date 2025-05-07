@@ -54,7 +54,7 @@ public class EmailAuthController {
         return response;
     }
 
-    // ✅ 2. 인증번호 확인 API
+
     @PostMapping("/verify")
     public Map<String, Boolean> verifyCode(@RequestBody Map<String, String> request, HttpSession session) {
         String inputCode = request.get("code");

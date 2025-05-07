@@ -30,5 +30,10 @@ public class UserHashtagEntity {
 	@JoinColumn(name = "hashtags_id", nullable = false)
 	private HashtagsEntity hashtags;
 	
+	public UserHashtagEntity(UserEntity user, HashtagsEntity hashtags) {
+        this.user = user;
+        this.hashtags = hashtags;
+    }
+	
 	
 }

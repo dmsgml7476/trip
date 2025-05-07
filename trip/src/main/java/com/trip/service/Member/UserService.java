@@ -90,6 +90,12 @@ public class UserService implements UserDetailsService {
 		return userRepository.existsByNickname(nickname);
 	}
 	
+	@Transactional
+	public void updatePassword(UserEntity user, String newPassword) {
+	    String encodedPw = passwordEncoder.encode(newPassword);
+	    user.updatePassword(encodedPw);
+	    userRepository.save(user); // 변경 내용 저장
+	}
 
 	
 	
