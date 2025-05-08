@@ -12,5 +12,8 @@ import com.trip.entity.Member.UserDetailEntity;
 public interface UserDetailRepository extends JpaRepository<UserDetailEntity, Long>{
 
 	Optional<UserDetailEntity> findByUserId(Long userId);
+	boolean existsByEmail(String email);
+	
+	Optional<UserDetailEntity> findByEmail(String email);
 
 }
