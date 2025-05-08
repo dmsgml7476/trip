@@ -332,6 +332,10 @@ public class MyPageController {
 	public String changePassword(@Valid @ModelAttribute PasswordChangeDto dto,
 								BindingResult bindingResult,
 								@AuthenticationPrincipal CustomUserDetails userDetails) {
+		if (userDetails == null) {
+		    // 로그인 상태가 아니면 로그인 페이지로 리다이렉트 방어 코드
+		    return "redirect:/login";
+		}
 		
 		if(bindingResult.hasErrors()) {
 			return "member/edit";

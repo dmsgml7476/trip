@@ -29,7 +29,10 @@ public class UserController {
 	private final HashtagsRepository hashtagsRepository;
 	
     @GetMapping("/login")
-    public String login(Model model) {
+    public String login(@RequestParam(name = "pwChanged", required = false) String pwChanged, Model model) {
+    	 if ("true".equals(pwChanged)) {
+    	        model.addAttribute("pwChangedMsg", "비밀번호가 성공적으로 변경되었습니다.");
+    	    }
     	return "member/signIn";
     }
     
