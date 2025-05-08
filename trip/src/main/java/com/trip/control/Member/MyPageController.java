@@ -35,15 +35,18 @@ import com.trip.entity.Member.UserDetailEntity;
 import com.trip.entity.Member.UserEntity;
 import com.trip.entity.Member.UserHashtagEntity;
 import com.trip.entity.Member.UserMainStoryEntity;
+import com.trip.entity.Planner.TripPlanEntity;
 import com.trip.repository.Lets.StoryRepository;
 import com.trip.repository.Member.HashtagsRepository;
 import com.trip.repository.Member.UserAlertSettingRepository;
 import com.trip.repository.Member.UserDetailRepository;
 import com.trip.repository.Member.UserMainStoryRepository;
 import com.trip.repository.Member.UserRepository;
+import com.trip.repository.Planner.TripPlanRepository;
 import com.trip.service.Member.MyPageService;
 import com.trip.service.Member.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -61,11 +64,12 @@ public class MyPageController {
 	private final UserAlertSettingRepository userAlertSettingRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final UserService userService;
+	private final TripPlanRepository tripPlanRepository;
 	
 	@GetMapping("/main")
-	public String myPage(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
+	public String myPage(@AuthenticationPrincipal CustomUserDetails userDetails, Model model, HttpServletRequest request) {
 		
-		
+		model.addAttribute("requestUri", request.getRequestURI());
 		if (userDetails != null) {	
 			UserEntity user= userDetails.getUser();
 			model.addAttribute("user", user);
@@ -109,6 +113,12 @@ public class MyPageController {
 			
 			List<LikedStoryDto> likedStories = myPageService.getLikedStories(userId);
 		        model.addAttribute("likeStoryList", likedStories);
+		        
+		        
+		     // 캘린더
+		        
+		    List<TripPlanEntity> plans = tripPlanRepository.findByUser_Id(userId);
+		    model.addAttribute("tripPlans", plans);
 			
 			return "member/myPage";
 		}
@@ -140,6 +150,7 @@ public class MyPageController {
 	
 	@GetMapping("/edit")
 	public String editForm(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
+		
 		if (userDetails != null) {
 			Long userId = userDetails.getUser().getId();
 
@@ -352,5 +363,10 @@ public class MyPageController {
 		return "redirect:/mypage/edit?infoChanged=true";
 		
 	}
+	
+	
+	
+	
+	
 	
 }

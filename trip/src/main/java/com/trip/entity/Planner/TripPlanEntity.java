@@ -2,6 +2,7 @@ package com.trip.entity.Planner;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.trip.entity.Member.UserEntity;
 
 import jakarta.persistence.Entity;
@@ -23,6 +24,7 @@ public class TripPlanEntity {
 	private Long planId;
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id",nullable = false)
+	@JsonIgnore
 	private UserEntity user;
 	private String planTitle;
 	private LocalDate tripStartDate;

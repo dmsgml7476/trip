@@ -64,8 +64,48 @@
             </div>
           </div>
 
-          <div class="my-calendar">달력영역</div>
-        </div>
+          <div class="my-calendar">
+          	<div class="calender-area">
+          		<div class="year-month">
+			  		<div class="year-select-box">
+			  			<div class="plus-minus">
+				  			<div class="plus-year">
+				  				<img id="yearPlusYear" class="year-arrow" src="/image/year-arrow.png"/>
+				  			</div>
+				  			<div class="minus-year">
+			  					<img id="yearMinusYear" class="year-arrow" src="/image/year-arrow.png"/>
+			  				</div>
+			  			</div>
+			  			<div class="year" id="currentYear">			  	
+			  				2025
+			  			</div>
+			  		</div>          		
+    		  		<div class="month-select">
+       					<button class="minus-month">
+          					<img class="arrow" src="/image/left-arrow.png" />
+        				</button>
+        	    		<div class="current-month" id="currentMonth">5</div>
+        				<button class="plus-month">
+          					<img class="arrow" src="/image/right-arrow.png" />
+        				</button>
+      		  		</div>
+          		</div>
+      		  <div class="calender-box">
+      		  	<div class="week">
+      		  		<div>일</div>
+      		  		<div>월</div>
+      		  		<div>화</div>
+      		  		<div>수</div>
+      		  		<div>목</div>
+      		  		<div>금</div>
+      		  		<div>토</div>
+      		  	</div>
+      			<div id="cal"></div>
+      		  </div>
+    	  </div>
+          
+         </div>
+      </div>
         <!-- 대표스토리영역 -->
 
         <div class="my-mainstory-area">
@@ -191,10 +231,7 @@
           <div class="right"><img src="/image/right-arrow.png" /></div>
         </div>
 
-        <div class="user-customer">
-          <div>고객센터</div>
-          <div>회원탈퇴</div>
-        </div>
+
       </div>
     </div>
 
@@ -204,9 +241,12 @@
 
 <th:block layout:fragment="script">
   <script th:inline="javascript">
-  /*<![CDATA[*/
-  window.likeStories = /*[[${likeStoryList}]]*/ [];
-  /*]]>*/
+    /*<![CDATA[*/
+    window.likeStories = /*[[${likeStoryList}]]*/ [];
+    window.tripPlans = /*[[${tripPlans}]]*/ [];
+
+    console.log("tripPlans: ", window.tripPlans);
+    /*]]>*/
   </script>
 
   <script th:src="@{/javascript/myPage.js}"></script>
