@@ -38,6 +38,10 @@ public class EmailAuthController {
 	        } else if ("find".equals(context)) {
 	        	if(!exists) {
 	        		return Map.of("status", "not_found"); // 존재안함 -> 아이디 찾기불가
+	        	} 
+	        } else if ("pw".equals(context)) {
+	        	if (!exists) {
+	        		return Map.of("status", "not_found");
 	        	}
 	        } else {
 	        	return Map.of("status", "invalid_context"); // 방어로직?
