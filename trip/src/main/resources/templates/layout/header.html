@@ -21,7 +21,16 @@
             </div>
           </ul>
         </div>
+        
+        <div class="admin-page" style="width: 100px">
+        	<th:block th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        		<div class="a-box">
+        			<a class="nav-link" href="/admin/main">관리자 페이지</a>	
+        		</div>
+        	</th:block>
+        </div>
         <div class="profil-icon-box"
+        	th:if="${not #authorization.expression('hasRole(''ADMIN'')')}"
         	th:style="${requestUri.startsWith('/mypage')} ? 'visibility: hidden;' : ''">
         	<th:block th:if="${#authentication.authenticated}">
 				<span >

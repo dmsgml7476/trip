@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+/* 푸터 전체 */
+.footer-wrap {
+  background-color: rgb(190, 190, 190);
+  display: flex;
+  height: 200px;
+  flex-direction: column;
+  margin: 0 auto;
+  justify-content: center;
+  width: 900px;
+  min-width: 740px;
+}
+
+/* 푸터 위 멘트 */
+
+.footer-title {
+  margin: 0 auto;
+}
+
+/* 푸터 TEXT */
+
+.footer-link {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 400px;
+  justify-content: space-between;
+}
+
+a {
+  color: black;
+}
+
+a:visited {
+  color: black;
+}
