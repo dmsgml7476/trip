@@ -124,15 +124,24 @@ document.addEventListener("DOMContentLoaded", function () {
 		fetch("/auth/email/send", {
 		  method: "POST",
 		  headers: { "Content-Type": "application/json" },
-		  body: JSON.stringify({ email }),
+		  body: JSON.stringify({ 
+			email: email,
+			context: "signup" }),
 		})
 		  .then((res) => res.json())
 		  .then((data) => {
-		    if (data.status === "sent") {
-		      emailSendMsg.textContent = "인증번호가 전송되었습니다.";
+		    if (data.status === "sent" || data.status === "not_found") {
+		      emailSendMsg.textContent = "인증번호를 전송했습니다.";
 		      emailSendMsg.style.color = "green";
+		      emailCodeInput.focus(); // 여기서 포커스
+		    } else if (data.status === "exists") {
+		      emailSendMsg.textContent = "이미 사용 중인 이메일입니다.";
+		      emailSendMsg.style.color = "red";
+		    } else if (data.status === "fail") {
+		      emailSendMsg.textContent = "이메일 전송에 실패했습니다.";
+		      emailSendMsg.style.color = "red";
 		    } else {
-		      emailSendMsg.textContent = "이메일 전송 실패.";
+		      emailSendMsg.textContent = "예기치 않은 오류가 발생했습니다.";
 		      emailSendMsg.style.color = "red";
 		    }
 		  })
@@ -235,6 +244,16 @@ document.addEventListener("DOMContentLoaded", function () {
 		  } else {
 		    telCheckMsg.textContent = "";
 		  }
+		  
+		  let value = telInput.value.replace(/[^0-9]/g, ""); // 숫자만 남김
+
+		   if (value.length <= 3) {
+		     telInput.value = value;
+		   } else if (value.length <= 7) {
+		     telInput.value = value.replace(/(\d{3})(\d{1,4})/, "$1-$2");
+		   } else {
+		     telInput.value = value.replace(/(\d{3})(\d{3,4})(\d{1,4})/, "$1-$2-$3");
+		   }
 		});
 		
 		//   해시태그
@@ -250,8 +269,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		      tagElem.classList.remove("selected");
 		      selectedIds.delete(tagId);
 		    } else {
-		      if (selectedIds.size >= 5) {
-		        alert("해시태그는 최대 5개까지 선택 가능합니다.");
+		      if (selectedIds.size >= 6) {
+		        alert("해시태그는 최대 6개까지 선택 가능합니다.");
 		        return;
 		      }
 		      tagElem.classList.add("selected");

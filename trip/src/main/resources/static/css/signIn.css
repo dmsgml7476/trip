@@ -1,0 +1,223 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.wrap {
+	min-height: 800px;
+}
+
+.login-area {
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-name {
+  margin: 0 auto;
+  margin-top: 10px;
+  font-size: 25px;
+}
+
+
+
+.login-form {
+
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+input {
+  height: 40px;
+  margin: 0 auto;
+  margin-top: 10px;
+  width: 300px;
+  border-radius: 7px;
+  padding-left: 7px;
+}
+
+input:focus {
+  border: 2px solid rgb(170, 170, 170);
+}
+
+.btn {
+  border: none;
+  background-color: rgb(161, 217, 255);
+  width: 95%;
+  height: 35px;
+  margin: 0 auto;
+  margin-top: 30px;
+  display: inline-block;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 0.6;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.login-ops {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 5px;
+  justify-content: space-evenly;
+  width: 320px;
+  font-size: 15px;
+  color: rgb(131, 131, 131);
+}
+
+.findIdBtn {
+	color: rgb(131, 131, 131);
+}
+
+.login-op a:visited {
+  color: rgb(131, 131, 131);
+}
+
+.login-op > a:hover {
+  color: black;
+}
+
+.error-msg {
+	color: red;
+}
+
+
+/* 모달창  */
+
+.modal {
+  display: none; /* 기본적으로 숨김 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+.modal-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+	
+  border: 1px solid;
+  width: 450px;
+  height: 550px;
+  margin: 0 auto;
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-header {
+  border: 1px solid red;
+  width: 85%;
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-main {
+  height: 438px;
+  border: 1px solid;
+}
+
+.modal-main form {
+  height: 438px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-content {
+  height: 85%;
+  border: 1px solid green;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.email-check-title {
+  display: flex;
+}
+
+.chk-error-msg {
+  color: red;
+  margin-left: 10px;
+}
+
+.input-box > button {
+  height: 40px;
+  width: 90px;
+  border-radius: 7px;
+  margin-left: 3px;
+  background-color: rgb(0, 197, 0);
+  color: white;
+}
+
+.next-btn {
+  height: 60px;
+  width: 150px;
+  font-size: 25px;
+  color: white;
+  background-color: rgb(0, 197, 0);
+  border-radius: 7px;
+}
+
+.check-code {
+  margin-top: 10px;
+}
+
+.check-code-title {
+  display: flex;
+}
+
+.find-id-area {
+  border: 1px solid;
+  width: 400px;
+  height: 85%;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.find-id-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.found-text {
+  color: rgb(105, 105, 105);
+}
+
+.found-id-print {
+  color: rgb(86, 143, 248);
+  margin: 0 auto;
+}
+
+.btn-area {
+  display: flex;
+  justify-content: space-around;
+}

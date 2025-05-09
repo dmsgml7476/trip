@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.trip.config.auth.CustomUserDetails;
 import com.trip.constant.Member.Role;
+import com.trip.dto.Member.InfoChangeDto;
 import com.trip.dto.Member.UserSignUpDto;
 import com.trip.entity.Member.HashtagsEntity;
 import com.trip.entity.Member.UserAlertSettingEntity;
@@ -25,6 +26,7 @@ import com.trip.repository.Member.UserDetailRepository;
 import com.trip.repository.Member.UserHashtagRepository;
 import com.trip.repository.Member.UserRepository;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -90,6 +92,31 @@ public class UserService implements UserDetailsService {
 		return userRepository.existsByNickname(nickname);
 	}
 	
+	
+	// 비밀번호 변경
+	
+	@Transactional
+	public void updatePassword(UserEntity user, String newPassword) {
+	    String encodedPw = passwordEncoder.encode(newPassword);
+	    user.updatePassword(encodedPw);
+	    userRepository.save(user); // 변경 내용 저장
+	}
+	
+	@Transactional
+	public void changeUserInfo(Long userId, InfoChangeDto dto) {
+	    UserEntity user = userRepository.findById(userId)
+	            .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
+
+	    UserDetailEntity detail = userDetailRepository.findByUserId(userId)
+	            .orElseThrow(() -> new IllegalArgumentException("유저 상세정보를 찾을 수 없습니다."));
+
+	    user.setNickname(dto.getNickname());
+	    detail.setEmail(dto.getEmail());
+	    detail.setAddress(dto.getAddress());
+	    detail.setTel(dto.getTel());
+
+	    // JPA에서는 @Transactional이면 save 없이도 Dirty Checking으로 자동 반영됨
+	}
 
 	
 	

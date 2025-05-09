@@ -18,6 +18,7 @@ public class SecurityConfig {
 	    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	        http
 	            .authorizeHttpRequests(auth -> auth
+	            	.requestMatchers("/mypage/**").authenticated()
 	                .anyRequest().permitAll()  
 	            )
 	            .formLogin (
@@ -34,7 +35,7 @@ public class SecurityConfig {
 	            		.invalidateHttpSession(true)
 	            		)
 	            .csrf(csrf -> csrf.disable())
-	            .headers(headers -> headers.frameOptions().disable()); 
+	            .headers(headers -> headers.disable()); 
 	        	
 	        return http.build();
 	    }

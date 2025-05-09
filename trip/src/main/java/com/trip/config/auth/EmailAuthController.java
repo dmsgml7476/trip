@@ -1,15 +1,17 @@
 package com.trip.config.auth;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import java.util.Map;
+
+
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.trip.repository.Member.UserDetailRepository;
+import com.trip.service.Member.EmailAuthService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -19,53 +21,42 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EmailAuthController {
 	
-	private final JavaMailSender mailSender;
+	 private final EmailAuthService emailAuthService;
+	 private final UserDetailRepository userDetailRepository;
 
-    
-    @PostMapping("/send")
-    public Map<String, String> sendEmailCode(@RequestBody Map<String, String> request, HttpSession session) {
-        String email = request.get("email");
-        String code = String.valueOf(new Random().nextInt(900000) + 100000);
-        session.setAttribute("authCode", code);
-        
-        
-        
-        try {
-        	SimpleMailMessage message=new SimpleMailMessage();
-        	
-        	message.setTo(email);
-        	message.setSubject("Let's Trip 회원가입 인증번호입니다");
-        	message.setText("인증번호는 [" + code + "] 입니다.");
-        	mailSender.send(message);
-        	
-        } catch (Exception e) {
-        	e.printStackTrace();
-        	Map<String, String> error = new HashMap<>();
-        	error.put("status", "fail");
-        	return error;
-        }
+	    @PostMapping("/send")
+	    public Map<String, String> sendEmailCode(@RequestBody Map<String, String> request, HttpSession session) {
+	        String email = request.get("email");
+	        String context = request.get("context");
+	        
+	        boolean exists=userDetailRepository.existsByEmail(email);
+	        
+	        if("signup".equals(context)) {
+	        	if (exists) {
+	        		return Map.of("status", "exists"); // 이미 존재 -> 회원가입실패
+	        	}
+	        } else if ("find".equals(context)) {
+	        	if(!exists) {
+	        		return Map.of("status", "not_found"); // 존재안함 -> 아이디 찾기불가
+	        	} 
+	        } else if ("pw".equals(context)) {
+	        	if (!exists) {
+	        		return Map.of("status", "not_found");
+	        	}
+	        } else {
+	        	return Map.of("status", "invalid_context"); // 방어로직?
+	        }
+	        
+	        boolean success = emailAuthService.sendAuthCode(email, session);
 
-        // TODO: 이메일 전송 로직 추가 (이메일 서비스 활용)
-        System.out.println("[DEBUG] 전송 대상 이메일: " + email);
-        System.out.println("[DEBUG] 인증번호: " + code);
+	        return Map.of("status", success ? "sent" : "fail");
+	    }
 
-        Map<String, String> response = new HashMap<>();
-        response.put("status", "sent");
-        return response;
-    }
-
-    // ✅ 2. 인증번호 확인 API
-    @PostMapping("/verify")
-    public Map<String, Boolean> verifyCode(@RequestBody Map<String, String> request, HttpSession session) {
-        String inputCode = request.get("code");
-        String savedCode = (String) session.getAttribute("authCode");
-
-        boolean success = inputCode != null && inputCode.equals(savedCode);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("success", success);
-        session.setAttribute("authSuccess", success);
-        System.out.println("[DEBUG] 이메일 인증 결과: " + success);
-        return response;
-    }
+	    @PostMapping("/verify")
+	    public Map<String, Boolean> verifyCode(@RequestBody Map<String, String> request, HttpSession session) {
+	        String code = request.get("code");
+	        boolean success = emailAuthService.verifyCode(code, session);
+	        return Map.of("success", success);
+	    }
 	
 }

@@ -40,4 +40,8 @@ public interface StoryRepository extends JpaRepository<StoryEntity,Long> {
     @Query("SELECT s FROM StoryEntity s WHERE s.openArea = 'PUBLIC' AND s.storyId NOT IN :excludeIds ORDER BY s.likes DESC")
     List<StoryEntity> findTopPublicStoriesExcludingIds(@Param("excludeIds") List<Long> excludeIds, Pageable pageable);
 
+    
+    // storyIds 리스트에 포함된 모든 스토리를 가져오는 쿼리문(likes찍은 스토리)
+    @Query("SELECT s FROM StoryEntity s WHERE s.id IN :storyIds")
+    List<StoryEntity> findAllByIdIn(@Param("storyIds") List<Long> storyIds);
 }

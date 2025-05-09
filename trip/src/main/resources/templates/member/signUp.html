@@ -8,11 +8,9 @@
     <th:block layout:fragment="css">
     	<link rel="stylesheet" type="text/css" href="/css/signUp.css">
     </th:block>
-    <th:block layout:fragment="script">
-    	<script th:src="@{/javascript/signUp.js}"></script>
-    </th:block>
+    
 </head>
-
+<body>
 
 <div layout:fragment="main" id="main">
  <form action="/signUp" method="post" th:object="${userSignUpDto}">
@@ -131,23 +129,23 @@
           </div>
 
           <div id="hashtagContainer">
-  <!-- 일반 해시태그 -->
-  <th:block th:each="tag : ${hashtags}">
-    <span class="hashtag"
-          th:data-id="${tag.id}"
-          th:text="'#' + ${tag.hashtag}"></span>
-  </th:block>
+  			<!-- 일반 해시태그 -->
+  			<th:block th:each="tag : ${hashtags}">
+    			<span class="hashtag"
+          			th:data-id="${tag.id}"
+          			th:text="'#' + ${tag.hashtag}"></span>
+  			</th:block>
 
-  <!-- MBTI 해시태그 (숨김 처리) -->
-  <th:block th:each="mbti : ${mbtiTags}">
-    <span class="hashtag mbti-hidden"
-          th:data-id="${mbti.id}"
-          th:text="'#' + ${mbti.hashtag}"></span>
-  </th:block>
-</div>
+  				<!-- MBTI 해시태그 (숨김 처리) -->
+  			<th:block th:each="mbti : ${mbtiTags}">
+    			<span class="hashtag mbti-hidden"
+          			th:data-id="${mbti.id}"
+          			th:text="'#' + ${mbti.hashtag}"></span>
+  			</th:block>
+		 </div>
 
-          <input type="hidden" name="hashtagIds" id="selectedHashtags" />
-        </div>
+         <input type="hidden" name="hashtagIds" id="selectedHashtags" />
+      </div>
         
         <div class="mbti-selector">
   <p>MBTI 선택</p>
@@ -178,5 +176,8 @@
 </form>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </div>
-
+<th:block layout:fragment="script">
+    	<script th:src="@{/javascript/signUp.js}" defer></script>
+    </th:block>
+</body>
 </html>

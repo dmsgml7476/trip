@@ -21,7 +21,8 @@
             </div>
           </ul>
         </div>
-        <div class="profil-icon-box">
+        <div class="profil-icon-box"
+        	th:style="${requestUri.startsWith('/mypage')} ? 'visibility: hidden;' : ''">
         	<th:block th:if="${#authentication.authenticated}">
 				<span >
     			<img th:if="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}"
@@ -56,7 +57,7 @@
     <div
       id="sidebar"
       class="profile-sidebar"
-
+	  th:if="${not requestUri.startsWith('/mypage')}"
     >
       <div class="sideber-box">
         <div class="sidebar-header">
@@ -76,8 +77,8 @@
       
           </div>
           <div class="user-op-box">
-            <div class="mypage"><a href="/mypage">마이페이지</a></div>
-            <div class="setting">설정</div>
+            <div class="mypage"><a href="/mypage/main">마이페이지</a></div>
+            <div class="setting"><a href="/mypage/edit">설정</a></div>
             <a href="/logout" class="logout">로그아웃</a>
           </div>
         </div>
