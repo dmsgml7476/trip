@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>여행 일정 페이지2</title>
+    <link rel="stylesheet" href="tripPlan.css" />
+   
+  </head>
+  <body>
+  
+  
+  <div th:each="region : ${cityname}">
+  	<div th:text="${region.regionName}"></div>
+  	<div th:text="${region.upperRegion}"></div>
+  </div>
+  
+   <a href="/tripDateOption"><button class="btn">다음</button></a>
+    <div>
+      <!-- 여행 기본 정보 선택  -->
+      <div>
+        <div>
+          <!-- 여행지역 선택 영역 -->
+          <h3>여행지역 선택</h3>
+          <div>
+            <!--상위지역과 하위지역-->
+            <select>
+              <option>상위</option>
+            </select>
+            <select>
+              <option>하위</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <!--여행 인원 선택-->
+          <label> 여행인원 </label>
+          <input type="number" />
+        </div>
+        <div>
+          <!-- 교통수단 선택-->
+          <label>교통수단</label>
+          <select>
+            <option value="">자가용</option>
+            <option value="">랜트카</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
