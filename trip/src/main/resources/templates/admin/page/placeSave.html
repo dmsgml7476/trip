@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/layout/default}">
+<head>
+	<th:block layout:fragment="css">
+		<link rel="stylesheet" href="/admin/css/placeSave.css">
+	</th:block>
+
+</head>
+
+<body>
+
+<div layout:fragment="main" id="main">
+	<div class="wrap">
+      <div class="wrap-box">
+        <div class="category">
+          <ul class="category-ul">
+            <div class="category-a-box">
+              <a
+                class="category-link"
+                href=""
+                style="color: black; font-weight: bold"
+                >등록</a
+              >
+            </div>
+            <div class="category-a-box">
+              <a class="category-link" href="">관광지</a>
+            </div>
+            <div class="category-a-box">
+              <a class="category-link" href="">숙소</a>
+            </div>
+            <div class="category-a-box">
+              <a class="category-link" href="">식당</a>
+            </div>
+          </ul>
+        </div>
+
+        <!-- 여행 관리 메인 페이지 -->
+
+        <div class="mgmt-content">
+          <div class="mgmt-area">
+            <div class="mgmt-title">
+              <p>여행지 등록하기</p>
+            </div>
+            <form>
+              <div class="mgmt-op-box">
+                <div class="place-op-box">
+                  <div class="place-cate">
+                    <select>
+                      <option value="">유형</option>
+                      <option value="1">관광지</option>
+                      <option value="2">숙소</option>
+                      <option value="3">식당</option>
+                    </select>
+                  </div>
+                  <div class="place-region">
+                    <select>
+                      <option value="">지역</option>
+                      <th:block th:each="region : ${regionList}">
+                        <option
+                          th:value="${region.regionId}"
+                          th:text="${region.regionName}"
+                        ></option>
+                      </th:block>
+                    </select>
+                  </div>
+                </div>
+
+                <button class="place-save-btn" onclick="">등록하기</button>
+              </div>
+              <!-- 주소 입력 -->
+              <div class="input-area">
+                <div class="input-box address-input-box">
+                  <div class="input-name">주소</div>
+                  <input class="address-input" />
+                </div>
+
+                <button>주소검색</button>
+              </div>
+
+              <!-- 정보 입력 -->
+
+              <div class="input-area">
+                <div class="input-box">
+                  <div class="input-name info-input-box">정보</div>
+                  <input class="address-input" />
+                </div>
+              </div>
+
+              <div class="input-area">
+                <div class="input-box place-name-input-box">
+                  <div class="input-name">이름</div>
+                  <input class="address-input" />
+                </div>
+
+                <div class="input-box tel-input-box">
+                  <div class="input-tel-name">전화번호</div>
+                  <input class="address-input" />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+
+</th:block>
+
+</body>
+</html>
