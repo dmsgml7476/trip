@@ -18,10 +18,13 @@ public class PlaceEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long placeId;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="region_id", nullable=false)
+    private RegionEntity region;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private CategoryEntity category;
 	private String placeName;
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="region_id", nullable=false)
-	private RegionEntity region;
 	private String placeAddress;
 	private String placeInfo;
 	private float placeLatitude;

@@ -14,4 +14,6 @@ public interface TripPlanRepository extends JpaRepository<TripPlanEntity, Long>{
 	
 	@Query("SELECT t FROM TripPlanEntity t WHERE t.user.id = :userId")
 	public List<TripPlanEntity> findUpcomingTripsByUserId(@Param("userId") Long userId);
+
+	public List<TripPlanEntity> findByUser_Id(Long userId);
 }
