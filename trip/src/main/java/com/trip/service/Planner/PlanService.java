@@ -1,5 +1,12 @@
 package com.trip.service.Planner;
 
-public class PlanService {
+import org.springframework.stereotype.Service;
 
+import com.trip.repository.Planner.PlaceRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+public class PlanService {
+	
 }
