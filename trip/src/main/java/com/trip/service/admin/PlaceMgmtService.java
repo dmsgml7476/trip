@@ -1,8 +1,14 @@
 package com.trip.service.admin;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.trip.dto.admin.CoordinateDto;
+import com.trip.dto.admin.PlaceListDto;
 import com.trip.dto.admin.PlaceSaveDto;
 import com.trip.entity.Planner.CategoryEntity;
 import com.trip.entity.Planner.PlaceEntity;
@@ -21,7 +27,7 @@ public class PlaceMgmtService {
 	private final PlaceRepository placeRepository;
 	private final RegionRepository regionRepository;
 	private final CategoryRepository categoryRepository;
-	private final KakaoMapService kakaoMapService;
+
 	
     public void savePlace(PlaceSaveDto dto) {
 
@@ -39,4 +45,41 @@ public class PlaceMgmtService {
 
         placeRepository.save(place);
     }
+    
+    public Page<PlaceListDto> getFilteredPlaces(Long categoryId, String upperRegion, Long regionId, String keyword, Pageable pageable) {
+
+        
+        Page<PlaceEntity> entities;
+
+        if (regionId != null) {
+            // 지역 ID와 키워드 둘 다 있는 경우
+            if (keyword != null && !keyword.isBlank()) {
+                entities = placeRepository.findByCategoryAndRegionAndKeyword(categoryId, regionId, keyword, pageable);
+            } else {
+                entities = placeRepository.findByCategoryAndRegion(categoryId, regionId, pageable);
+            }
+
+        } else if (upperRegion != null && !upperRegion.isBlank()) {
+            // 상위 지역과 키워드 있는 경우
+            if (keyword != null && !keyword.isBlank()) {
+                entities = placeRepository.findByCategoryAndUpperRegionAndKeyword(categoryId, upperRegion, keyword, pageable);
+            } else {
+                entities = placeRepository.findByCategoryAndUpperRegion(categoryId, upperRegion, pageable);
+            }
+
+        } else {
+            // 카테고리만 필터링하거나 + 키워드만 있는 경우
+            if (keyword != null && !keyword.isBlank()) {
+                entities = placeRepository.findByCategoryAndKeyword(categoryId, keyword, pageable);
+            } else {
+                entities = placeRepository.findByCategory_CategoryId(categoryId, pageable);
+            }
+        }
+
+        return entities.map(PlaceListDto::from);
+//        return entities.stream()
+//                .map(PlaceListDto::from)
+//                .toList();
+    }
+
 }

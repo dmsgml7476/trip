@@ -12,6 +12,8 @@ import com.trip.entity.Planner.RegionEntity;
 public interface RegionRepository extends JpaRepository<RegionEntity, Long>{
 
 	Optional<RegionEntity> findByUpperRegionAndRegionName(String upperRegion, String regionName);
+
+	Optional<RegionEntity> findByRegionName(String regionName);
   
 	
 } 
