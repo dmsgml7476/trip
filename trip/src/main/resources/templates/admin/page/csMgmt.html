@@ -73,16 +73,29 @@
                 </thead>
                 <tbody id="csMgmtBody">
                   <tr th:each="cs, stat : ${csList}" th:if="${stat.index} < 10"
-                  	  th:attr="
-                  	  ">
-                    <td class="td-num">1</td>
-                    <td>2025.03.11</td>
-                    <td>기타</td>
-                    <td>스토리</td>
-                    <td>
+                  		th:attr="
+                  		data-cs-id=${cs.customerServiceId},
+                  		data-cs-loginId=${cs.loginId},
+                  		data-cs-csOption=${cs.csOption},
+                  		data-cs-category=${cs.category},
+                  		data-cs-questionText=${cs.questionText},
+                  		data-cs-status=${cs.status},
+                  		data-cs-questionTime=${cs.questionTime},
+                  		data-cs-questionDate=${cs.formattedDate},
+                  		data-cs-questionTime=${cs.formattedTime},
+                  		data-cs-answerText=${cs.answerText}
+                  		"
+                  		class="place-row">
+                    <td th:text="${stat.count}" class="td-num">1</td>
+                    <td th:text="${#temporals.format(cs.questionTime, 'yyyy.mm.dd')}">2025.03.11</td>
+                    <td th:text="${cs.csOption}">기타</td>
+                    <td th:text="${cs.category}">스토리</td>
+                    <td th:text="${cs.questionText}">
                       스토리에 욕을 올린 사람이 있어요. 신고하겠습니다. 무서워요
                     </td>
-                    <td>접수</td>
+                    <td th:text="${cs.status.name() == 'WAITING' ? '접수' :
+              cs.status.name() == 'IN_PROGRESS' ? '처리중' :
+              cs.status.name() == 'ANSWERED' ? '답변완료' : '알수없음'}"></td>
                   </tr>
                 </tbody>
               </table>
@@ -121,23 +134,16 @@
             <div class="cs-op-area">
               <table border="1">
                 <thead>
-                  <th class="cs-date">2025.03.11</th>
-                  <th class="cs-option">불편사항</th>
-                  <th class="cs-category">스토리</th>
-                  <th class="cs-customer-id">shinchan</th>
-                  <th class="cs-status">처리중</th>
+                  <th id="modalQuestionDate" class="cs-date">2025.03.11</th>
+                  <th id="modalCsOption" class="cs-option">불편사항</th>
+				  <th id="modalCategory" class="cs-category">스토리</th>
+				  <th id="modalCustomerId" class="cs-customer-id">shinchan</th>
+				  <th id="modalStatus" class="cs-status">처리중</th>
                 </thead>
 
                 <tbody>
-                  <td class="cs-q-text" colspan="5" style="height: 120px">
-   
-                        좋아요를 잘못눌렀는데 취소하는 법 좀 알려주세요. 그냥
-                        클릭을 잘못했을 뿐인데 이게 무슨 일인가요? 민망해여
-                        살려주세요 i에게는 큰일이에요 좋아요 누르고 싶지
-                        않았다고!!
-                      
-                    </div>
-                  </td>
+                  <td id="modalQuestionText" class="cs-q-text" colspan="5" style="height: 120px"></td>
+
                 </tbody>
               </table>
             </div>
@@ -156,7 +162,7 @@
           </div>
 
           <div class="cs-ans-area">
-            <textarea class="cs-ans-textarea"></textarea>
+           <textarea id="modalAnswer" class="cs-ans-textarea" placeholder="답변 내용을 입력하세요."></textarea>
             <div class="cs-ans-btn-box">
               <button class="cs-ans-delay">보류</button>
               <button class="cs-ans-close">전송</button>
@@ -170,7 +176,7 @@
 </div>
 
 <th:block layout:fragment="script">
-
+	<script th:src="@{/admin/javascript/csMgmt.js}"></script>
 </th:block>
 
 </body>

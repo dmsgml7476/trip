@@ -20,7 +20,7 @@ public class CustomerServiceController {
 	@PostMapping("/customer")
 	public String submitCustomerService(CustomerServiceDto dto, @AuthenticationPrincipal CustomUserDetails userDetails) {
 		CustomerServiceEntity entity = CustomerServiceEntity.builder()
-				.userId(userDetails.getUser().getId())
+				.user(userDetails.getUser())
 				.csOption(dto.getCsOption())
 				.category(dto.getCategory())
 				.questionText(dto.getQuestionText())
