@@ -18,27 +18,19 @@
           <div>
             <!--상위지역과 하위지역-->
             <!-- 지역 자세히보기 -->
-            <select>
-              <option>상위</option>
-              <option>경기도</option>
-              <option>강원도</option>
-              <option>충청남도</option>
-              <option>충청북도</option>
-              <option>전라남도</option>
-              <option>전라북도</option>
-              <option>경상남도</option>
-              <option>경상북도</option>
+            <select id="upperRegionSelect">
+              <option value="">상위</option>
+              <option value="경기도">경기도</option>
+              <option value="전라남도">전라남도</option>
+              <option value="충청북도">충청북도</option>
              </select>
-            <select>//지역
-              <option>서울</option>
-              <option>인천</option>
-              <option>가평</option>
-              <option>대전</option>
-              <option>광주</option>
-              <option>전주</option>
-              <option>부산</option>
-              <option>대구</option>
+            <select  id="regionSelect">
+            <option>하위</option>
+            	<th:block th:each="regionInfo : ${regionType}">
+              		<option th:text="${regionInfo.regionName}"></option>
+                </th:block>
             </select>
+            
           </div>
         </div>
         <div>
@@ -51,11 +43,16 @@
           <!-- 교통수단 선택-->
           <label>교통수단</label>
           <select>
-            <option value="">자가용</option>
-            <option value="">랜트카</option>
+            <option th:each="trafficInfo : ${vehicleType}" th:text="${trafficInfo.vehicleType}">자가용</option>
+
           </select>
         </div>
       </div>
     </div>
+    <script th:inline="javascript">
+    	window.regionInfo= /*[[${regionType}]]*/[];
+    </script>
+    
+    <script src="/javascript/regionSelectOption.js"></script>
   </body>
 </html>

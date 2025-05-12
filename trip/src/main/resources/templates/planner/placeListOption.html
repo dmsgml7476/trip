@@ -13,31 +13,30 @@
         <div>
             <p>인근/맞춤추천/별점 순</p>
             <div>
-                <select>
-                    <option>관광지</option>
-                    <option>쁘띠프랑스</option>
-                    <option>더 스테이힐링파크</option>
-                    <option>자라섬</option>
-                    <option>명지산</option>
+                <select id="typeSelect">
+                    <option value="">유형</option>
+                    <option value="1">관광지</option>
+                    <option value="2">숙소</option>
+                    <option value="3">식당</option>
                 </select>
-                <select>
-                    <option>숙소</option>
-                    <option>가평 JH 풀빌라</option>
-                    <option>가평 티라펜션</option>
-                    <option>돌고래 리조트</option>
-                    <option>가평 101 풀빌라</option>
+                <select id="placeSelect">
+                    <option>장소 선택</option>
+                	<th:block th:each="placeInfo: ${placeType}">
+                		<option th:text="${placeInfo.placeName}"></option>
+                	</th:block>
                 </select>
-                <select>
-                    <option>식당</option>
-                    <option>미스터 닭갈비</option>
-                    <option>송원 막국수</option>
-                    <option>가평집</option>
-                    <option>옛골</option>
-                </select>
+                   
             </div>
-            <a href="placeInfo.html"><button>다음</button></a>
+            <a href="/placeInfo"><button>다음</button></a>
             
         </div>
+    
     </div>
+    
+    <script th:inline="javascript">
+    	window.placeInfo = /*[[${placeType}]]*/ [];
+    </script>
+    
+    <script src="/javascript/placeListOption.js"></script>
 </body>
 </html>

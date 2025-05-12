@@ -1,16 +1,32 @@
 package com.trip.control.Planner;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.trip.config.auth.CustomUserDetails;
+import com.trip.dto.Planner.PlaceSelectDto;
+import com.trip.entity.Planner.PlaceEntity;
 import com.trip.entity.Planner.RegionEntity;
+import com.trip.repository.Planner.PlaceRepository;
+import com.trip.service.Planner.PlaceService;
+import com.trip.service.Planner.PlanService;
 
 @Controller
 public class TripPlannerController {
-
+	
+	@Autowired
+	private PlaceRepository placeRepository;
+	
+	@Autowired
+	private PlanService planService;
+	
+	
 	@GetMapping("/tripMain")
 	public String tripMain(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
 		
@@ -19,19 +35,47 @@ public class TripPlannerController {
 	
 	
 	//여행 지역, 여행 인원, 교통수단 선택
-	@GetMapping("/tripBasicOption")
+	@GetMapping("/tripBasicOption")//사용자가 요청한 주소
 	public String tripBasicOption(Model model) {
 		
-		RegionEntity regionEntity= new RegionEntity();
-		regionEntity.setRegionName("서울");
-		regionEntity.setUpperRegion("경기도");
-		
-		model.addAttribute("cityname",regionEntity);
+		model.addAttribute("regionType",planService.allRegionName());
+		model.addAttribute("vehicleType",planService.allVehicleName());
 		
 		
 		return "planner/tripBasicOption";
+		
+	}
+	@GetMapping("/tripDateOption")
+	public String tripDateOption(Model model) {
+		return "planner/tripDateOption";
 	}
 	
+	@GetMapping("/placeListOption")
+	public String placeListOption(Model model) {
+		
+		List<PlaceSelectDto> dtoList = placeRepository.findAll().stream()
+		.map(p -> new PlaceSelectDto(p.getPlaceName(), p.getCategory().getCategoryId()))
+		.collect(Collectors.toList());
+		
+		
+		model.addAttribute("placeType",dtoList);
+		
+		return "planner/placeListOption";
+	}
+	@GetMapping("/placeInfo")
+	public String placeInfo(Model model) {
+		
+		return "planner/placeInfo";
+	}
+	@GetMapping("/placeResult")
+	public String placeResult(Model model) {
+		return "planner/placeResult";
+	}
+	@GetMapping("/finalPlan")
+	public String finalPlan(Model model) {
+		
+		return "planner/finalPlan";
+	}
 	
 	}
 
