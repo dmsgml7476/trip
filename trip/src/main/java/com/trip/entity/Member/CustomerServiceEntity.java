@@ -5,6 +5,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 import com.trip.constant.Member.CustomerServiceCategory;
+import com.trip.constant.Member.Status;
 import com.trip.constant.Member.CsOption;
 
 import jakarta.persistence.*;
@@ -41,6 +42,10 @@ public class CustomerServiceEntity {
 	
 	@OneToOne(mappedBy = "customerService", cascade = CascadeType.ALL, orphanRemoval = true)
 	private CustomerServiceAnswerEntity answer;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="status")
+	private Status status;
 	
 	@PrePersist
 	public void prePersist() {

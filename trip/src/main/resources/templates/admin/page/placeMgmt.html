@@ -170,7 +170,7 @@
                     </div>
                   </div>
 
-                  <button class="place-edit-btn" onclick="">수정하기</button>
+                  <button class="place-edit-btn" onclick="nextToEditModal()">수정하기</button>
                 </div>
                 <!-- 주소 입력 -->
 
@@ -202,6 +202,129 @@
           </div>
 
           <!-- 모달끝 -->
+          
+          
+                    <!-- 수정모달시작 -->
+
+          <div id="editModal" class="modal">
+            <div class="modal-edit-container">
+              <div class="modal-header">
+                <div></div>
+                <h2>여행지 관리</h2>
+                <span class="close" onclick="closeEditModal()">&times;</span>
+              </div>
+
+              <div class="place-detail-area">
+                <div class="place-detail-box">
+                  <div class="place-edit-op-box">
+                    <div class="place-cate">
+                      <select name="categoryType" id="editCategoryType">
+                        <option value="">유형</option>
+                        <option value="1">관광지</option>
+                        <option value="2">숙소</option>
+                        <option value="3">식당</option>
+                      </select>
+                    </div>
+
+                    <div class="place-region">
+                      <select id="editUpperRegionSelect">
+                        <option value="">상위 지역</option>
+                        <th:block th:each="region : ${regionList}">
+                          <option
+                            th:value="${region.upperRegion}"
+                            th:text="${region.upperRegion}"
+                          ></option>
+                        </th:block>
+                      </select>
+                    </div>
+
+                    <div class="place-region">
+                      <select id="editSubRegionSelect" name="regionId">
+                        <option value="">세부 지역</option>
+                        <th:block th:each="region : ${regionList}">
+                          <option
+                            th:value="${region.regionName}"
+                            th:text="${region.regionName}"
+                          ></option>
+                        </th:block>
+                      </select>
+                    </div>
+                  </div>
+
+                  <button class="edit place-edit-btn" type="submit">
+                    저장하기
+                  </button>
+                </div>
+                <!-- 주소 입력 -->
+                <div class="address-edit-area">
+                  <div class="address-edit-box">
+                    <div class="address-edit-name">주소</div>
+                    <input
+                      class="address-input"
+                      type="text"
+                      id="editAddress"
+                    />
+                  </div>
+                  <input
+                    class="address-find-btn"
+                    type="button"
+                    onclick="sample6_execDaumPostcode()"
+                    value="주소 찾기"
+                  />
+                </div>
+
+                <div class="input-detil-address-area">
+                  <div class="detail-address-edit-name">상세 주소</div>
+                  <div class="detail-address-edit-input">
+                    <input
+                      type="text"
+                      id="editDetailAddress"
+                      name="detailAddress"
+                    />
+                  </div>
+                </div>
+                <input
+                  type="hidden"
+                  id="hiddenUpperRegion"
+                  name="upperRegion"
+                />
+                <input type="hidden" id="fullAddress" name="placeAddress" />
+                <input
+                  type="hidden"
+                  id="searchableAddress"
+                  name="searchableAddress"
+                />
+
+                <!-- 정보 입력 -->
+
+                <div class="info-area">
+                  <div class="info-name">정보</div>
+                  <textarea
+                  	id="editPlaceInfo"
+                    class="info-text"
+                    name="placeInfo"
+                    style="resize: none"
+                  ></textarea>
+                </div>
+
+                <div class="name-tel-area">
+                  <div class="name-box">
+                    <div class="place-name-title">이름</div>
+                    <input id="editPlaceName" class="place-name-input" name="placeName" />
+                  </div>
+
+                  <div class="tel-edit-box">
+                    <div class="tel-edit-title">전화번호</div>
+                    <input id="editTel" class="tel-input" name="tel" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 수정모달 끝 -->
+          
+          
         </div>
       </div>
     </div>
