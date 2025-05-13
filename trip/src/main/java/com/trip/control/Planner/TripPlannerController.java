@@ -8,13 +8,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.trip.config.auth.CustomUserDetails;
 import com.trip.dto.Planner.PlaceSelectDto;
 import com.trip.entity.Planner.PlaceEntity;
 import com.trip.entity.Planner.RegionEntity;
 import com.trip.repository.Planner.PlaceRepository;
-import com.trip.service.Planner.PlaceService;
 import com.trip.service.Planner.PlanService;
 
 @Controller
@@ -54,27 +54,45 @@ public class TripPlannerController {
 	public String placeListOption(Model model) {
 		
 		List<PlaceSelectDto> dtoList = placeRepository.findAll().stream()
-		.map(p -> new PlaceSelectDto(p.getPlaceName(), p.getCategory().getCategoryId()))
+		.map(p -> new PlaceSelectDto(
+					p.getPlaceId(),
+					p.getPlaceName(),
+					p.getCategory().getCategoryId()
+				))
 		.collect(Collectors.toList());
 		
 		
 		model.addAttribute("placeType",dtoList);
 		
 		return "planner/placeListOption";
-	}
-	@GetMapping("/placeInfo")
-	public String placeInfo(Model model) {
 		
-		return "planner/placeInfo";
+	
 	}
+	
+	
+	
 	@GetMapping("/placeResult")
-	public String placeResult(Model model) {
+	public String placeResult(@RequestParam("placeId") Long placeId, Model model) {
+	
+		
 		return "planner/placeResult";
 	}
 	@GetMapping("/finalPlan")
 	public String finalPlan(Model model) {
 		
 		return "planner/finalPlan";
+	}
+	@GetMapping("/placeDetail")
+	public String placeDetail(@RequestParam("placeId") Long placeId, Model model) {
+		PlaceEntity place = placeRepository.findById(placeId)
+				.orElseThrow(() -> new IllegalAccessError("해당 장소를 찾을 수 없습니다"));
+		model.addAttribute("place", place);
+		
+		model.addAttribute("placeName",place.getPlaceName());
+		model.addAttribute("placeAddress",place.getPlaceAddress());
+		model.addAttribute("placeInfo",place.getPlaceInfo());
+		
+		return "planner/placeDetail";
 	}
 	
 	}

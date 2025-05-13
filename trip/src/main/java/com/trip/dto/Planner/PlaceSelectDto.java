@@ -1,19 +1,24 @@
 package com.trip.dto.Planner;
 
-import com.trip.entity.Planner.CategoryEntity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 
 public class PlaceSelectDto {
-  private String placeName;
-  private Long categoryId;
-  
-  public PlaceSelectDto(String placeName, Long categoryId) {
-	  this.placeName = placeName;
-	  this.categoryId = categoryId;
-  }
+	 private Long placeId;
+	 private String placeName;
+	 private Long categoryId;
+	 
+	 public PlaceSelectDto() {}
+
+	public PlaceSelectDto(Long placeId, String placeName, Long categoryId) {
+	        this.placeId = placeId;
+	        this.placeName = placeName;
+	        this.categoryId = categoryId;
+	}
 }

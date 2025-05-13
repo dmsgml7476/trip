@@ -8,10 +8,10 @@
 <body>
     <div>
         <div>
-            <button>4월 11일</button>
-        </div>
+         
         <div>
             <p>인근/맞춤추천/별점 순</p>
+            <form method="get" th:action="@{/placeDetail}">
             <div>
                 <select id="typeSelect">
                     <option value="">유형</option>
@@ -19,15 +19,22 @@
                     <option value="2">숙소</option>
                     <option value="3">식당</option>
                 </select>
-                <select id="placeSelect">
-                    <option>장소 선택</option>
-                	<th:block th:each="placeInfo: ${placeType}">
-                		<option th:text="${placeInfo.placeName}"></option>
-                	</th:block>
+                <select id="placeSelect" name="placeId">
+                    <option value="">장소 선택</option>
+                    <th:block th:each="placeInfo : ${placeType}">
+                    	<option 
+     					    th:value="${placeInfo.placeId}"
+       						th:text="${placeInfo.placeName}" /></option>
+                    </th:block>
+
                 </select>
                    
             </div>
-            <a href="/placeInfo"><button>다음</button></a>
+            
+            	<button type="button" onclick="saveSelection()">저장</button><br>
+            	<button type="submit" onclick="nextPage()">다음</button>
+            </form>
+            
             
         </div>
     

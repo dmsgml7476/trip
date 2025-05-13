@@ -41,10 +41,5 @@ public class PlanService {
 	
 	return vehicleName;
 	}
-	//장소 전체 가져오는 메서드
-	public List<PlaceEntity> allPlaceName(){
-	List<PlaceEntity> placeName = placeRepository.findAll();
 	
-	return placeName;
-	}
 }
