@@ -82,6 +82,7 @@ const modalAddress = document.getElementById('modalAddress');
 const modalInfo = document.getElementById('modalInfo');
 const modalCloseBtn = document.querySelector('.modal .close');
 
+
 document.querySelectorAll('.place-row').forEach(row => {
   row.addEventListener('click', function () {
     modalPlaceName.textContent = this.getAttribute('data-place-name');
@@ -100,3 +101,29 @@ document.querySelectorAll('.place-row').forEach(row => {
 modalCloseBtn.addEventListener('click', function () {
   modal.style.display = 'none';
 });
+
+
+// 수정 모달
+
+
+function openEditModal() {
+	const editModal = document.getElementById("editModal");
+	
+	editModal.style.display="block";
+}
+
+function closeEditModal() {
+	const editModal = document.getElementById("editModal");
+	
+	editModal.style.display="none";
+}
+
+function nextToEditModal(){
+	openEditModal();
+
+	const showModal = document.getElementById("showDetailModal");
+	showModal.style.display="none";
+	
+	
+	
+}

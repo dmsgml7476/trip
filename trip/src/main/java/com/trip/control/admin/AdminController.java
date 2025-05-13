@@ -16,9 +16,5 @@ public class AdminController {
 		return "admin/index";
 	}
 	
-	@GetMapping("/csMgmt")
-	public String csMgmtPage() {
-		return "admin/page/csMgmt";
-	}
-	
+
 }
