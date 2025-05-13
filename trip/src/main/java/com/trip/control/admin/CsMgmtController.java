@@ -4,19 +4,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.trip.dto.admin.CsAnswerDto;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
+
 import com.trip.dto.admin.CsMgmtDto;
-import com.trip.entity.Member.CustomerServiceEntity;
+import com.trip.constant.Member.Status;
 import com.trip.repository.Member.CustomerServiceRepository;
 import com.trip.service.admin.CustomerServiceAnswerService;
 
@@ -45,15 +45,20 @@ public class CsMgmtController {
 	}
 	
 	@PostMapping("/csMgmt/answer")
-	@ResponseBody
-	public ResponseEntity<?> saveAnswer(@RequestBody CsAnswerDto dto) {
-	    try {
-	        customerServiceAnswerService.saveAnswer(dto); // 별도의 서비스 계층에서 처리
-	        return ResponseEntity.ok().build();
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("저장 실패");
-	    }
+	public String answerSubmit(@RequestParam("status")  String status,
+								@RequestParam(value = "answerText", required = false) String answerText,
+								@RequestParam("csId") Long csId) {
+		if ("IN_PROGRESS".equals(status)) {
+		    // 답변 없이 상태만 업데이트
+			customerServiceAnswerService.updateStatus(csId, Status.IN_PROGRESS);
+		} else {
+		    customerServiceAnswerService.saveAnswer(csId, status, answerText);
+		}
+		
+		return "redirect:/admin/csMgmt";
 	}
+	
+
 	
 
 }

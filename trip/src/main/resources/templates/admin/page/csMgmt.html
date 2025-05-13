@@ -132,6 +132,7 @@
           <!-- 고객문의 상세내역 div -->
           <div class="cs-content">
             <div class="cs-op-area">
+            
               <table border="1">
                 <thead>
                   <th id="modalQuestionDate" class="cs-date">2025.03.11</th>
@@ -150,24 +151,27 @@
           </div>
 
           <!-- 고객문의 처리하기 op 박스 -->
+          <form method="post" name="csAnswer" action="/admin/csMgmt/answer">
+          <input type="hidden" name="csId" id="modalCsId" />
           <div class="cs-ans-op-area">
             <div class="cs-ans-title">처리하기</div>
             <div class="cs-ans-status">
-              <select>
+              <!-- <select>
                 <option value="WAITING">접수</option>
                 <option value="IN_PROGRESS">처리중</option>
-                <option value="ANSWERD">답변완료</option>
-              </select>
+                <option value="ANSWERED">답변완료</option>
+              </select> -->
             </div>
           </div>
 
           <div class="cs-ans-area">
-           <textarea id="modalAnswer" class="cs-ans-textarea" placeholder="답변 내용을 입력하세요."></textarea>
+           <textarea name="answerText" id="modalAnswer" class="cs-ans-textarea" placeholder="답변 내용을 입력하세요."></textarea>
             <div class="cs-ans-btn-box">
-              <button class="cs-ans-delay">보류</button>
-              <button class="cs-ans-close">전송</button>
+              <button type="submit" name="status" value="IN_PROGRESS" class="cs-ans-delay">보류</button>
+              <button type="submit" name="status" value="ANSWERED" class="cs-ans-close">전송</button>
             </div>
           </div>
+          </form>
         </div>
 
 
