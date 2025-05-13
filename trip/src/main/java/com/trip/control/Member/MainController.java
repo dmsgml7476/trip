@@ -81,7 +81,7 @@ public class MainController {
 
 	            if (setting.isCommAlert()) {
 	                allowedTypes.add(NotificationType.STORY);
-//	                allowedTypes.add(NotificationType.CUSTOMER_REPLY);
+	                allowedTypes.add(NotificationType.CUSTOMER_REPLY);
 	            }
 
 	            if (setting.isTripAlert()) {

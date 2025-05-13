@@ -2,6 +2,8 @@ package com.trip.repository.Member;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +13,9 @@ import com.trip.entity.Member.CustomerServiceEntity;
 public interface CustomerServiceRepository extends JpaRepository<CustomerServiceEntity, Long>{
 	
 	List<CustomerServiceEntity> findAllByOrderByQuestionTimeDesc();
+	
+	List<CustomerServiceEntity> findByUser_LoginIdContainingIgnoreCaseOrderByQuestionTimeDesc(String loginId);
+	
+	Page<CustomerServiceEntity> findByUser_LoginIdContainingIgnoreCase(String loginId, Pageable pageable);
 
 }
