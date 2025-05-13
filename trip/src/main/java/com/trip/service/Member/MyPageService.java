@@ -6,8 +6,11 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.trip.dto.Member.LikedStoryDto;
+import com.trip.dto.Member.MyCsListDto;
 import com.trip.entity.Lets.StoryEntity;
+import com.trip.entity.Member.CustomerServiceEntity;
 import com.trip.repository.Lets.StoryRepository;
+import com.trip.repository.Member.CustomerServiceRepository;
 import com.trip.repository.Member.UserLikeRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +21,7 @@ public class MyPageService {
 
 	private final UserLikeRepository userLikeRepository;
     private final StoryRepository storyRepository;
+    private final CustomerServiceRepository customerServiceRepository;
 
     public List<LikedStoryDto> getLikedStories(Long userId) {
         List<Long> likedStoryIds = userLikeRepository.findLikedStoryIdsByUserId(userId);
@@ -30,6 +34,13 @@ public class MyPageService {
         return likedStories.stream()
                 .map(LikedStoryDto::from)
                 .collect(Collectors.toList());
+    }
+    
+    public List<MyCsListDto> getMyCsList(Long userId) {
+        List<CustomerServiceEntity> csList = customerServiceRepository.findByUserId(userId);
+        return csList.stream()
+                     .map(MyCsListDto::from)
+                     .collect(Collectors.toList());
     }
 	
 }

@@ -8,9 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.trip.entity.Member.CustomerServiceEntity;
+import com.trip.entity.Member.UserEntity;
 
 @Repository
 public interface CustomerServiceRepository extends JpaRepository<CustomerServiceEntity, Long>{
+	
+	List<CustomerServiceEntity> findByUserId(Long userId);
 	
 	List<CustomerServiceEntity> findAllByOrderByQuestionTimeDesc();
 	
