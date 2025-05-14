@@ -36,20 +36,20 @@
                 </div>
               </div>
               <div class="my-info-profile-area">
-                <div class="profile-box">
-
-  					<div class="profile-box">
+              	<div class="profile-box">
+					<div class="profile-box">
   					  <img th:if="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}"
     					    th:src="@{/upload/profile/{img}(img=${userDetail.profileImg})}"
          					class="profile-img"
          					alt="프로필 이미지" />
   					</div>
 
-                </div>
+				</div>
               </div>
               <div class="nickname-area" th:if="${userDetail != null}">
     
-                <div th:text="${user.nickname}">닉네임</div>의 발자취
+                <div th:text="${user.nickname}">닉네임</div>
+                의 발자취
                 <img src="/image/footprint.png" />
     
               </div>
@@ -59,8 +59,8 @@
              			<span th:text="'#' + ${tag}">#태그</span>
              	 	</th:block>
 				</div>
-
               </div>
+            
             </div>
           </div>
 

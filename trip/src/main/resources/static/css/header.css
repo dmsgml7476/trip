@@ -74,9 +74,12 @@ a {
   justify-content: center;
   align-items: center;
   font-size: 30px;
+  font-weight: bold;
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
 }
+
+
 
 .a-box:hover {
   padding: 10px 30px;
@@ -116,9 +119,15 @@ a {
   white-space: nowrap;
 }
 
-.profil-icon-box img {
-  width: 50px;
+.profil-box-area {
+	width: 200px;
+	display: flex;
+	justify-content: center;
 }
+
+/* .profil-icon-box{
+  width: 50px;
+} */
 
 .profile-sidebar {
   position: absolute;
@@ -136,9 +145,6 @@ a {
   transition: transform 0.3s ease;
 }
 
-.profil-icon-box.hidden {
-  visibility: hidden;
-}
 
 .sideber-box {
   position: relative;
@@ -154,16 +160,6 @@ a {
 
 .sidebar-header .profile-box {
   display: flex;
-}
-
-.profil-icon-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-
-  width: 60px;
-  height: 60px;
 }
 
 .notification-badge {
@@ -184,10 +180,34 @@ a {
   box-shadow: 0 0 0 2px white;
 }
 
+.profil-icon-box.hidden {
+  visibility: hidden;
+}
+
+
+.profil-icon-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 70px;
+  height: 70px;
+}
+
+.profil-icon-circle {
+	border: none;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+}
+
 .profile-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+  width: 70px;
+  height: 70px;
   object-fit: cover;
 }
 
