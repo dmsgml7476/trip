@@ -35,31 +35,41 @@
                 	</ul>
                 </div>
               </div>
-              <div class="my-info-profile-area">
-              	<div class="profile-box">
-					<div class="profile-box">
+              <div class="my-info-profil-area">
+              	<div class="profil-box-area">
+					<div class="profil-box">
   					  <img th:if="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}"
     					    th:src="@{/upload/profile/{img}(img=${userDetail.profileImg})}"
-         					class="profile-img"
-         					alt="프로필 이미지" />
+         					class="profil-img"
+         					alt="프로필 이미지"/>
   					</div>
 
 				</div>
               </div>
-              <div class="nickname-area" th:if="${userDetail != null}">
+              
+              <!-- 닉네임이랑 해시태그 박스 -->
+              
+              <div class="nick-hash-box">
+              
+              	<div class="nickname-area" th:if="${userDetail != null}">
     
-                <div th:text="${user.nickname}">닉네임</div>
-                의 발자취
-                <img src="/image/footprint.png" />
+                	<div th:text="${user.nickname}">닉네임</div>
+                	의 발자취
+                	<img src="/image/footprint.png" />
     
+              	</div>
+              	<div class="hashtag-area">
+                	<div class="hashtag-box">
+						<th:block th:each="tag : ${userHashtags}">
+             				<span th:text="'#' + ${tag}">#태그</span>
+             	 		</th:block>
+					</div>
+              	</div>
+              
               </div>
-              <div class="hashtag-area">
-                <div class="hashtag-box">
-					<th:block th:each="tag : ${userHashtags}">
-             			<span th:text="'#' + ${tag}">#태그</span>
-             	 	</th:block>
-				</div>
-              </div>
+              
+              
+              
             
             </div>
           </div>
@@ -70,10 +80,10 @@
 			  		<div class="year-select-box">
 			  			<div class="plus-minus">
 				  			<div class="plus-year">
-				  				<img id="yearPlusYear" class="year-arrow" src="/image/year-arrow.png"/>
+				  				<img id="yearPlusYear" class="year-arrow" src="/image/year-arrow-yellow.png"/>
 				  			</div>
 				  			<div class="minus-year">
-			  					<img id="yearMinusYear" class="year-arrow" src="/image/year-arrow.png"/>
+			  					<img id="yearMinusYear" class="year-arrow" src="/image/year-arrow-yellow.png"/>
 			  				</div>
 			  			</div>
 			  			<div class="year" id="currentYear">			  	
@@ -81,11 +91,12 @@
 			  			</div>
 			  		</div>          		
     		  		<div class="month-select">
-       					<button class="minus-month">
+       					<button class="minus-month"
+       							style="background-color: rgb(253, 250, 245)">
           					<img class="arrow" src="/image/left-arrow.png" />
         				</button>
         	    		<div class="current-month" id="currentMonth">5</div>
-        				<button class="plus-month">
+        				<button class="plus-month" style="background-color: rgb(253, 250, 245)">
           					<img class="arrow" src="/image/right-arrow.png" />
         				</button>
       		  		</div>
@@ -109,6 +120,14 @@
         <!-- 대표스토리영역 -->
 
         <div class="my-mainstory-area">
+          <div class="my-mainstory-title">
+            나의 대표 스토리
+            <img
+              src="/image/colorline.png"
+              style="width: 100px; height: 90px; background-color: white"
+            />
+          </div>
+        
           <div class="my-mainstory-boxs">
             <div class="my-mainstory-box">
               <a href="">
@@ -154,83 +173,88 @@
         </div>
 
         <!-- 호감 스토리 목록 -->
-
-        <div class="like-story-area">
-          <div class="left">
-            <img src="/image/left-arrow.png" />
+        <div class="like-story-wrap">
+          <!-- 추가 -->
+          <div class="like-story-title">
+            나의 좋아요 스토리
+            <img src="/image/colorlinegreen.png" alt="밑줄" />
           </div>
+          <div class="like-story-area">
+            <div class="left">
+              <img src="/image/left-arrow.png" />
+            </div>
 
-          <div class="like-story-box-area">
-            <div class="like-story-small-box" id="prev-story-box">
-              <div class="story-img">
-                <img
-                  src="https://cdn.pixabay.com/photo/2022/01/06/07/25/south-korea-6918828_1280.jpg"
-                />
+            <div class="like-story-box-area">
+              <div class="like-story-small-box" id="prev-story-box">
+                <div class="story-img">
+                  <img
+                    src="https://cdn.pixabay.com/photo/2022/01/06/07/25/south-korea-6918828_1280.jpg"
+                  />
+                </div>
+
+                <div class="story-box">
+                  <div class="story-nickname-box">
+                    <div class="story-nickname">0000님의 일정</div>
+                    <img src="/image/heart.png" class="like" />
+                  </div>
+                  <div class="story-title-box">
+                    <div class="story-title">쓸쓸한 강가</div>
+
+                    <div class="story-date">2025.05.24</div>
+                  </div>
+
+                  <div class="story-content">스토리 내용 우다다다다</div>
+                </div>
               </div>
 
-              <div class="story-box">
-                <div class="story-nickname-box">
-                  <div class="story-nickname">0000님의 일정</div>
-                  <img src="/image/heart.png" class="like" />
-                </div>
-                <div class="story-title-box">
-                  <div class="story-title">쓸쓸한 강가</div>
-
-                  <div class="story-date">2025.05.24</div>
+              <div class="like-story-main-box" id="current-story-box">
+                <div class="story-img">
+                  <img
+                    src="https://cdn.pixabay.com/photo/2024/04/22/16/38/buildings-8713025_1280.jpg"
+                  />
                 </div>
 
-                <div class="story-content">스토리 내용 우다다다다</div>
+                <div class="story-box">
+                  <div class="story-nickname-box">
+                    <div class="story-nickname">0000님의 일정</div>
+                    <img src="/image/heart.png" class="like" />
+                  </div>
+                  <div class="story-title-box">
+                    <div class="story-title">쓸쓸한 강가</div>
+
+                    <div class="story-date">2025.05.24</div>
+                  </div>
+
+                  <div class="story-content">스토리 내용 우다다다다</div>
+                </div>
+              </div>
+
+              <div class="like-story-small-box" id="next-story-box">
+                <div class="story-img">
+                  <img
+                    src="https://cdn.pixabay.com/photo/2025/04/27/07/01/industry-9562428_1280.jpg"
+                  />
+                </div>
+
+                <div class="story-box">
+                  <div class="story-nickname-box">
+                    <div class="story-nickname">0000님의 일정</div>
+                    <img src="/image/heart.png" class="like" />
+                  </div>
+                  <div class="story-title-box">
+                    <div class="story-title">쓸쓸한 강가</div>
+
+                    <div class="story-date">2025.05.24</div>
+                  </div>
+
+                  <div class="story-content">스토리 내용 우다다다다</div>
+                </div>
               </div>
             </div>
 
-            <div class="like-story-main-box" id="current-story-box">
-              <div class="story-img">
-                <img
-                  src="https://cdn.pixabay.com/photo/2024/04/22/16/38/buildings-8713025_1280.jpg"
-                />
-              </div>
-
-              <div class="story-box">
-                <div class="story-nickname-box">
-                  <div class="story-nickname">0000님의 일정</div>
-                  <img src="/image/heart.png" class="like" />
-                </div>
-                <div class="story-title-box">
-                  <div class="story-title">쓸쓸한 강가</div>
-
-                  <div class="story-date">2025.05.24</div>
-                </div>
-
-                <div class="story-content">스토리 내용 우다다다다</div>
-              </div>
-            </div>
-
-            <div class="like-story-small-box" id="next-story-box">
-              <div class="story-img">
-                <img
-                  src="https://cdn.pixabay.com/photo/2025/04/27/07/01/industry-9562428_1280.jpg"
-                />
-              </div>
-
-              <div class="story-box">
-                <div class="story-nickname-box">
-                  <div class="story-nickname">0000님의 일정</div>
-                  <img src="/image/heart.png" class="like" />
-                </div>
-                <div class="story-title-box">
-                  <div class="story-title">쓸쓸한 강가</div>
-
-                  <div class="story-date">2025.05.24</div>
-                </div>
-
-                <div class="story-content">스토리 내용 우다다다다</div>
-              </div>
-            </div>
+            <div class="right"><img src="/image/right-arrow.png" /></div>
           </div>
-
-          <div class="right"><img src="/image/right-arrow.png" /></div>
         </div>
-
 
       </div>
     </div>
