@@ -30,4 +30,10 @@ public class PlanTrafficEntity {
 	private PlaceEntity arrivalPlace;
 	private LocalTime trafficDepartTime;
 	private LocalTime trafficArrivalTime;
+	@ManyToOne
+	@JoinColumn(name="vehicle_id", nullable = false)
+	private VehicleEntity vehicleEntity;
+	private String more;
+	
+	
 }

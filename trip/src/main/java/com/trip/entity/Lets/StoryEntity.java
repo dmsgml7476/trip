@@ -19,11 +19,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 
 public class StoryEntity {
@@ -56,5 +58,8 @@ public class StoryEntity {
 		private OpenArea openArea;
 		
 		private LocalDateTime writeAt;
+		
+		@Column(nullable=false)
+		private int likes = 0;
 		
 }

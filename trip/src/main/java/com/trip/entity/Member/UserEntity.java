@@ -51,34 +51,43 @@ public class UserEntity {
 	@OneToOne(mappedBy="user", fetch=FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
 	private UserDetailEntity userDetail;
 	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<UserHashtagEntity> userHashtags = new ArrayList<>();
+	
 // ==========기능메서드========
-//
-//	public static UserEntity from(UserSignUpDto dto, PasswordEncoder passwordEncoder) {
-//		return UserEntity.builder()
-//				.loginId(dto.getLoginId())
-//				.password(passwordEncoder.encode(dto.getPassword()))
-//				.nickname(dto.getNickname()!=null ? dto.getNickname():dto.getLoginId())
-//				.role(Role.USER)
-//				.build();
-//	}
-//	
-//	public void updateNickname(String nickname) {
-//	    if (nickname != null && !nickname.isBlank()) {
-//	        this.nickname = nickname;
-//	    }
-//	}
-//	
-//	public void withdraw() {
-//		this.role=Role.WITHDRAW;
-//		this.withdrawTime=LocalDateTime.now();
-//	}
-//	
-//	public void updatePassword(String encodedPassword) {
-//		if(encodedPassword != null && !encodedPassword.isBlank()) {
-//			this.password = encodedPassword;
-//		}
-//	}
-//	
-//	
+
+	public static UserEntity from(UserSignUpDto dto, PasswordEncoder passwordEncoder) {
+		   String rawNickname = dto.getNickname();
+		   String nickname = (rawNickname == null || rawNickname.trim().isEmpty())
+			        ? dto.getLoginId()
+			        : rawNickname.trim();
+		
+		    return UserEntity.builder()
+		            .loginId(dto.getLoginId())
+		            .password(passwordEncoder.encode(dto.getPassword()))
+		            .nickname(nickname)
+		            .role(Role.USER)
+		            .createdTime(LocalDateTime.now())
+		            .build();
+	}
+	
+	public void updateNickname(String nickname) {
+	    if (nickname != null && !nickname.isBlank()) {
+	        this.nickname = nickname;
+	    }
+	}
+	
+	public void withdraw() {
+		this.role=Role.WITHDRAW;
+		this.withdrawTime=LocalDateTime.now();
+	}
+	
+	public void updatePassword(String encodedPassword) {
+		if(encodedPassword != null && !encodedPassword.isBlank()) {
+			this.password = encodedPassword;
+		}
+	}
+	
+	
 
 }

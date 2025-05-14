@@ -1,0 +1,152 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+.nav-box {
+  display: flex;
+  margin: 0 auto;
+  border: 1px solid;
+  height: 90px;
+  width: 90vw;
+  min-width: 740px;
+}
+.h-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.h-wrap > div {
+  margin: 40px;
+}
+.link-ul {
+  border: 1px solid;
+  display: flex;
+  width: 45vh;
+  justify-content: space-between;
+}
+
+.a-box {
+  border: 1px solid;
+  padding: 10px 30px;
+}
+
+.profil-icon-box img {
+  width: 50px;
+}
+
+.profile-sidebar {
+  border: 1px solid blue;
+  position: fixed;
+  width: 250px;
+  height: 100vh;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  top: 0;
+  right: 0; /* 오른쪽에서 나옴 */
+  padding: 5px;
+  background-color:white;
+  z-index: 9999;
+}
+
+.profile-sidebar.show {
+  transform: translateX(0%);
+}
+
+.sideber-box {
+  width: 100%;
+  border: 1px solid blanchedalmond;
+  height: 100%;
+}
+
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header .profile-box {
+  display: flex;
+}
+
+.profil-icon-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  position:relative;
+
+
+  width: 60px;
+  height: 60px;
+}
+
+.notification-badge {
+  position: absolute;
+  top: 0px;         /* 조정된 위치 */
+  right: 0px;       /* 조정된 위치 */
+  background-color: red;
+  color: white;
+  font-size: 11px;  /* 작게 조정 */
+  font-weight: bold;
+  border-radius: 50%;
+  width: 20px;      /* 조금 더 작게 */
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  box-shadow: 0 0 0 2px white;
+}
+
+.profile-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.sidebar-header {
+  border: 1px solid saddlebrown;
+  margin: 11px 0;
+}
+
+.sideber-profile-img {
+  width: 50px;
+  margin: 0 10px 0 0;
+}
+
+.user-op-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+/*  여행플랜알림 */
+
+.my-trip-wrap {
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(221, 221, 221);
+}
+
+.alert-area {
+	margin: 10px 0;
+  display: block;
+}
+
+.alert-box {
+	border: 2px solid;
+	border-radius:10px;
+	padding: 10px 15px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	text-align: center;
+	background-color: rgb(221, 221, 221);
+}
