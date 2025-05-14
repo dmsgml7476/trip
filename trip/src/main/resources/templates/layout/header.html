@@ -103,18 +103,13 @@
 
 		<div class="alert-area">
  			 <!-- STORY 알림 -->
- 			<div th:each="notification : ${notifications}" 
-  		    	th:if="${notification.type.name() == 'STORY'}"
-   		    	class="alert-box"
-       			th:text="${notification.message + '에 댓글이 달렸습니다.'}">
-			</div>
-
-			  <!-- TRIP_START 알림 -->
- 			<div th:each="notification : ${notifications}" 
- 				th:if="${notification.type.name() == 'TRIP_START'}"
-      			class="alert-box"
-       			th:text="${notification.message + ' 일정까지 5일 남았습니다'}">
-  			</div>
+ 			<div th:each="notification : ${notifications}" class="alert-box">
+    			<div th:switch="${notification.type.name()}">
+      			<div th:case="'STORY'" th:text="${notification.message + '에 댓글이 달렸습니다.'}"></div>
+      			<div th:case="'TRIP_START'" th:text="${notification.message + ' 일정까지 5일 남았습니다'}"></div>
+      			<div th:case="'CUSTOMER_REPLY'" th:text="'고객센터 답변: ' + ${notification.message}"></div>
+      			<div th:case="*">알 수 없는 알림</div>
+    		</div>
 		</div>
 
         <div class="close" onclick="toggleSidebar()">

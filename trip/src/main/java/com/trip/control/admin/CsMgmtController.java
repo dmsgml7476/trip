@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import com.trip.dto.admin.CsMgmtDto;
+import com.trip.entity.Member.CustomerServiceEntity;
 import com.trip.constant.Member.Status;
 import com.trip.repository.Member.CustomerServiceRepository;
 import com.trip.service.admin.CustomerServiceAnswerService;
@@ -32,16 +36,33 @@ public class CsMgmtController {
 	
 	
 	@GetMapping("/csMgmt")
-	public String csMgmtPage(Model model) {
+	public String csMgmtPage(@RequestParam(name = "loginId", required=false) String loginId, 
+							@RequestParam(name="page", defaultValue="0")int page,
+							Model model) {
 		
-		
-		List<CsMgmtDto> csList = customerServiceRepository.findAllByOrderByQuestionTimeDesc()
-				.stream()
-				.map(CsMgmtDto::from)
-				.collect(Collectors.toList());
-		model.addAttribute("csList", csList);
-		
-		return "admin/page/csMgmt";
+		int pageSize = 10;
+	    Pageable pageable = PageRequest.of(page, pageSize, Sort.by("questionTime").descending());
+
+	    Page<CustomerServiceEntity> csPage;
+
+	    if (loginId != null && !loginId.isBlank()) {
+	        csPage = customerServiceRepository.findByUser_LoginIdContainingIgnoreCase(loginId, pageable);
+	        model.addAttribute("loginId", loginId);
+	    } else {
+	        csPage = customerServiceRepository.findAll(pageable);
+	    }
+
+	    List<CsMgmtDto> csList = csPage.getContent().stream()
+	            .map(CsMgmtDto::from)
+	            .collect(Collectors.toList());
+
+	    int totalPages = csPage.getTotalPages();
+
+	    model.addAttribute("csList", csList);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", totalPages);
+
+	    return "admin/page/csMgmt";
 	}
 	
 	@PostMapping("/csMgmt/answer")

@@ -49,10 +49,16 @@ public class CustomerServiceEntity {
 	@Column(name="status")
 	private Status status;
 	
+	
+	
 	@PrePersist
 	public void prePersist() {
 	    if (this.questionTime == null) {
 	        this.questionTime = LocalDateTime.now();
 	    }
+	    
+        if (status == null) {
+            status = Status.WAITING;
+        }
 	}
 }

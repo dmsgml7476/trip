@@ -42,10 +42,12 @@
 
             <div class="csMgmt-filter-area">
               <div class="csMgmt-search-area">
+              	<form method="get" th:action="@{/admin/csMgmt}" class="csMgmt-search-area">
                 <div class="search-box">
                   <img src="/image/search.png" />
-                  <input type="text" />
+                  <input type="text" name="loginId" placeholer="회원 아이디 검색"  th:value="${loginId}" />
                 </div>
+              	</form>
               </div>
 
               <div class="csMgmt-op-area">
@@ -93,28 +95,35 @@
                     <td th:text="${cs.questionText}">
                       스토리에 욕을 올린 사람이 있어요. 신고하겠습니다. 무서워요
                     </td>
-                    <td th:text="${cs.status.name() == 'WAITING' ? '접수' :
-              cs.status.name() == 'IN_PROGRESS' ? '처리중' :
-              cs.status.name() == 'ANSWERED' ? '답변완료' : '알수없음'}"></td>
+                    <td th:text="${cs.status == null ? '알수없음' :
+             cs.status.name() == 'WAITING' ? '접수' :
+             cs.status.name() == 'IN_PROGRESS' ? '처리중' :
+             cs.status.name() == 'ANSWERED' ? '답변완료' : '알수없음'}"></td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div class="page-num-box">
-              <div class="img-btn minus-page">
-                <img src="/image/left-arrow.png" alt="왼쪽" />
-              </div>
-              <div class="page-num">
-                <a>1</a>
-                <a>2</a>
-                <a>3</a>
-                <a>4</a>
-                <a>5</a>
-              </div>
-              <div class="img-btn flus-num">
-                <img src="/image/right-arrow.png" alt="오른쪽" />
-              </div>
-            </div>
+  				<div class="img-btn minus-page" 
+       				th:if="${currentPage >= 5}"
+       				th:href="@{/admin/csMgmt(page=${(currentPage / 5) * 5 - 1}, loginId=${loginId})}">
+    			<img src="/image/left-arrow.png" alt="왼쪽" />
+  				</div>
+
+  				<div class="page-num">
+    				<a th:each="i : ${#numbers.sequence((currentPage / 5) * 5, T(java.lang.Math).min(((currentPage / 5) * 5 + 4), totalPages - 1))}"
+       					th:href="@{/admin/csMgmt(page=${i}, loginId=${loginId})}"
+       					th:text="${i + 1}"
+       					th:classappend="${i} == ${currentPage} ? 'active' : ''">
+    				</a>
+  				</div>
+
+  				<div class="img-btn flus-num"
+       				th:if="${(currentPage / 5 + 1) * 5 < totalPages}"
+       				th:href="@{/admin/csMgmt(page=${(currentPage / 5 + 1) * 5}, loginId=${loginId})}">
+    			<img src="/image/right-arrow.png" alt="오른쪽" />
+  				</div>
+			</div>
           </div>
         </div>
       </div>

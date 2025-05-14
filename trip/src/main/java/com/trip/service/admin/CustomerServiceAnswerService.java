@@ -5,12 +5,15 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.trip.constant.Member.NotificationType;
 import com.trip.constant.Member.Status;
 import com.trip.dto.admin.CsAnswerDto;
 import com.trip.entity.Member.CustomerServiceAnswerEntity;
 import com.trip.entity.Member.CustomerServiceEntity;
+import com.trip.entity.Member.WebNotificationEntity;
 import com.trip.repository.Member.CustomerServiceAnswerRepository;
 import com.trip.repository.Member.CustomerServiceRepository;
+import com.trip.repository.Member.WebNotificationRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +23,7 @@ public class CustomerServiceAnswerService {
 
     private final CustomerServiceRepository customerServiceRepository;
     private final CustomerServiceAnswerRepository answerRepository;
+    private final WebNotificationRepository webNotificationRepository;
 
     @Transactional
     public void saveAnswer(Long csId, String status, String answerText) {
@@ -45,6 +49,18 @@ public class CustomerServiceAnswerService {
             answer.setAnswerTime(LocalDateTime.now());
             answerRepository.save(answer);
         }
+        
+        Long userId = cs.getUser().getId();
+        
+        WebNotificationEntity notification = WebNotificationEntity.builder()
+                .userId(userId)
+                .type(NotificationType.CUSTOMER_REPLY)
+                .message("문의하신 내용에 대한 답변이 등록되었습니다.")
+                .targetId(cs.getId()) // 문의 ID를 target으로 저장
+                .isRead(false)
+                .build();
+
+        webNotificationRepository.save(notification);
 
 
     }
