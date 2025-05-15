@@ -23,6 +23,7 @@
   border: 1px solid;
   padding: 20px;
   border: none;
+  margin: 20px 0;
 }
 
 .signUp-area input {
@@ -151,6 +152,44 @@
 
 .mbti-hidden {
   display: none;
+}
+
+.mbti-selector {
+  display: flex;
+  flex-direction: column;
+}
+
+.mbti-selector > p {
+  font-size: 30px;
+}
+
+.mbti-select-area > div {
+  margin: 10px;
+  width: 400px;
+}
+
+.mbti-option input[type="radio"] {
+  display: none;
+}
+
+.mbti-option span {
+  width: 80px;
+  display: inline-block;
+  font-size: 20px;
+  text-align: center;
+  margin: 5px;
+  padding: 6px 12px;
+  border-radius: 15px;
+  background-color: #eee;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.mbti-option input[type="radio"]:checked + span {
+  background-color: orange;
+  color: white;
+  font-weight: bold;
 }
 
 /* 회원가입 버튼 */
