@@ -11,7 +11,7 @@ import com.trip.entity.Planner.RegionEntity;
 import com.trip.repository.Planner.PlaceRepository;
 import com.trip.repository.Planner.RegionRepository;
 
-@Service
+@Service//서비스
 public class PlaceService {
 	private final RegionRepository regionRepository;
     private final PlaceRepository placeRepository;
