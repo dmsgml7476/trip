@@ -5,15 +5,21 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import com.trip.dto.Lets.StoryCardDto;
 import com.trip.dto.Lets.StoryImgUrl;
 import com.trip.entity.Lets.StoryEntity;
+import com.trip.entity.Member.UserEntity;
 import com.trip.entity.Member.UserHashtagEntity;
+import com.trip.entity.Member.UserLikeEntity;
 import com.trip.repository.Lets.StoryRepository;
 import com.trip.repository.Member.UserHashtagRepository;
+import com.trip.repository.Member.UserLikeRepository;
 import com.trip.repository.Member.UserMainStoryRepository;
+import com.trip.repository.Member.UserRepository;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -24,11 +30,18 @@ public class StoryService {
 			private final StoryRepository storyRepository;
 			
 			private final UserHashtagRepository userHashtagRepository;
-
+			private final UserLikeRepository userLikeRepository;
+			private final UserRepository userRepository;
     
 		
 			// 스토리 목록 보여주기 위한 메서드 (최근 순, 공감 다수 순)
-			public List<StoryCardDto> getStoryList(){
+			public List<StoryCardDto> getStoryList(String loginId){
+				
+				// 로그인 했다면  로그인한 사람이 좋아요 누르거 표시 해야 되니까  로그인 한 유저의 id 가져오기 필요
+				UserEntity userEntity =null;
+				if( loginId!=null) {
+					userEntity= userRepository.findByLoginId(loginId);
+				}
 				List<StoryEntity> storyList = storyRepository.findTop2ByOrderByWriteAtDesc(); //최근순
 				List<StoryEntity>storyLike = storyRepository.findTop2ByOrderByLikes();//공감순
 				storyList.addAll(storyLike);
@@ -37,6 +50,13 @@ public class StoryService {
 				
 				for(StoryEntity story : storyList) {
 					StoryCardDto storyCardDto = new StoryCardDto();
+					
+					// 로그인 했다면 그사람의 좋아요 가져오기 
+					if(userEntity!=null) {
+						UserLikeEntity userLikeEntity = userLikeRepository.findByStoryIdAndUserId(story.getStoryId(), userEntity.getId());
+						storyCardDto.setLike( userLikeEntity==null ? false : true   );
+					}
+					
 					List<UserHashtagEntity> userHashtagEntityList = userHashtagRepository.findAllByUserId(story.getUser().getId());
 					if(  !userHashtagEntityList.isEmpty() ) { // 해시 태그 있으면 실행
 						List<String> tempTag = new ArrayList<>(); // 모든 해시 태그 담아두기 위한 임시공간
