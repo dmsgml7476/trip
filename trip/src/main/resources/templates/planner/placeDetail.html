@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장소 정보</title>
+</head>
+<body>
+    <div>
+        <div>
+            <img src="">
+        </div>
+        <div>
+            <h2>관광지 정보</h2>
+            <div>
+               <p>관광지명:<span th:text="${placeName}"></span></p><br>
+               <p>주소:<span th:text="${placeAddress}"></span></p>
+               <p>설명:<span th:text="${placeInfo}"></span></p>
+            </div>
+            <a href="/placeResult"><button>내 관광지 목록에 추가</button></a>
+            
+        </div>
+    </div>
+    <script src="/javascript/regionListOption.js"></script>
+</body>
+</html>

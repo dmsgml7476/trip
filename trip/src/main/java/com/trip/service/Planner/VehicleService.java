@@ -1,5 +1,8 @@
 package com.trip.service.Planner;
 
-public class VehicleService {
+import org.springframework.stereotype.Service;
 
+@Service
+public class VehicleService {
+	
 }

@@ -24,8 +24,4 @@ public class TripPlanChangeController {
 		return "planner/restaurantInfo";
 	}
 	
-	@GetMapping("/finalPlan")
-	public String finalPlan(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
-		return "planner/finalPlan";
-	}
 }

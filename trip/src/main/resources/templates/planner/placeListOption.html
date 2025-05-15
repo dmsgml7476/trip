@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장소 목록</title>
+</head>
+<body>
+    <div>
+        <div>
+         
+        <div>
+            <p>인근/맞춤추천/별점 순</p>
+            <form method="get" th:action="@{/placeDetail}">
+            <div>
+                <select id="typeSelect">
+                    <option value="">유형</option>
+                    <option value="1">관광지</option>
+                    <option value="2">숙소</option>
+                    <option value="3">식당</option>
+                </select>
+                <select id="placeSelect" name="placeId">
+                    <option value="">장소 선택</option>
+                    <th:block th:each="placeInfo : ${placeType}">
+                    	<option 
+     					    th:value="${placeInfo.placeId}"
+       						th:text="${placeInfo.placeName}" /></option>
+                    </th:block>
+
+                </select>
+                   
+            </div>
+            
+            	<button type="button" onclick="saveSelection()">저장</button><br>
+            	<button type="submit" onclick="nextPage()">다음</button>
+            </form>
+            
+            
+        </div>
+    
+    </div>
+    
+    <script th:inline="javascript">
+    	window.placeInfo = /*[[${placeType}]]*/ [];
+    </script>
+    
+    <script src="/javascript/placeListOption.js"></script>
+</body>
+</html>
