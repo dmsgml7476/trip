@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.trip.config.auth.CustomUserDetails;
 import com.trip.dto.Member.InfoChangeDto;
 import com.trip.dto.Member.LikedStoryDto;
+import com.trip.dto.Member.MyCsListDto;
 import com.trip.dto.Member.PasswordChangeDto;
 import com.trip.entity.Lets.StoryEntity;
 import com.trip.entity.Member.HashtagsEntity;
@@ -45,6 +46,7 @@ import com.trip.repository.Member.UserRepository;
 import com.trip.repository.Planner.TripPlanRepository;
 import com.trip.service.Member.MyPageService;
 import com.trip.service.Member.UserService;
+import com.trip.service.admin.CustomerServiceAnswerService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -366,6 +368,15 @@ public class MyPageController {
 		
 		return "redirect:/mypage/edit?infoChanged=true";
 		
+	}
+	
+	@GetMapping("/csMyList")
+	public String myCsListView(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
+		Long userId = userDetails.getUser().getId();
+		List<MyCsListDto> csList = myPageService.getMyCsList(userId);
+		model.addAttribute("csList", csList);
+		
+		return "/member/myCsList";
 	}
 	
 	

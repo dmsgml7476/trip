@@ -269,8 +269,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		      tagElem.classList.remove("selected");
 		      selectedIds.delete(tagId);
 		    } else {
-		      if (selectedIds.size >= 6) {
-		        alert("해시태그는 최대 6개까지 선택 가능합니다.");
+		      if (selectedIds.size >= 5) {
+		        alert("해시태그는 최대 5개까지 선택 가능합니다.(mbti 미포함)");
 		        return;
 		      }
 		      tagElem.classList.add("selected");
@@ -302,6 +302,62 @@ document.addEventListener("DOMContentLoaded", function () {
 		// 라디오 버튼 변경 시 MBTI 해시태그 자동 선택
 		document.querySelectorAll('.mbti-selector input[type="radio"]').forEach((el) => {
 		  el.addEventListener("change", updateMbtiTag);
+		});
+		
+		// 기존의 회원가입에 추가
+		const form = document.querySelector("form");
+		const idCheckMsg = document.getElementById("idCheckMsg");
+
+		form.addEventListener("submit", function (e) {
+		  const loginId = loginIdInput.value.trim();
+		  const pw = pwInput.value.trim();
+		  const pwChk = pwChkInput.value.trim();
+		  const email = emailInput.value.trim();
+		  const code = emailCodeInput.value.trim();
+		  const idMsg = idCheckMsg.textContent.trim();
+		  const emailVerified = verifyMsg.textContent.includes("성공");  // 이메일 인증 성공 문구 체크
+
+		  if (!loginId) {
+		    alert("아이디를 입력해주세요.");
+		    loginIdInput.focus();
+		    e.preventDefault();
+		    return;
+		  }
+
+		  if (idMsg === "이미 사용 중인 아이디입니다." || idMsg === "아이디를 입력해주세요." || idMsg === "") {
+		    alert("아이디 중복 확인을 해주세요.");
+		    loginIdInput.focus();
+		    e.preventDefault();
+		    return;
+		  }
+
+		  if (!pw) {
+		    alert("비밀번호를 입력해주세요.");
+		    pwInput.focus();
+		    e.preventDefault();
+		    return;
+		  }
+
+		  if (pw !== pwChk) {
+		    alert("비밀번호가 일치하지 않습니다.");
+		    pwChkInput.focus();
+		    e.preventDefault();
+		    return;
+		  }
+
+		  if (!email) {
+		    alert("이메일을 입력해주세요.");
+		    emailInput.focus();
+		    e.preventDefault();
+		    return;
+		  }
+
+		  if (!code || !emailVerified) {
+		    alert("이메일 인증을 완료해주세요.");
+		    emailCodeInput.focus();
+		    e.preventDefault();
+		    return;
+		  }
 		});
   
   

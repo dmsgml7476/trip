@@ -294,6 +294,11 @@ function goToPwChangeModal() {
 	openChangePwModal();
 }
 
+function goToFindPwModal() {
+	closeIdPrintModal();
+	openFindIdModal();
+}
+
 
 function closeFindPwModal() {
   const modal = document.getElementById("findPwModal");
@@ -312,4 +317,10 @@ function closeFindPwModal() {
 function openChangePwModal() {
 	const modal = document.getElementById("changePwModal");
 	modal.style.display = "block";
+}
+
+function closeChangePwModal() {
+	const modal=document.getElementById("changePwModal");
+	
+	modal.style.display="none";
 }
