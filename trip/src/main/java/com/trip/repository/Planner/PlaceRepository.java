@@ -11,6 +11,10 @@ import com.trip.entity.Planner.RegionEntity;
 @Repository
 public interface PlaceRepository extends JpaRepository<PlaceEntity, Long>{
 
+	List<PlaceEntity> findByRegion(RegionEntity region);
+
+	
+
 
 
 }

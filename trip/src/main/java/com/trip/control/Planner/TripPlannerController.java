@@ -15,6 +15,7 @@ import com.trip.dto.Planner.PlaceSelectDto;
 import com.trip.entity.Planner.PlaceEntity;
 import com.trip.entity.Planner.RegionEntity;
 import com.trip.repository.Planner.PlaceRepository;
+import com.trip.repository.Planner.RegionRepository;
 import com.trip.service.Planner.PlanService;
 
 @Controller
@@ -26,6 +27,8 @@ public class TripPlannerController {
 	@Autowired
 	private PlanService planService;
 	
+	@Autowired
+	private RegionRepository regionRepository;
 	
 	@GetMapping("/tripMain")
 	public String tripMain(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
@@ -68,6 +71,9 @@ public class TripPlannerController {
 		
 	
 	}
+	
+		
+	
 	
 	
 	
