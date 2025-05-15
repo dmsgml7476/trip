@@ -167,7 +167,7 @@ function drawCalendar(year, month) {
   tripDates.forEach(date => {
     const cell = document.querySelector(`td[data-date="${date}"]`);
     if (cell) {
-      cell.style.backgroundColor = "#c7f0ff";
+      cell.style.backgroundColor = "#e3effa";
     }
   });
 }
