@@ -29,9 +29,12 @@ public class UserController {
 	private final HashtagsRepository hashtagsRepository;
 	
     @GetMapping("/login")
-    public String login(@RequestParam(name = "pwChanged", required = false) String pwChanged, Model model) {
+    public String login(@RequestParam( name = "pwChanged", required = false) String pwChanged, @RequestParam(value = "redirect", required = false) String redirect, HttpSession session,Model model) {
     	 if ("true".equals(pwChanged)) {
     	        model.addAttribute("pwChangedMsg", "비밀번호가 성공적으로 변경되었습니다.");
+    	    }
+    	 if (redirect != null) {
+    	        session.setAttribute("redirectAfterLogin", redirect);
     	    }
     	return "member/signIn";
     }

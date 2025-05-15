@@ -24,4 +24,6 @@ public interface UserHashtagRepository extends JpaRepository<UserHashtagEntity, 
           AND uh.user.id <> :userId
         """)
     List<Long> findUserIdsWithSameHashtags(@Param("hashtagIds") List<Long> hashtagIds, @Param("userId") Long userId);
+
+	List<UserHashtagEntity> findAllByUserId(Long id);
 }

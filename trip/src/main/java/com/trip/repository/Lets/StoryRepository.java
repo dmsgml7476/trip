@@ -44,4 +44,10 @@ public interface StoryRepository extends JpaRepository<StoryEntity,Long> {
     // storyIds 리스트에 포함된 모든 스토리를 가져오는 쿼리문(likes찍은 스토리)
     @Query("SELECT s FROM StoryEntity s WHERE s.id IN :storyIds")
     List<StoryEntity> findAllByIdIn(@Param("storyIds") List<Long> storyIds);
+
+	List<StoryEntity> findTop5ByOrderByWriteAtDesc();
+
+	List<StoryEntity> findTop2ByOrderByWriteAtDesc();
+
+	List<StoryEntity> findTop2ByOrderByLikes();
 }
