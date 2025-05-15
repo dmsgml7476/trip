@@ -7,27 +7,77 @@
     <th:block layout:fragment="css">
      <style>
       * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        text-decoration: none;
-      }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
 
-      .terms-box {
-        width: 500px;
-        height: 100px;
-        overflow-y: scroll;
-        border: 1px solid #000;
-        padding: 8px;
-        margin-bottom: 8px;
-        font-size: 14px;
-      }
+.wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.terms {
+  border: 1px solid;
+  width: 1280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.terms-name {
+  font-size: 40px;
+  margin: 20px 0;
+}
+
+.terms-title {
+  font-size: 20px;
+  margin: 10px;
+}
+
+.terms-box {
+  width: 500px;
+  height: 200px;
+  overflow-y: scroll;
+  border: 1px solid #000;
+  padding: 8px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.alert-form-area {
+  width: 500px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+
+.alert-form-area > button {
+  margin-top: 40px;
+  height: 35px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: bold;
+  font-size: 18px;
+  background-color: #9dcf7f;
+}
+
+.alert-form-area > button:disabled {
+  background-color: rgb(192, 192, 192);
+}
+
     </style>
     </th:block>
     <th:block layout:fragment="script">
    
     </th:block>
-
+<body>
 <div layout:fragment="main" id="main">
 	 <div class="wrap">
       <div class="terms">
@@ -147,7 +197,7 @@
           </div>
         </div>
 
-        <form action="/signUp" method="get">
+        <form class="alert-form-area" action="/signUp" method="get">
           <label>
             (선택) 사이트의 알림을 받으시겠습니까? 동의
             <input type="radio" name="agreedAllAlerts" value="true" />
@@ -157,8 +207,7 @@
 
           <button type="submit" id="nextbtn" disabled>다음</button>
         </form>
-        
-         <script>
+        <script>
     document.addEventListener("DOMContentLoaded", function () {
         const agree1Radios = document.querySelectorAll('input[name="agree1"]');
         const agree2Radios = document.querySelectorAll('input[name="agree2"]');
@@ -198,7 +247,9 @@
         // 초기 상태 설정
         updateButtonState();
       });
-    </script>
+</script>
+        
+        
       </div>
     </div>
 
@@ -206,4 +257,6 @@
 
 </div>
 
+ 
+</body>
 </html>
