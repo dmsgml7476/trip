@@ -13,4 +13,6 @@ import com.trip.entity.Member.UserLikeEntity;
 public interface UserLikeRepository extends JpaRepository<UserLikeEntity, Long>{
 	@Query("SELECT u.storyId FROM UserLikeEntity u WHERE u.userId = :userId ORDER BY u.likeTime DESC")
     List<Long> findLikedStoryIdsByUserId(@Param("userId") Long userId);
+
+	UserLikeEntity findByStoryIdAndUserId(Long storyId, Long id);
 }

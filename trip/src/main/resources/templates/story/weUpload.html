@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+<title>Insert title here</title>
+</head>
+<body>
+		<th:block th:replace="story/mainMenu :: mainMenu"></th:block>
+		<style>
+		/*스토리박스 전체*/
+      #write-story {
+        width: 999px;
+        height: 100px;
+        border: 1px solid rgb(192, 192, 192);
+        padding: 16px;
+        margin: 20px 0;
+        border-radius: 10px;
+        align-items: center;
+      }
+      
+      /*사진,플래너,링크 버튼*/
+      .hidden {
+        display: none;
+      }
+      .hidden-input{
+        opacity: 0;
+        position: absolute;
+        left: -9999px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+      }
+      .hidden-input-container{
+        display: none;
+        margin-top: 5px;
+      }
+      .button-label{
+        display: inline-block;
+        padding: 8px 15px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 10px;
+        font-size: 14px;
+      }
+      .button-label:hover{
+        background-color: #e0e0e0;
+      }
+      .button-label:active{
+        background-color: #d0d0d0;
+      }
+
+      .popup,
+      .search-box {
+        border: 1px solid #ccc;
+        padding: 10px;
+        background: #f9f9f9;
+        position: absolute;
+        z-index: 1000;
+      }
+      #text-input:focus {
+        color: black;
+      }
+
+     
+		</style>
+		
+		<div class="write-story">
+    <!--스토리 작성 초기 화면-->
+      <textarea
+          id="text-input"
+          placeholder="당신의 이야기를 기다리고 있어요."
+          autocomplete="off"
+          style="width: 66.66vw; height: 200px; font-size: 1rem; padding: 0.5em;"></textarea><br>
+
+    <!--스토리 작성하고자 클릭하면 기존 글자 사라지기-->
+    <script>
+      const input=document.getElementById('text-input');
+      input.addEventListener('focus',function clearTextarea(){
+        if(this.value.trim()==="당신의 이야기를 기다리고 있어요."){
+          this.value="";
+        }})
+    </script>
+    </div>
+    
+    <div class="add-upload">
+    <!--사진/동영상 업로드 버튼-->
+    <label for="file-upload-photo" class="button-label">사진/동영상
+      <input type="file" id="file-upload-photo" accept="image/*,video/*" 
+             class="hidden-input"/>  
+      </label>
+  
+    <!--my planner 와 연결--> 
+    <label for="file-upload-planner" class="button-label">My플래너
+      <input type="file" id="file-upload-planner" accept="image/*"/
+             class="hidden-input">
+    </label>
+
+    <!--링크-->
+    <label for="link-toggle" class="button-label" id="link-button">링크</label>
+      <div id="link-input-container" class="hidden-input-container">
+        <input type="url" id="link-input" placeholder="여행플래너 URL 입력"/>
+      </div>
+    <script>
+      document.getElementById('link-button').addEventListener('click',function(){
+          const linkInputContainer = document.getElementById('link-input-container');
+          if(linkInputContainer.style.display === 'none' || 
+              linkInputContainer.style.display === ''){
+                linkInputContainer.style.display = 'block';
+              } else {
+                linkInputContainer.style.display = 'none';
+              }
+      })
+    </script>
+    </div>
+   
+   <div class="choice">
+  <!--공개 범위 선택-->
+  <select id="visibility">
+    <option value="public">전체공개</option>
+    <option value="partial">일부공개</option>
+    <option value="private">비공개</option>
+  </select>
+ 
+  <!--댓글 기능 선택-->
+  <select id="comments">
+    <option value="allow">댓글 허용</option>
+    <option value="deny">댓글 비허용</option>
+  </select>
+ 
+  <!--다른 사용자 검색 & 태그-->
+  <button onclick="showTagSerch()">🪕</button>
+  <div id="search-box"
+       class="search-box hidden">
+       함께하는 친구 찾기<br>
+       <nav class="lets bg-body-tertiary">
+          <form class="containar-fluid">
+              <div class="input-group">
+                  <span class="input-group-text"
+                        id="basic-addon1">🪕</span>
+                  <input type="text"
+                         class="form-control"
+                         placeholder="@아이디"
+                         aria-label="Username"
+                         aria-describedby="basic-addon1">
+              </div>
+          </form>
+       </nav>
+  </div>
+  <script>
+      function clearInput(el){
+        if(el.value.includes("찾기🪕"))
+        el.value="";
+      }
+      function showTagSerch(){
+        document.getElementById("search-box").classList.toggle("hidden");}
+
+      function searchUser(query){
+        document.getElementById("search-results").innerHTML="검색 중"+query;}
+  </script>
+
+  <!--위치기반 서비스 팝업-->
+  <button onclick="togglePopup()">📌</button>
+      <div id="popup" class="popup hidden">
+          작성 중인 스토리가 보여지는 동안<br>
+          '스토리'에서 사용자의 위치에<br>
+          접근하도록 허용하시겠습니까?<br>
+          사용자의 데이터는 개인화된 광고 제공 목적으로 사용됩니다.<br>
+        <button onclick="setLocationPerMission(true)">허용</button>
+        <button onclick="setLocationPerMission(false)">비허용</button>
+      </div>
+      <script>
+         function togglePopup(){
+           document.getElementById("popup").classList.toggle("hidden");
+         }
+         function setLocationPerMission(allowed){
+            alert(allowed ? "위치 접근 허용됨" : "위치 접근 비허용됨");
+            document/getElementById("popup").classList.add("hidden");
+         }
+      </script>
+      </div>
+
+<div class="cancelOrUpload">
+  <!--취소/올리기 버튼-->
+  <button onclick="cancelPost()">취소</button>
+    <script>
+         function cancelPost(){
+            alert("작성 내용이 임시 저장되었습니다.");
+            window.location.href="/weStory"; 
+            <!--스토리 메인 화면으로 이동-->
+         } 
+    </script>
+  <button onclick="submitPost()">올리기</button>
+    <script>
+         function submitPost(){
+            alert("스토리가 업로드되었습니다.");
+            window.location.href="/myStory";
+            <!--내가 올린 스토리 화면으로 이동-->
+         } 
+    </script>
+    </div>
+  
+		
+		
+		<th:block th:replace="story/mainFooter :: mainFooter"></th:block>
+
+</body>
+</html>

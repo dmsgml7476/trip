@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+<title>Insert title here</title>
+</head>
+<body>
+<th:block th:replace="story/mainMenu :: mainMenu"></th:block>
+			
+			
+			<style>
+				    .image-button{
+			        position: fixed; top: 0; left: 0;
+			        z-index: 1000; margin: 10px;
+			      }
+			      .image-button div {
+			        border: none; background: none;
+			        padding: 0; cursor: pointer;
+			        outline: none;
+			      }
+			      .image-button div img {
+			        display: block; width: 90px;
+			        height: 60px; object-fit: cover;
+			        max-width: 100%; height: auto;
+			        outline: none;
+			      }
+			      .youtube {
+			        display: flex;
+			        justify-content: center;
+			        gap: 10px;
+			        flex-wrap: wrap;
+			        padding: 20px;
+			        margin-top: 50px;
+			      }
+			</style>
+			
+			 <!--페이지 안내 이미지-->
+
+    <!--스토리 바로가기-->
+    <p><a
+            id="story-Baro"
+            type="button"
+            onclick="location.href='/weStory.html'"
+            >스토리 바로가기 👉</a></p>
+    
+	
+	
+	
+	
+    <div class="about-page">
+			    <a th:each="storyImg : ${storyImgList} " th:href="'/myStory/'+ ${storyImg.storyId}">
+			      		<img   th:src="${storyImg.url}" width="150" height="100" />
+			    </a>
+    
+
+      <!--화살표로 좌우 이동-->
+      <p class="controller">
+        <span class="prev">⬅️</span>
+        <span class="next">➡️</span>
+      </p>
+    </div>
+
+    <!--광고 배너-->
+     <div class="ad-banner">
+      📢산불은 오직 예방만이 최선입니다!📢
+      <h6>🌺봄철 산불조심기간 🐦‍🔥 2025.1.24~5.15</h6>
+    </div> 
+
+    <!--유튜브 광고영상-->
+    <button id="youtubeButton">한국관광공사Youtube 바로가기👉</button>
+    <script>
+        document.getElementById("youtubeButton").onclick = function(){
+          window.open("https://www.youtube.com/@imagineyourkorea","_blank");
+        }
+    </script>
+
+    <div class="youtube">
+      <iframe
+        width="400"
+        height="200"
+        src="https://www.youtube.com/embed/sng8h9f98Mo"
+        title="Feel the Night of KOREA"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
+                     gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+      <iframe
+        width="400"
+        height="200"
+        src="https://www.youtube.com/embed/NLxgGRElMbs"
+        title="BUSAN BLUES"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
+                     gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+
+    <!--광고 이미지-->
+    <div class="advertising-image"></div>
+			
+			
+			<th:block th:replace="story/mainFooter :: mainFooter"></th:block>
+</body>
+</html>
