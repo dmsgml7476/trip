@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+<title>Insert title here</title>
+</head>
+<body>
+		<th:block th:replace="story/mainMenu :: mainMenu"></th:block>
+		<style>
+						/*스토리로 이동*/
+				      .a{
+				        display: block;
+				        width: calc(100% / 3*2);
+				        margin: 60px auto;
+				        text-decoration: none;
+				      }
+				      #text-input{
+				          width: 100%;
+				          box-sizing: border-box;
+				          text-align: center;
+				          font-size: 1.3em;
+				          padding: 20px;
+				          border: 1px solid #ddd;
+				          border-radius: 8px;
+				          cursor: pointer;
+				      }
+		</style>
+		
+				 <!--스토리 작성 초기 화면-->
+      <a href="/weUpload" style="text-decoration: none;">
+        <input
+          id="text-input"
+          type="text"
+          placeholder="당신의 이야기를 기다리고 있어요.▶️"
+          onclick="clearInPut(this)"
+          readonly 
+          style="cursor: pointer;"
+          />
+        </input><br>
+      </a>
+          
+      <script>
+          function clearInPut(el){
+              if(el.value === "당신의 이야기를 기다리고 있어요.")
+              el.value="";
+          }
+      </script>
+    
+     	 <!--story main-->
+      <!-- 작성되는 스토리별 자동 반복-->
+      <main class="story-grid">
+        <!--2개의 스토리 카드 보여주기-->
+        <div th:each="story, stat : ${cardList}"    class="story-card">
+          <div>
+              <!--작성자 아이디-->
+              <strong th:text="${story.loginId}">
+              </strong>
+          </div>
+          <div>
+              <!--작성 제목-->
+              <strong th:text="${story.storyTitle}"></strong>
+          </div>
+          <div>
+              <!--이미지-->
+              <img th:src="${story.storyImgUrl}" alt="story image"/>
+          </div>
+          <!--내용-->
+          <p th:text="${story.storyContent}"></p>
+          <!--해시태그-->
+          <span th:text="${story.hashTags}"></span>
+          
+    
+          <!--댓글 버튼 누르면 작성 화면 활성화-->
+                <button class="like-button" >
+                <span th:text="${story.isLike ? '공감취소' : '공감' }">공감</span>
+          </button>
+          
+                <span class="like-count" 
+                      th:text="${story.likes}">00</span>
+
+          <!--댓글 버튼 누르면 작성 화면 활성화-->
+          <button onclick="toggleComment(this)">댓글</button>
+          <!--활성화된 댓글 입력창-->
+          <div class="comment-section" style="display: none;">
+              <form method="post" action="" th:object="${storyCommentDto}">
+                    <input type="text"  th:field="*{commentContent}" placeholder="댓글을 입력하세요"/>
+                    <button type="submit">등록</button>
+              </form>
+              <!--작성된 댓글 리스트-->
+              <div class="comment-list">
+                    <a href="/story/detail" class="detail-link">댓글 더보기</a>
+              </div>
+          </div>
+        </div>
+
+      </main>
+          <script>
+            // 공감버튼과 공감 수 표시
+            document.addEventListener('DOMContentLoaded', 
+                function(){
+                    //모든 공감버튼 찾기 
+                    console.log('DOMContentLoaded 이벤트 발생 - 공감 버튼 찾기 시작');
+                    const likeButtons = document.querySelectorAll('.like-button');
+                })
+
+                likeButtons.forEach(button =>{
+                    button.addEventListener('click', function(){
+                        console.log('공감 버튼 클릭');
+
+                        // 클릭된 버튼의 data-story-id 속성에서 스토리 id 가져오기
+                        const storyId = this.dataset.storyId;
+                        console.log('스토리 ID:',storyId);
+
+                        //같은 스토리 카드 안에 있는 공감수 표시 span 찾기
+                        const storyCard = this.closest('.story-card');
+                        const likedCountSpan = storyCard.querySelector('.like-count');
+
+                        //현재 공감 상태를 확인
+                        const isLiked = this.classList.contains('liked');
+
+                        let currentCount = parseInt(likedCountSpan.textContent);
+                        if(isNaN(currentCount)){
+                            currentCount=0;
+                        }
+
+                      // 이미 공감한 상태면 공감 취소
+                          if(isLiked){
+                            this.classList.remove('liked');
+                            this.querySelector('span').textContent ='공감';
+                            currentCount--; // 숫자감소
+                          } else {
+                            // 공감 안한 상태면 공감(숫자증가)
+                             this.classList.add('liked');
+                             this.querySelector('span').textContent ='공감 취소';
+                             currentCount++; // 숫자증가
+                          }
+                        // 공감 수 업데이트
+                        likedCountSpan.textContent = Math.max(0,currentCount);
+                        console.log('새로운 공감 수:', likedCountSpan.textContent); 
+                    })
+                })
+
+            //스토리 댓글 오류 확인
+            function toggleComment(button){
+              console.log('toggleComment 함수 호출');
+
+              const storyCard = button.closest('.story-card');
+              console.log('스토리 카드 찾음:',storyCard);
+
+              const commentSection = storyCard.querySelector('.comment-section');
+              console.log('댓글 섹션 찾음:',commentSection);
+
+              if(commentSection){
+
+                if (commentSection.style.display === 'none'){
+                      commentSection.style.display = 'block'; //show
+                } else {
+                  commentSection.style.display = 'none';//hide
+                }
+              } else {
+                console.error('댓글 섹션을 찾을 수 없습니다!');
+              }
+            }
+          </script>
+      
+      <!--금주 최신 스토리-->
+        <div class="recent-story">
+
+        </div>
+      <!-- 금주 인기 스토리 -->
+      <div class="popular-story">
+
+        </div>
+        
+      </div>
+      
+		
+		<th:block th:replace="story/mainFooter :: mainFooter"></th:block>
+
+</body>
+</html>
