@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.trip.config.auth.CustomUserDetails;
 import com.trip.dto.Planner.PlaceSelectDto;
+import com.trip.dto.Planner.RegionSelectDto;
 import com.trip.entity.Planner.PlaceEntity;
 import com.trip.entity.Planner.RegionEntity;
 import com.trip.repository.Planner.PlaceRepository;
@@ -40,8 +41,12 @@ public class TripPlannerController {
 	//여행 지역, 여행 인원, 교통수단 선택
 	@GetMapping("/tripBasicOption")//사용자가 요청한 주소
 	public String tripBasicOption(Model model) {
+		List<RegionSelectDto> regionList = regionRepository.findAll()
+				.stream()
+				.map(RegionSelectDto::from)
+				.collect(Collectors.toList());
 		
-		model.addAttribute("regionType",planService.allRegionName());
+		model.addAttribute("regionList",regionList);
 		model.addAttribute("vehicleType",planService.allVehicleName());
 		
 		
@@ -66,7 +71,7 @@ public class TripPlannerController {
 		
 		
 		model.addAttribute("placeType",dtoList);
-		
+
 		return "planner/placeListOption";
 		
 	

@@ -16,20 +16,24 @@
           <h3>여행지역 선택</h3>
           <div>
           <form id="regionForm", action="/placeListOption" method="GET">
-          	<select id="mainRegion" name="mainRegion" onchange="updateSubRegion()">
-              <option value="">상위</option>
-              <option value="경기도">경기도</option>
-              <option value="전라남도">전라남도</option>
-              <option value="충청북도">충청북도</option>
+          	<select id="mainRegion" name="mainRegion">
+              <option value="">상위 지역</option>
+                      <th:block th:each="region : ${regionList}">
+                        <option
+                          th:value="${region.upperRegionName}"
+                          th:text="${region.upperRegionName}"
+                        ></option>
+                      </th:block>
              </select>
-          </form>
-          <form action="/placeListOptionByRegion" method="get">
-          	  <select name="subRegion">
-            	<option value="">하위</option>
-            	<option value="">가평</option>
-            	<option value="">전주</option>
-            	<option value="">단양</option>
+
+          	  <select id="subRegion" name="subRegion">
+            	<option value="">세부 지역</option>
+                      <th:block th:each="region : ${regionList}">
+						<option th:value="${region.regionName}" th:text="${region.regionName}"></option>
+                      </th:block>
             </select>
+            
+            <input class="regionInput" type="hidden" name="regionId" th:value="regionId">
             <button type="button" onclick="location.href='/placeListOption'">다음</button>
           </form>
           
@@ -37,33 +41,7 @@
             
            </div>
           
-          	 
-           <script>
-			  const subRegions = {
-   				 "경기도": ["가평"],
-  				 "전라남도": ["전주"],
-  				 "충청북도":["단양"] 
- 				 };
-
-  function updateSubRegion() {
-    const mainRegion = document.getElementById("mainRegion").value;
-    const subRegionSelect = document.getElementById("subRegion");
-
-    // 기존 옵션 제거
-    subRegionSelect.innerHTML = "";
-
-    // 새로운 옵션 추가
-    subRegions[mainRegion].forEach(region => {
-      const option = document.createElement("option");
-      option.value = region;
-      option.textContent = region;
-      subRegionSelect.appendChild(option);
-    });
-  }
-
-  // 페이지 로드 시 초기화
-  window.onload = updateSubRegion;
-</script>	
+          	 	
           </div>
         </div>
         <div>
@@ -82,8 +60,10 @@
         </div>
       </div>
     <script th:inline="javascript">
-    	window.regionInfo= /*[[${regionType}]]*/[];
+
+    	window.regionList = /*[[${regionList}]]*/ [];
+    	console.log("🟢 JS regionList 확인:", window.regionList);
     </script>
-    <script src="/javascript/regionSelectOption.js"></script>
+    <script src="/javascript/tripBasicOption.js"></script>
   </body>
 </html>

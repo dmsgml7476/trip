@@ -1,14 +1,10 @@
 package com.trip.repository.Planner;
 
 import java.util.List;
-<<<<<<< HEAD
-
-=======
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
->>>>>>> branch 'main' of https://github.com/dmsgml7476/trip.git
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -34,12 +30,10 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Long>{
 		                                                         @Param("keyword") String keyword,
 		                                                         Pageable pageable);
 
-<<<<<<< HEAD
+
 	List<PlaceEntity> findByRegion(RegionEntity region);
 
 	
-
-=======
 	@Query("SELECT p FROM PlaceEntity p JOIN FETCH p.region r " +
 		       "WHERE p.category.categoryId = :categoryId AND p.placeName LIKE %:keyword%")
 		Page<PlaceEntity> findByCategoryAndKeyword(@Param("categoryId") Long categoryId,
@@ -50,7 +44,6 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Long>{
 		       "WHERE p.category.categoryId = :categoryId")
 		Page<PlaceEntity> findByCategoryIdWithRegion(@Param("categoryId") Long categoryId,
 		                                             Pageable pageable);
->>>>>>> branch 'main' of https://github.com/dmsgml7476/trip.git
 
 	@Query("SELECT p FROM PlaceEntity p JOIN FETCH p.region r " +
 		       "WHERE p.category.categoryId = :categoryId AND r.regionId = :regionId")

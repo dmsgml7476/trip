@@ -46,8 +46,7 @@ window.onload = function () {
       document.getElementById('result').innerText = '저장된 정보가 없습니다.';
     }
   }
-
-
+  
 
 
 
