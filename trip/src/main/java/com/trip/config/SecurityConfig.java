@@ -7,7 +7,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import jakarta.servlet.http.HttpSession;
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +28,29 @@ public class SecurityConfig {
 	            .formLogin (
 		        		form->form
 		        			.loginPage("/login")
-		        			.defaultSuccessUrl("/")
+		        			.successHandler((request, response, authentication) -> {
+		        				HttpSession session = request.getSession(false);
+		        				if (session != null) {
+		        			        String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
+		        			        if (redirectUrl != null) {
+		        			            session.removeAttribute("redirectAfterLogin");
+		        			            response.sendRedirect(redirectUrl);
+		        			            return;
+		        			        }
+		        			    }
+		        				// 이전 요청이 저장되어 있는지 확인
+				                        SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
+		
+				                        if (savedRequest != null) {
+				                            // 이전 URL로 리디렉션
+				                            String targetUrl = savedRequest.getRedirectUrl();
+				                            response.sendRedirect(targetUrl);
+				                        } else {
+				                            // 기본 URL로 이동
+				                            response.sendRedirect("/");
+				                        }
+		        				    
+		                    })
 		        			.usernameParameter("loginId")
 		        			.failureUrl("/login/error")
 		        			.permitAll()
