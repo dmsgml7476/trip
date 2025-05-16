@@ -6,6 +6,8 @@ function submitProfile() {
 
 function toggleMbtiEditBox() {
     const box = document.getElementById('mbtiEditBox');
+	
+	
     box.style.display = (box.style.display === 'none') ? 'block' : 'none';
   }
   
@@ -35,7 +37,7 @@ document.querySelectorAll("#hashtagContainer .hashtag").forEach((tagElem) => {
     const isSelected = tagElem.classList.contains("selected");
 
     // 최대 5개 제한 검사 (선택할 때만)
-    if (!isSelected && document.querySelectorAll(".hashtag.selected").length >= 5) {
+    if (!isSelected && document.querySelectorAll(".hashtag.selected").length >= 6) {
       alert("해시태그는 최대 5개까지 선택 가능합니다.(MBTI 미포함)");
       return;
     }
