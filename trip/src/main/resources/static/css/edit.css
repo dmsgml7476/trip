@@ -13,7 +13,6 @@ a:visited {
 }
 
 .wrap {
-  border: 1px solid black;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -22,9 +21,9 @@ a:visited {
 }
 
 .edit-area {
-  border: 1px solid green;
   width: 900px;
   margin: 0 auto;
+  margin-top : 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,13 +51,14 @@ a:visited {
 }
 
 .profile-img {
-  width: 150px;
+  width: 160px;
+  height: auto;
   object-fit: cover;
 }
 
 .profile-info-name {
-  border: 1px solid red;
   width: 100px;
+  margin-left: 20px;
   margin-top: 10px;
 }
 
@@ -69,7 +69,6 @@ a:visited {
 }
 
 .profile-info-value {
-  border: 1px solid gray;
   margin-top: 10px;
 }
 
@@ -95,11 +94,14 @@ a:visited {
 }
 
 .hashtag-edit-area {
-  border: 1px solid;
+  border: 3px solid rgb(177, 177, 177);
+  border-radius: 10px;
+  background-color: rgb(255, 247, 234);
   margin: 20px 0;
-  width: 600px;
+  width: 620px;
   display: flex;
   flex-direction: column;
+  padding: 10px;
 }
 
 .hashtag-edit-title {
@@ -112,7 +114,8 @@ a:visited {
 }
 
 .mbti-edit-area {
-	display: flex;
+  display: flex;
+  align-items: center;
 }
 
 .mbti-edit-title {
@@ -120,10 +123,68 @@ a:visited {
 }
 
 .my-mbti-box {
-	margin-left: 15px;
+  margin-left: 15px;
+  border: 1px solid;
 }
 
+.mbti-section-area {
+  display: flex;
+  flex-direction: column;
+  width: 594px;
+  justify-content: space-between;
+}
 
+.mbti-section-box {
+  display: flex;
+  justify-content: space-between;
+  width: 594px;
+}
+
+.mbti-section-box > div {
+  padding: 10px;
+  width: 260px;
+  border-radius: 20px;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  margin: 10px 0;
+}
+
+.mbti-option input[type="radio"] {
+  display: none;
+}
+
+.mbti-option span {
+  width: 80px;
+  display: inline-block;
+  font-size: 20px;
+  text-align: center;
+  margin: 5px;
+  padding: 6px 12px;
+  border-radius: 15px;
+  background-color: #eee;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.mbti-option input[type="radio"]:checked + span {
+  background-color: orange;
+  color: white;
+  font-weight: bold;
+}
+
+.save-mbti-btn {
+  width: 260px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  background-color: orange;
+}
+
+.save-mbti-btn:hover {
+  background-color: rgb(252, 210, 133);
+}
 
 .alert-edit-area {
   width: 600px;
@@ -172,51 +233,51 @@ a:visited {
 /* 해시태그  */
 
 .hashtag {
-    display: inline-block;
-    margin: 5px;
-    padding: 6px 12px;
-    background-color: #eee;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: 0.3s;
+  display: inline-block;
+  margin: 5px;
+  padding: 6px 12px;
+  background-color: #eee;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .hashtag:hover {
-    background-color: #ddd;
+  background-color: #ddd;
 }
 
 .hashtag.selected {
-    background-color: orange;
-    color: white;
-    font-weight: bold;
+  background-color: orange;
+  color: white;
+  font-weight: bold;
 }
-  
+
 .mbti-hidden {
   display: none;
 }
 
 .my-mbti {
-	display: inline-block;
-    margin: 5px;
-    padding: 6px 12px;
-    background-color: #eee;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: 0.3s;
-    height: 80%;
-    border: none;
+  display: inline-block;
+  margin: 5px;
+  height: 30px;
+  padding: 6px 12px;
+  background-color: orange;
+  color: white;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+  margin-left: 10px;
 }
 
 .my-mbti:hover {
-	background-color: #ddd;
+  background-color: rgb(252, 210, 133);
 }
 
 .my-mbti:active {
-    background-color: orange;
-    color: white;
-    font-weight: bold;
+  transform: scale(0.8);
 }
-
 
 /* 모달창 */
 
@@ -233,19 +294,14 @@ a:visited {
   align-items: center;
 }
 
-
-
 .modal-container {
-	
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
-  border: 1px solid;
+  border-radius: 10px;
   background-color: white;
   width: 400px;
-  height: 500px;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -258,18 +314,36 @@ a:visited {
 
 .input-area {
   margin: 10px 0;
-  height: 100%;
-  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .input-box {
-  margin: 0 auto;
+  margin: 30px;
   display: flex;
   flex-direction: column;
-  height: 350px;
+
   justify-content: center;
   width: 250px;
-  border: 1px solid;
+}
+
+.input-box > p {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.input-box > input {
+  height: 40px;
+  padding: 0 10px;
+  border: 2px solid gray;
+  border-radius: 7px;
+}
+
+.input-box > input:focus {
+  border: 3px solid #9dcf7f;
+  outline: none;
 }
 
 .input-area button {
@@ -279,6 +353,8 @@ a:visited {
   border: none;
   border-radius: 7px;
   background-color: rgb(0, 170, 0);
+  color: white;
+  font-weight: bold;
   margin: 0 auto;
 }
 
@@ -286,4 +362,38 @@ a:visited {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.info-edit-area {
+  width: 350px;
+}
+
+.info-edit-input-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.info-edit-input-box > p {
+  width: 90px;
+  font-size: 20px;
+}
+
+.info-edit-input-box > input {
+  height: 40px;
+  padding: 0 10px;
+  border: 2px solid gray;
+  border-radius: 7px;
+}
+
+.info-edit-input-box > input:focus {
+  border: 3px solid #9dcf7f;
+  outline: none;
+}
+
+
+.chk-text {
+	color: red;
+
 }
