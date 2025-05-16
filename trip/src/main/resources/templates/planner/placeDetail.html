@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head>
+    <th:block layout:fragment="css"></th:block>
+	<title>Trip</title>
+</head>
+<body>
+
+<div layout:fragment="main" id="main">
+
+    <div>
+        <div>
+            <img src="">
+        </div>
+        <div>
+            <h2>관광지 정보</h2>
+            <div>
+               <p>관광지명:<span th:text="${placeName}"></span></p><br>
+               <p>주소:<span th:text="${placeAddress}"></span></p>
+               <p>설명:<span th:text="${placeInfo}"></span></p>
+            </div>
+            <a href="/finalPlan"><button>내 관광지 목록에 추가</button></a>
+            
+        </div>
+    </div>
+    
+
+
+</div>
+
+
+<th:block layout:fragment="script">
+	<script src="/javascript/regionListOption.js"></script>
+</th:block>
+
+</body>
+</html>

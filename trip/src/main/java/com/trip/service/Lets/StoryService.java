@@ -1,5 +1,6 @@
 package com.trip.service.Lets;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -9,11 +10,14 @@ import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import com.trip.dto.Lets.StoryCardDto;
+import com.trip.dto.Lets.StoryCommentDto;
 import com.trip.dto.Lets.StoryImgUrl;
+import com.trip.entity.Lets.CommentEntity;
 import com.trip.entity.Lets.StoryEntity;
 import com.trip.entity.Member.UserEntity;
 import com.trip.entity.Member.UserHashtagEntity;
 import com.trip.entity.Member.UserLikeEntity;
+import com.trip.repository.Lets.CommentRepository;
 import com.trip.repository.Lets.StoryRepository;
 import com.trip.repository.Member.UserHashtagRepository;
 import com.trip.repository.Member.UserLikeRepository;
@@ -32,7 +36,20 @@ public class StoryService {
 			private final UserHashtagRepository userHashtagRepository;
 			private final UserLikeRepository userLikeRepository;
 			private final UserRepository userRepository;
-    
+			private final CommentRepository commentRepository;
+			
+			// 댓글 저장용
+			public void commentSave(StoryCommentDto storyCommentDto, Long storyId,String loginId) {
+					StoryEntity storyEntity = storyRepository.findById(storyId).get();
+					UserEntity userEntity = userRepository.findByLoginId(loginId);
+					CommentEntity commentEntity = new CommentEntity();
+					commentEntity.setStory(storyEntity);
+					commentEntity.setUser(userEntity);
+					commentEntity.setCommentContent(storyCommentDto.getCommentContent());
+					commentEntity.setCommentAt(LocalDateTime.now());
+					commentRepository.save(commentEntity);
+			}
+			
 		
 			// 스토리 목록 보여주기 위한 메서드 (최근 순, 공감 다수 순)
 			public List<StoryCardDto> getStoryList(String loginId){
@@ -66,7 +83,7 @@ public class StoryService {
 						// 임시공간에 저장된 해시 태그 DTO의 배열에 저장
 						storyCardDto.setHashTags( tempTag.toArray(new String[0]));
 					}
-					
+					storyCardDto.setLoginId(story.getUser().getLoginId());
 					storyCardDto.setStoryId(story.getStoryId());
 					storyCardDto.setStoryTitle(story.getStoryTitle());
 					storyCardDto.setStoryContent(story.getStoryContent());

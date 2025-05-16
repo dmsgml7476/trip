@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head>
+    <th:block layout:fragment="css">
+    	 <link rel="stylesheet" href="tripPlan.css" />
+    </th:block>
+
+	 <title>Trip</title>
+</head>
+<body>
+
+<div layout:fragment="main" id="main">
+
+  
+ <div>
+      <!-- 여행 기본 정보 선택  -->
+      <div>
+        <div>
+          <!-- 여행지역 선택 영역 수정확인 -->
+          <h3>여행지역 선택</h3>
+          <div>
+          <form id="regionForm", action="/placeListOption" method="GET">
+          	<select id="mainRegion" name="mainRegion">
+              <option value="">상위 지역</option>
+                      <th:block th:each="region : ${regionList}">
+                        <option
+                          th:value="${region.upperRegionName}"
+                          th:text="${region.upperRegionName}"
+                        ></option>s
+                      </th:block>
+             </select>
+
+          	  <select id="subRegion" name="subRegion">
+            	<option value="">세부 지역</option>
+                      <th:block th:each="region : ${regionList}">
+						<option th:value="${region.regionName}" th:text="${region.regionName}"></option>
+                      </th:block>
+            </select>
+            
+            <input class="regionInput" type="hidden" name="regionId" th:value="regionId">
+            <button type="button" onclick="location.href='/placeListOption'">다음</button>
+          </form>
+           </div>
+        </div>
+        </div>
+        <div>
+          <!--여행 인원 
+         선택-->
+          <label> 여행인원 선택 </label>
+          <input type="number" />
+        </div>
+        <div>
+          <!-- 교통수단 선택-->
+          <label>교통수단</label>
+          <select>
+            <option th:each="trafficInfo : ${vehicleType}" th:text="${trafficInfo.vehicleType}">자가용</option>
+
+          </select>
+        </div>
+      </div>
+
+
+	
+
+
+
+</div>
+
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+
+    	window.regionList = /*[[${regionList}]]*/ [];
+    	console.log("🟢 JS regionList 확인:", window.regionList);
+    </script>
+    <script src="/javascript/tripBasicOption.js"></script>
+</th:block>
+    
+</body>
+</html>

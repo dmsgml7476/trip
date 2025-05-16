@@ -30,6 +30,10 @@ public interface PlaceRepository extends JpaRepository<PlaceEntity, Long>{
 		                                                         @Param("keyword") String keyword,
 		                                                         Pageable pageable);
 
+
+	List<PlaceEntity> findByRegion(RegionEntity region);
+
+	
 	@Query("SELECT p FROM PlaceEntity p JOIN FETCH p.region r " +
 		       "WHERE p.category.categoryId = :categoryId AND p.placeName LIKE %:keyword%")
 		Page<PlaceEntity> findByCategoryAndKeyword(@Param("categoryId") Long categoryId,

@@ -19,7 +19,6 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 public class CommentEntity {
 	
 	@Id
