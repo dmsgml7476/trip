@@ -22,7 +22,7 @@
                         <option
                           th:value="${region.upperRegionName}"
                           th:text="${region.upperRegionName}"
-                        ></option>
+                        ></option>s
                       </th:block>
              </select>
 
@@ -36,13 +36,8 @@
             <input class="regionInput" type="hidden" name="regionId" th:value="regionId">
             <button type="button" onclick="location.href='/placeListOption'">다음</button>
           </form>
-          
-            
-            
            </div>
-          
-          	 	
-          </div>
+        </div>
         </div>
         <div>
           <!--여행 인원 
@@ -64,6 +59,8 @@
     	window.regionList = /*[[${regionList}]]*/ [];
     	console.log("🟢 JS regionList 확인:", window.regionList);
     </script>
+
+	
     <script src="/javascript/tripBasicOption.js"></script>
   </body>
 </html>

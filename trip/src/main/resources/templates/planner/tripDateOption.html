@@ -34,6 +34,10 @@
       }
     </style>
     <script>
+ // 선택한 날짜 저장용 변수
+    let selectedDate = null;
+
+    
       window.onload = function () {
         let today = new Date();
         var nowY = today.getFullYear(); //현재 연도
@@ -73,11 +77,11 @@
             } else {
               //오늘 날짜
               if (dNum === nowD) {
-                draw += "<td class='day-box'>" + dNum + "</td>";
+                draw += `<td class='day-box' onclick='selectDate(this, ${dNum})'>${dNum}</td>`;
               }
               //오늘이 아닌 날짜
               else {
-                draw += "<td class='day-box'>" + dNum + "</td>";
+                draw += `<td class='day-box' onclick='selectDate(this, ${dNum})'>${dNum}</td>`;
               }
               //일 증가
               dNum++;
@@ -105,9 +109,11 @@
         </div>
       </div>
       <div id="cal"></div>
-       <a href="/placeListOption"><button>다음</button></a>
     </div>
     </div>
     <script src="/javascript/tripDate.js"></script>
+    <form action="/tripBasicOption" method="get">
+    <button>다음</button>
+    </form>
   </body>
 </html>
