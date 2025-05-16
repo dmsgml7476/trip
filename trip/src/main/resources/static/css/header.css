@@ -275,3 +275,13 @@ a {
   left: 10px;
   cursor: pointer;
 }
+
+
+.admin-page-box {
+  width: 200px;
+  font-size: 20px;
+}
+
+.admin-page-box:hover {
+  font-size: 20px;
+}
