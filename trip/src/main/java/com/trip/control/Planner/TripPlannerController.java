@@ -34,7 +34,7 @@ public class TripPlannerController {
 	@GetMapping("/tripMain")
 	public String tripMain(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
 		
-		return "planner/tripplanner";
+		return "planner/tripMain";
 	}
 	
 	

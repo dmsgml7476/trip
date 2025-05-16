@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>장소 목록</title>
+    <th:block layout:fragment="css"></th:block>
+	<title>Trip</title>
 </head>
 <body>
-    <div>
+
+<div layout:fragment="main" id="main">
+
+  
+  <div>
         <div>
          
         <div>
@@ -40,10 +46,20 @@
     
     </div>
     
-    <script th:inline="javascript">
+    
+    
+    
+
+
+</div>
+
+
+<th:block layout:fragment="script">
+<script th:inline="javascript">
     	window.placeInfo = /*[[${placeType}]]*/ [];
     </script>
-    
     <script src="/javascript/placeListOption.js"></script>
+</th:block>
+
 </body>
 </html>

@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>여행 일정 페이지2</title>
-    <link rel="stylesheet" href="tripPlan.css" />
-   
-  </head>
-  <body>
-    <div>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head>
+    <th:block layout:fragment="css">
+    	 <link rel="stylesheet" href="tripPlan.css" />
+    </th:block>
+
+	 <title>Trip</title>
+</head>
+<body>
+
+<div layout:fragment="main" id="main">
+
+  
+ <div>
       <!-- 여행 기본 정보 선택  -->
       <div>
         <div>
@@ -22,7 +29,7 @@
                         <option
                           th:value="${region.upperRegionName}"
                           th:text="${region.upperRegionName}"
-                        ></option>
+                        ></option>s
                       </th:block>
              </select>
 
@@ -36,13 +43,8 @@
             <input class="regionInput" type="hidden" name="regionId" th:value="regionId">
             <button type="button" onclick="location.href='/placeListOption'">다음</button>
           </form>
-          
-            
-            
            </div>
-          
-          	 	
-          </div>
+        </div>
         </div>
         <div>
           <!--여행 인원 
@@ -59,11 +61,23 @@
           </select>
         </div>
       </div>
+
+
+	
+
+
+
+</div>
+
+
+<th:block layout:fragment="script">
     <script th:inline="javascript">
 
     	window.regionList = /*[[${regionList}]]*/ [];
     	console.log("🟢 JS regionList 확인:", window.regionList);
     </script>
     <script src="/javascript/tripBasicOption.js"></script>
-  </body>
+</th:block>
+    
+</body>
 </html>
