@@ -34,7 +34,7 @@ public class UserSignUpDto {
 	@Size(max = 100, message = "주소는 100자 이하로 입력해주세요.")
 	private String address;
 	
-	@Size(max=5, message="해시태그는 최대 5개까지 선택할 수 있습니다.")
+	@Size(max=6, message="해시태그는 최대 6개까지 선택할 수 있습니다.")
 	private List<String> hashtagIds;
 	private boolean agreedAllAlerts;
 

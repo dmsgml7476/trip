@@ -17,7 +17,7 @@
                 <a class="nav-link" href="/">HOME</a>
               </li>
               <li class="a-box" data-text="여행의 추억을 남겨볼까요?">
-                <a class="nav-link" href="">Let's</a>
+                <a class="nav-link" href="/letsmain">Let's</a>
               </li>
               <li class="a-box" data-text="여행 일정을 짜보시겠어요?">
                 <a class="nav-link" href="/tripMain">Trip</a>
@@ -79,10 +79,12 @@
     	>
       		<div class="sideber-box">
         		<div class="sidebar-header">
-          			<div class="profile-box">
-          				<th:block th:if="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}">
-            				<img th:src="@{/upload/profile/{img}(img=${userDetail.profileImg})}" alt="프로필" class="profile-icon" />
-         	 			</th:block>
+          			<div class="profil-box">
+          				<div class="profil-icon-circle">
+          					<th:block th:if="${userDetail != null and !#strings.isEmpty(userDetail.profileImg)}">
+            					<img th:src="@{/upload/profile/{img}(img=${userDetail.profileImg})}" alt="프로필" class="profile-icon" />
+         	 				</th:block>
+         	 			</div>
           
           				<div class="user-info" th:if="${userDetail != null}">
           					<div class="nickname" th:text="${nickname}">유자냠냠이</div>

@@ -163,10 +163,22 @@
   font-size: 30px;
 }
 
-.mbti-select-area > div {
-  margin: 10px;
-  width: 400px;
+
+
+
+.mbti-select-area {
+  display: flex;
 }
+
+.mbti-section-box {
+  width: 300px;
+}
+
+.mbti-section-box > div > label {
+  margin-right: 20px;
+}
+
+
 
 .mbti-option input[type="radio"] {
   display: none;

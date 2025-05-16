@@ -93,33 +93,39 @@
             <div class="mbti-edit-title">
               <p>나의 MBTI</p>
             </div>
-            <div class="my-mbti-box">
-              <button class="my-mbti" onclick="toggleMbtiEditBox()" th:text="${mbti}">mbti</button>
-            </div>
+
+              <button id="my-mbti" class="my-mbti" onclick="toggleMbtiEditBox()" th:text="${mbti}">mbti</button>
+
           </div>
           <div class="my-mbti-edit-box" id="mbtiEditBox" style="display: none;">
           	<form method="post" action="/mypage/edit/mbti" id="mbtiForm">
- 				<div>
-    				<label><input type="radio" name="mbti1" value="E" required> E</label>
-    				<label><input type="radio" name="mbti1" value="I"> I</label>
-  				</div>
-  				<div>
-    				<label><input type="radio" name="mbti2" value="S" required> S</label>
-    				<label><input type="radio" name="mbti2" value="N"> N</label>
-  				</div>
-  				<div>
-    				<label><input type="radio" name="mbti3" value="T" required> T</label>
-    				<label><input type="radio" name="mbti3" value="F"> F</label>
-  				</div>
-  				<div>
-    				<label><input type="radio" name="mbti4" value="J" required> J</label>
-    				<label><input type="radio" name="mbti4" value="P"> P</label>
-  				</div>
+          	<div class="mbti-section-area">
+          		<div class="mbti-section-box">
+ 					<div>
+    					<label class="mbti-option"><input type="radio" name="mbti1" value="E" required><span>E</span></label>
+    					<label class="mbti-option"><input type="radio" name="mbti1" value="I"><span>I</span></label>
+  					</div>
+  					<div>
+    					<label class="mbti-option"><input type="radio" name="mbti2" value="S" required><span>S</span></label>
+    					<label class="mbti-option"><input type="radio" name="mbti2" value="N"><span>N</span></label>
+  					</div>
+          		</div>
+          		<div class="mbti-section-box">
+  					<div>
+    					<label class="mbti-option"><input type="radio" name="mbti3" value="T" required><span>T</span></label>
+    					<label class="mbti-option"><input type="radio" name="mbti3" value="F"><span>F</span></label>
+  					</div>
+  					<div>
+    					<label class="mbti-option"><input type="radio" name="mbti4" value="J" required><span>J</span></label>
+    					<label class="mbti-option"><input type="radio" name="mbti4" value="P"><span>P</span></label>
+  					</div>
+          		</div>
+          	</div>
 
   				<!-- 숨겨진 input으로 조합된 MBTI 저장 -->
   				<input type="hidden" name="mbti" id="finalMbti">
 
-  				<button type="submit" onclick="combineMbti()">저장</button>
+  				<button class="save-mbti-btn" type="submit" onclick="combineMbti()">저장</button>
 			</form>
           </div>
         </div>
@@ -178,7 +184,7 @@
                 <div class="input-box chk-box">
                   <p>현재 비밀번호 확인</p>
                   <input type="password" id="currentPassword-password" />
-                  <p id="pwErrorMsg-password" class="chk-text" style="display:none;">비밀번호가 틀렸습니다</p>
+                  <p id="pwErrorMsg-password" class="chk-text" style="display:none; margin: 0; font-size: 15px;">비밀번호가 틀렸습니다</p>
                 </div>
 
                 <button type="submit">다음</button>
@@ -202,10 +208,10 @@
                 <div class="input-box editPs-box">
                   <p>비밀번호</p>
                   <input type="password" name="newPassword" id="newPassword" required />
-                  <p class="chk-text" id="pwCheckMsg" style="display: none;">비밀번호는 어쩌구저쩌구</p>
+                  <p class="chk-text" id="pwCheckMsg" style="display: none; margin: 0; font-size: 15px;">비밀번호는 어쩌구저쩌구</p>
                   <p>비밀번호 확인</p>
                   <input type="password" name="confirmPassword" id="pwChk" required />
-                  <p class="chk-text" id="pwMismatchMsg" style="display: none;">비밀번호가 일치하지 않습니다</p>
+                  <p class="chk-text" id="pwMismatchMsg" style="display: none; margin: 0; font-size: 15px;">비밀번호가 일치하지 않습니다</p>
                 </div>
 
                 <button type="submit" id="changePwBtn" disabled >변경</button>
@@ -231,7 +237,7 @@
                 <div class="input-box chk-box">
                   <p>현재 비밀번호 확인</p>
                   <input type="password" id="currentPassword-info" />
-                  <p class="chk-text" id="pwErrorMsg-info" style="display:none;">비밀번호가 틀렸습니다</p>
+                  <p class="chk-text" id="pwErrorMsg-info" style="display:none; margin: 0; font-size: 15px;">비밀번호가 틀렸습니다</p>
                 </div>
 
                 <button type="submit">다음</button>
@@ -243,35 +249,46 @@
                 <!-- 회원정보 변경창 -->
 
         <div id="openInfoEditModalTWO" class="modal">
-          <div class="modal-container">
+          <div class="modal-container info-edit-modal">
             <div class="modal-header">
               <div></div>
               <h2>회원정보 변경</h2>
               <span class="close" onclick="closeInfoEditModalTWO()">&times;</span>
             </div>
 
-            <div class="input-area">
+            <div class="input-area info-edit-area">
               <form action="/mypage/editInfo" method="post">
-                <div class="input-box">
-                  <div class="nickname-edit">
-                    <p>닉네임</p>
-                    <input type="text" name="nickname" th:value="${user.nickname}" />
-                    <p class="chk-text" id="nicknameChkMsg"style="display: none;">경고메세지</p>
+                <div class="input-box info-edit-area">
+                  <div class="nickname-edit info-edit-box">
+	                  <div class="info-edit-input-box">
+    	                <p>닉네임</p>
+        	            <input type="text" name="nickname" th:value="${user.nickname}" />
+            	        <p class="chk-text" id="nicknameChkMsg"style="display: none; margin: 0; font-size: 15px;">경고메세지</p>
+                	  </div>
                   </div>
-                  <div class="email-edit">
-                    <p>이메일</p>
-                    <input type="email" name="email" th:value="${userDetail.email}"/>
-                    <p class="chk-text" id="emailChkMsg" style="display: none;">경고메세지</p>
+                  <div class="email-edit info-edit-box">
+                  	<div class="info-edit-input-box">
+	                    <p>이메일</p>
+	                    <input type="email" name="email" th:value="${userDetail.email}"/>
+	                    <p class="chk-text" id="emailChkMsg" style="display: none; margin: 0; font-size: 15px;">경고메세지</p>
+                  	
+                  	</div>
                   </div>
-                  <div class="address-edit">
-                    <p>주소</p>
-                    <input type="text" name="address" th:value="${userDetail.address}" />
+                  <div class="address-edit info-edit-box">
+                  	<div class="info-edit-input-box">
+                  	
+	                    <p>주소</p>
+	                    <input type="text" name="address" th:value="${userDetail.address}" />
+                  	</div>
                     
                   </div>
-                  <div class="tel-edit">
-                    <p>전화번호</p>
-                    <input type="text" name="tel" th:value="${userDetail.tel}" />
-                    <p class="chk-text" id="telChkMsg" style="display: none;">경고메세지</p>
+                  <div class="tel-edit info-edit-box">
+                  	<div class="info-edit-input-box">
+                  	
+	                    <p>전화번호</p>
+	                    <input type="text" name="tel" th:value="${userDetail.tel}" />
+	                    <p class="chk-text" id="telChkMsg" style="display: none; margin: 0; font-size: 15px;">경고메세지</p>
+                  	</div>
                   </div>
                 </div>
 
