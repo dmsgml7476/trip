@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.trip.dto.Lets.StoryCommentDto;
 import com.trip.service.Lets.StoryService;
@@ -44,5 +46,12 @@ public class StroryController  {
 			@GetMapping("/myStory")
 			public String myStory() {
 				return "story/myStory";
+			}
+			@PostMapping("/comment")
+			public String comment(StoryCommentDto storyCommentDto,@RequestParam("storyId") Long storyId, Principal principal) {
+				if(principal !=null) {
+					storyService.commentSave(storyCommentDto, storyId,principal.getName());
+				}
+				return "redirect:/weStory";
 			}
 }
