@@ -4,7 +4,10 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
+      
+      
 <head>
+	<link rel="stylesheet" th:href="@{/css/tripDateOption.css}" />
     <th:block layout:fragment="css">
        <style>
        
@@ -109,9 +112,12 @@
       <div id="cal"></div>
     </div>
 
-    <form action="/tripBasicOption" method="get">
-      <button>다음</button>
-    </form>
+	<div class="button-area">
+		 <form action="/tripBasicOption" method="get" class="next-button-wrapper">
+      		<button>다음</button>
+   		 </form>
+	</div>
+   
     <script src="tripDateOption.js"></script>
 
 
