@@ -25,6 +25,7 @@ a:visited {
 .mypage-box {
   width: 1100px;
   margin: 0 auto;
+  margin-top: 20px;
 }
 
 .mybox {
@@ -290,6 +291,26 @@ a:visited {
   background-color: rgb(253, 250, 245);
 }
 
+.day-box.sunday {
+  color: red;
+}
+
+.day-box.saturday {
+  color: blue;
+}
+
+.day-box.holiday {
+  color: red;
+}
+
+.day-box.today {
+	background-color: rgb(236, 236, 236);
+}
+
+
+
+
+
 /* 대표스토리영역 */
 
 .my-mainstory-area {
@@ -365,6 +386,7 @@ a:visited {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  padding: 30px;
 }
 
 .like-story-title {

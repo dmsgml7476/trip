@@ -68,6 +68,16 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log("📌 하위 지역 선택됨:", subRegionSelect.value);
     filterForm.submit();
   });
+  
+  const currentPath = window.location.pathname;
+  const links = document.querySelectorAll(".category-link");
+
+  links.forEach(link => {
+    const href = link.getAttribute("href");
+    if (currentPath.startsWith(href)) {
+      link.classList.add("active");
+    }
+  });
 });
 
 
