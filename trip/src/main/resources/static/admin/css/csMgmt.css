@@ -23,24 +23,32 @@ a:visited {
   align-items: center;
 }
 
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #cfe9ff; 
+}
+
 .wrap-box {
   width: 900px;
-  border: 1px solid black;
+  background-color: white;
+  border-radius: 30px;
+  margin: 20px 0;
   height: 700px;
   display: flex;
   align-items: stretch;
 }
 
 .category {
-  width: 150px;
-  border-right: 2px solid lightgray;
+  width: 200px;
+  border-right: 4px solid lightgray;
   padding: 20px;
   font-size: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 .category-ul {
   display: flex;
   width: 100px;

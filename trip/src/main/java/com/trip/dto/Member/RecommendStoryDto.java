@@ -14,6 +14,7 @@ public class RecommendStoryDto {
 	private Long storyId;
 	private String storyTitle;
 	private LocalDateTime writeAt;
+	private int likes; 
 	
 	private String imageUrl;
 	private String nickname;
@@ -27,7 +28,7 @@ public class RecommendStoryDto {
 		recommendStoryDto.setStoryId(story.getStoryId());
 		recommendStoryDto.setStoryTitle(story.getStoryTitle());
 		recommendStoryDto.setWriteAt(story.getWriteAt());
-		
+		recommendStoryDto.setLikes(story.getLikes());
 		
 		return recommendStoryDto;
 	}

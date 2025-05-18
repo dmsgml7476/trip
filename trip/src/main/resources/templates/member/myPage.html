@@ -173,12 +173,15 @@
         </div>
 
         <!-- 호감 스토리 목록 -->
+        <div th:if="${not #lists.isEmpty(likeStoryList)}">
         <div class="like-story-wrap">
           <!-- 추가 -->
           <div class="like-story-title">
             나의 좋아요 스토리
             <img src="/image/colorlinegreen.png" alt="밑줄" />
           </div>
+          
+          
           <div class="like-story-area">
             <div class="left">
               <img src="/image/left-arrow.png" />
@@ -255,6 +258,19 @@
             <div class="right"><img src="/image/right-arrow.png" /></div>
           </div>
         </div>
+        </div>
+        
+        <div th:if="${#lists.isEmpty(likeStoryList)}">
+        <div class="like-story-wrap">
+	      <div class="like-story-title">
+            나의 좋아요 스토리
+          <img src="/image/colorlinegreen.png" alt="밑줄" />
+          </div>
+  			<p style="padding: 10px; margin-top: 20px;"><a href="/letsmain">Let's로 가서 다른 사람들의 스토리를 둘러보고 좋아요를 눌러보세요!</a></p>
+		</div>
+		</div>
+
+
 
       </div>
     </div>

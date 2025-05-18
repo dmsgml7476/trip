@@ -27,7 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (likeStories.length >= 3) render(nextBox, likeStories[next]);
   }
 
-  if (likeStories.length > 0) updateLikeStoryBoxes();
+  if (likeStories.length > 0) {
+	updateLikeStoryBoxes();
 
   document.querySelector(".right").addEventListener("click", () => {
     currentIndex = (currentIndex + 1) % likeStories.length;
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   });
-
+}
   // === 더보기 메뉴 ===
   const moreBtn = document.getElementById("moreBtn");
   const moreMenu = document.getElementById("moreMenu");
@@ -116,6 +117,50 @@ function getDateRangeArray(start, end) {
   return dateArr;
 }
 
+
+
+const holidays = [
+	"2024-01-01", "2024-02-09", "2024-02-10", "2024-02-11", "2024-02-12",
+	  "2024-03-01", "2024-05-05", "2024-05-06", "2024-05-15",
+	  "2024-06-06", "2024-08-15",
+	  "2024-09-16", "2024-09-17", "2024-09-18",
+	  "2024-10-03", "2024-10-09", "2024-12-25",
+	"2025-01-01", // 신정
+	"2025-02-26", // 설 전날
+	"2025-02-27", // 설날
+	"2025-02-28", // 설 다음날
+	"2025-03-01", // 삼일절
+	"2025-05-05", // 어린이날
+	"2025-05-06", // 어린이날 대체공휴일 (예상)
+	"2025-05-11", // 석가탄신일
+	"2025-06-06", // 현충일
+	"2025-08-15", // 광복절
+	"2025-10-03", // 개천절
+	"2025-10-05", // 추석 전날
+	"2025-10-06", // 추석
+	"2025-10-07",
+	"2025-10-08", // 추석 다음날
+	"2025-10-09", // 한글날
+	"2025-12-25",  // 성탄절
+	"2025-06-03",  //대통령선거
+	"2026-01-01", "2026-02-16", "2026-02-17", "2026-02-18",
+	"2026-03-01", "2026-03-02",
+	"2026-05-05", "2026-05-24", "2026-05-25",
+	"2026-06-06", "2026-08-15", "2026-08-17",
+	"2026-09-24", "2026-09-25", "2026-09-26", "2026-10-05",
+	"2026-10-09", "2026-12-25"
+];
+
+const lunarHolidays = [
+  { year: 2025, month: 1, day: 1 },   // 설날
+  { year: 2025, month: 1, day: 2 },   // 설날 다음날
+  { year: 2025, month: 1, day: 0 },   // 설날 전날 (1월 30일 기준 전날)
+  { year: 2025, month: 4, day: 8 },   // 석가탄신일
+  { year: 2025, month: 8, day: 14 },  // 추석 전날
+  { year: 2025, month: 8, day: 15 },  // 추석
+  { year: 2025, month: 8, day: 16 }   // 추석 다음날
+];
+
 // === 달력 렌더링 ===
 function drawCalendar(year, month) {
   let now = new Date();
@@ -138,16 +183,24 @@ function drawCalendar(year, month) {
     draw += "<tr>";
     for (let k = 0; k < 7; k++) {
       if ((i === 0 && k < firstDay) || dNum > lastDate) {
-        draw += "<td class='day-box'> &nbsp; </td>";
+        draw += "<td class='day-box'>&nbsp;</td>";
       } else {
-        const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(dNum).padStart(2, "0")}`;
+        const yyyy = year;
+        const mm = String(month + 1).padStart(2, "0");
+        const dd = String(dNum).padStart(2, "0");
+        const dateStr = `${yyyy}-${mm}-${dd}`;
 
-        if (year === now.getFullYear() && month === now.getMonth() && dNum === nowD) {
-          draw += `<td class='day-box today' data-date="${dateStr}">${dNum}</td>`;
-        } else {
-          draw += `<td class='day-box' data-date="${dateStr}">${dNum}</td>`;
-        }
+        const isToday = (year === now.getFullYear() && month === now.getMonth() && dNum === nowD);
+        const isSunday = k === 0;
+        const isSaturday = k === 6;
+        const isHoliday = holidays.includes(dateStr);
 
+        const todayClass = isToday ? " today" : "";
+        const sundayClass = isSunday ? " sunday" : "";
+        const saturdayClass = isSaturday ? " saturday" : "";
+        const holidayClass = isHoliday ? " holiday" : "";
+
+        draw += `<td class="day-box${todayClass}${sundayClass}${saturdayClass}${holidayClass}" data-date="${dateStr}">${dNum}</td>`;
         dNum++;
       }
     }
