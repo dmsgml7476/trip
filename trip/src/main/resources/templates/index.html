@@ -63,6 +63,7 @@
                     class="story-recommend-box"
                     th:each="story : ${storyList}"
                   >
+                  <a th:href="@{/StoryDetail(id=${story.storyId})}" style="text-decoration: none; color: inherit;">
                     <div class="story-img">
                       <img th:src="@{${story.imageUrl}}" />
                     </div>
@@ -81,6 +82,7 @@
                       </div>
                     </div>
                     <div class="story-text" th:text="${story.storyTitle}"></div>
+                    </a>
                   </div>
                 </div>
               </div>
