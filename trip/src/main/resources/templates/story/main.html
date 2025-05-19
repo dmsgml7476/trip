@@ -5,21 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Korea Story Page</title>
   <style>
+  
     .ad-banner {
-      background-color: #fff0f0;
+     background-color: rgb(254, 96, 78);
       border-left: 5px solid red;
       padding: 10px;
-      margin-bottom: 3cm;
+      margin-bottom: 1cm;
       font-size: 16px;
+      text-align:center;
     }
 
-    .story-link, #youtubeButton {
-    display: inline-block;
-    flex-direction:row;
-    justify-content: space-around;
-     width: 100%;
-     margin-top: 20px;
-    }
+ /* 공통 버튼 스타일 (스토리/유튜브 바로가기) */
+.story-link, #youtubeButton {
+  display: block;
+  font-size: 20px; /* 폰트 크기 통일 */
+  font-weight: 700;
+  line-height: 1.4;
+  color: #333;
+  margin-bottom: 20px;
+  margin-left: 5cm; /* 들여쓰기 */
+  padding-bottom: 4px;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.story-link span, #youtubeButton span {
+  font-size: 20px;
+  font-weight: 800;
+  color: #000;
+}
+}
+
+.story-link span, #youtubeButton span {
+  display: inline-block;
+  font-size: 20px;
+  color: #000;
+  font-weight: 800;
+}
+  
 
     .about-page {
       position: relative;
@@ -83,6 +106,7 @@
     /* 공통 설정 */
       .main-section {
         padding: 60px 20px;
+        padding-bottom: 60px;
         background-color: #fff;
         font-family: "Noto Sans KR", sans-serif;
       }
@@ -205,7 +229,7 @@
 
   <!-- 2. 스토리 바로가기 -->
   <div>
-    <span class="story-link" onclick="location.href='/weStory'">스토리 바로가기 👉</span>
+    <span class="story-link" onclick="location.href='/weStory'">스토리공간 <br>바로가기 👉</span>
   </div>
 
   <!-- 3. 이미지 슬라이더 -->
@@ -247,9 +271,15 @@
     showImage(currentIndex);
   </script>
 
+<!-- 1. 배너 -->
+  <div class="ad-banner">
+    🚄	🏖️ 당신이 다녀온 여행을 소개해주세요! 🚏 🚗
+    <h6>💗공감 &  💬 댓글로 다른 사람과의 소통도 가능해요~</h6>
+  </div>
+
   <!-- 4. 한국 관광공사 유튜브 바로가기 -->
   <div>
-    <span id="youtubeButton">한국관광공사Youtube 바로가기👉</span>
+    <span id="youtubeButton">한국관광공사<br>Youtube 바로가기👉</span>
     <script>
       document.getElementById("youtubeButton").onclick = function () {
         window.open("https://www.youtube.com/@imagineyourkorea", "_blank");
@@ -349,6 +379,7 @@
         </div>
       </div>
     </section>
+    <hr class="section-divider">
 
   <th:block th:replace="story/mainFooter :: mainFooter"></th:block>
 </body>

@@ -82,6 +82,7 @@ initial-scale=1.0">
   			<div style="width: 70vw; margin: 40px auto; padding: 20px; border-radius: 10px; font-family: sans-serif; background: #fafafa;">
   
   <!-- 글 작성 영역 -->
+  <form th:action="@{/weUpload}" th:object="${boardFormDto}" method="post" enctype="multipart/form-data">
   <textarea
     id="text-input"
     placeholder="호앵님의 이야기를 기다리고 있어요."
@@ -136,6 +137,7 @@ initial-scale=1.0">
     <button onclick="submitPost()" class="submit-button">올리기</button>
   </div>
 </div>
+</form>
 
 <script>
   const mockUsers = ['@hong123', '@kim_travel', '@leeho', '@travel_love'];
