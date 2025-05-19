@@ -3,6 +3,10 @@ package com.trip.service.Member;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.trip.dto.Member.LikedStoryDto;
@@ -36,11 +40,10 @@ public class MyPageService {
                 .collect(Collectors.toList());
     }
     
-    public List<MyCsListDto> getMyCsList(Long userId) {
-        List<CustomerServiceEntity> csList = customerServiceRepository.findByUserId(userId);
-        return csList.stream()
-                     .map(MyCsListDto::from)
-                     .collect(Collectors.toList());
+    public Page<MyCsListDto> getMyCsList(Long userId, int page, int size) {
+    	Pageable pageable = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "questionTime"));
+    	Page<CustomerServiceEntity> pageResult = customerServiceRepository.findByUserId(userId, pageable);
+        return pageResult.map(MyCsListDto::from);
     }
 	
 }

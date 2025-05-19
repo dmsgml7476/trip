@@ -72,20 +72,31 @@
               </table>
             </div>
             <div class="page-num-box">
-              <div class="img-btn minus-page">
-                <img src="/image/left-arrow.png" alt="왼쪽" />
-              </div>
-              <div class="page-num">
-                <a>1</a>
-                <a>2</a>
-                <a>3</a>
-                <a>4</a>
-                <a>5</a>
-              </div>
-              <div class="img-btn flus-num">
-                <img src="/image/right-arrow.png" alt="오른쪽" />
-              </div>
-            </div>
+  <!-- 이전 묶음 화살표 -->
+  <div class="img-btn minus-page" th:if="${currentPageGroup > 1}">
+    <a th:href="@{/mypage/csMyList(page=${(currentPageGroup - 2) * 5 + 1})}">
+      <img src="/image/left-arrow.png" alt="왼쪽" />
+    </a>
+  </div>
+
+  <!-- 숫자 페이지 -->
+  <div class="page-num">
+    <a th:each="i : ${#numbers.sequence((currentPageGroup - 1) * 5 + 1, T(java.lang.Math).min(currentPageGroup * 5, totalPages))}"
+       th:href="@{/mypage/csMyList(page=${i})}"
+       th:text="${i}"
+       th:classappend="${i == currentPage} ? 'active' : ''">
+    </a>
+  </div>
+
+  <!-- 다음 묶음 화살표 -->
+  <div class="img-btn flus-num" th:if="${currentPageGroup * 5 < totalPages}">
+    <a th:href="@{/mypage/csMyList(page=${currentPageGroup * 5 + 1})}">
+      <img src="/image/right-arrow.png" alt="오른쪽" />
+    </a>
+  </div>
+</div>
+
+
           </div>
         </div>
       </div>

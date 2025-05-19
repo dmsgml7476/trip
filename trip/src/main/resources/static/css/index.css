@@ -6,6 +6,23 @@
   box-sizing: border-box;
 }
 
+#header  {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: white; /* 배경 필수로 줘야 투명해지지 않음 */
+}
+
+#footer {
+  position: relative;
+  z-index: 3;  /* .background의 -999보다 높게 */
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+}
+
 .wrap {
   height: 100%;
   overflow-x: hidden;
@@ -20,10 +37,48 @@
 	display: flex;
 	flex-direction: column;
 	width: 1280px;
+
 	background-color: white;
 }
 
+.background {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1280px;
+  height: 100vh;
+  z-index: 0;
+  margin-top: 130px;
+  pointer-events: none;
+}
+
+.background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .content {
+  position: relative;
+  z-index: 2;
+  width: 1280px;
+  min-height: 200vh;
+  background-color: white;
+  margin-top: 100vh;
+  border-radius: 30px;
+  padding: 100px 30px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  border: 2px 0 0 0 solid rgb(231, 231, 231);
+}
+
+/* .content {
   width: 1280px;
   background-color: white;
   border-radius: 30px;
@@ -38,7 +93,7 @@
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
   border: 2px 0 0 0 solid rgb(231, 231, 231);
 }
-
+ */
 .content-header {
   display: flex;
   justify-content: center;
