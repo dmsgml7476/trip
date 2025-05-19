@@ -23,44 +23,48 @@
           <h3>여행지역 선택</h3>
           <img src="/image/koreaMap.PNG" alt="지역 지도" width="400"> 
           <div>
-          <form id="regionForm", action="/placeListOption" method="GET">
-          	<select id="mainRegion" name="mainRegion">
+          <form id="regionForm", action="/tripStep2" method="POST">
+          	<select id="mainRegion" name="mainRegion" required>
               <option value="">상위 지역</option>
-                      <th:block th:each="region : ${regionList}">
-                        <option
+              	<th:block th:each="region : ${regionList}">
+                	<option
                           th:value="${region.upperRegionName}"
                           th:text="${region.upperRegionName}"
                         ></option>s
-                      </th:block>
+                </th:block>
              </select>
 
-          	  <select id="subRegion" name="subRegion">
+          	 <select id="subRegion" name="subRegion" required>
             	<option value="">세부 지역</option>
                       <th:block th:each="region : ${regionList}">
-						<option th:value="${region.regionName}" th:text="${region.regionName}"></option>
+						<option th:value="${region.regionId}" th:text="${region.regionName}"></option>
                       </th:block>
-            </select>
+             </select>
             
-            <input class="regionInput" type="hidden" name="regionId" th:value="regionId">
-            <button type="button" onclick="location.href='/placeListOption'">다음</button>
-          </form>
+             <input class="regionInput" type="hidden" name="regionId" id="regionIdInput">
+             <button type="submit">다음</button>
+          
+        	 <div>
+          		<!--여행 인원 선택-->
+          	 <label> 여행인원 선택 </label>
+          		<input type="number" />
+        	 </div>
+        	 <div>
+          		<!-- 교통수단 선택-->
+          		<label>교통수단</label>
+          		<select id="vehicleSelect"	name="vehicleId" required>
+            		<option value="">선택</option>
+            		<option value="1">자가용</option>
+            		<option value="2">랜트카</option>
+
+          		</select>
+        		</div>  
+          
+          	</form>
            </div>
         </div>
         </div>
-        <div>
-          <!--여행 인원 
-         선택-->
-          <label> 여행인원 선택 </label>
-          <input type="number" />
-        </div>
-        <div>
-          <!-- 교통수단 선택-->
-          <label>교통수단</label>
-          <select>
-            <option th:each="trafficInfo : ${vehicleType}" th:text="${trafficInfo.vehicleType}">자가용</option>
-
-          </select>
-        </div>
+        
       </div>
 
 

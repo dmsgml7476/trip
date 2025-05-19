@@ -76,6 +76,20 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.selected-start{
+	background-color:#add8e6;
+}
+
+.selected-end{
+	background-color:#87cefa;
+}
+
+.in-range{
+  background-color: #d0eaff;
+}
+
+	
     </style>
     </th:block>
 	 <title>Trip</title>
@@ -85,20 +99,21 @@
 <div layout:fragment="main" id="main">
 	<!-- 날짜 -->
    <div>여행 하실 날짜를 선택하시오</div>
-    <div class="calender-area">
+   <form action = "/tripBasicOption" get="post">
+   		 <div class="calender-area">
       <div class="year-month">
         <div class="minus-month">
           <img class="arrow" src="/image/left-arrow.png" />
         </div>
 
         <div class="tripYear">
-          <div>
+          <div class="plus-year">
             <img class="arrow" src="/image/upperArrow.png" />
           </div>
           <div>
             <div class="current-year">2025년</div>
           </div>
-          <div>
+          <div class="minus-year">
             <img class="arrow reverse" src="/image/upperArrow.png" />
           </div>
         </div>
@@ -111,14 +126,15 @@
       </div>
       <div id="cal"></div>
     </div>
-
+	<input type="hidden" name="startDate" id="startDateInput"/>
+	<input type="hidden" name="endDate" id="endDateInput"/>
 	<div class="button-area">
-		 <form action="/tripBasicOption" method="get" class="next-button-wrapper">
-      		<button>다음</button>
-   		 </form>
+	
+      		<button type="submit">다음</button>
 	</div>
+   </form>
    
-    <script src="tripDateOption.js"></script>
+   
 
 
 
