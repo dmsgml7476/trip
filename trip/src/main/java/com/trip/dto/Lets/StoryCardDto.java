@@ -2,6 +2,9 @@ package com.trip.dto.Lets;
 
 import java.util.List;
 
+import com.trip.control.Lets.Story;
+import com.trip.entity.Lets.StoryEntity;
+
 import lombok.Data;
 
 @Data
@@ -16,4 +19,8 @@ public class StoryCardDto {
 			private boolean isLike;
 			private List<StoryCommentDto> storyCommentDtoList; // 댓글 목록 
 			
+
+			
 }
+
+

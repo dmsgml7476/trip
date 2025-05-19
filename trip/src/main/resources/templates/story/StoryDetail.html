@@ -77,12 +77,12 @@ initial-scale=1.0">
 
     <div class="story-content" th:text="${story.storyContent}">내용</div>
 
-    <div class="hashtags" th:each="tag : ${story.hashtags}" th:text="'#' + ${tag}">#해시태그</div>
+    <div class="hashtags" th:each="tag : ${story.hashTags}" th:text="'#' + ${tag}">#해시태그</div>
     
     <div class="comments-section">
   <h4>댓글</h4>
-  <div th:if="${story.comments != null}">
-    <div th:each="comment : ${story.comments}">
+  <div th:if="${story.storyCommentDtoList != null}">
+    <div th:each="comment : ${story.storyCommentDtoList}">
       <p><strong th:text="${comment.writer}">작성자</strong>: <span th:text="${comment.content}">댓글 내용</span></p>
     </div>
   </div>

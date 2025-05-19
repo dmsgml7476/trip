@@ -1,4 +1,4 @@
-package com.trip.control.Lets;
+package com.trip.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
