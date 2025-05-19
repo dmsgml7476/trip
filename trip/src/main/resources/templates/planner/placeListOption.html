@@ -22,8 +22,8 @@
                <img src="/image/koreaPlace1.jpg"/>
                <img src="/image/koreaPlace2.jpg"/>
                <img src="/image/koreaPlace3.jpg"/>
-            <form method="get" th:action="@{/placeDetail}">
             </div>
+            <form id="placeForm" method="get" th:action="@{/placeDetail}">
            
             <div>
                 <select id="typeSelect">
@@ -37,12 +37,14 @@
                     <th:block th:each="placeInfo : ${placeType}">
                        <option 
                         th:value="${placeInfo.placeId}"
-                         th:text="${placeInfo.placeName}" />
+                         th:text="${placeInfo.placeName}">
                       </option>
                     </th:block>
 
                 </select>
-                   
+                
+                
+                <input type="hidden" name="selectedDay" id="selectedDayInput" />
             </div>
             
                <button type="button" onclick="saveSelection()">저장</button><br>
@@ -56,7 +58,7 @@
         <div class="schedule-container">
           <th:block th:each="i : ${#numbers.sequence(1, tripDays)}">
               <div class="schedule-group">
-               <button class="schedule" th:text="|${i}일차|"></button>
+               <button class="schedule" th:data-day="${i}" th:text="|${i}일차|"></button>
                <ul class="scheduleList" th:id="|day${i}List|"></ul>
                <p class="noPlaceMsg">여행 갈 장소를 선택해주세요</p>
               </div>

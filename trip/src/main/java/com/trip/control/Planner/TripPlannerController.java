@@ -11,11 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.trip.config.auth.CustomUserDetails;
 import com.trip.dto.Planner.PlaceSelectDto;
 import com.trip.dto.Planner.RegionSelectDto;
+import com.trip.entity.Member.UserEntity;
 import com.trip.entity.Planner.PlaceEntity;
 import com.trip.entity.Planner.RegionEntity;
 import com.trip.entity.Planner.VehicleEntity;
@@ -136,16 +139,20 @@ public class TripPlannerController {
       
       return "planner/placeResult";
    }
+   
    @GetMapping("/finalPlan")
    public String finalPlan(Model model) {
       
       return "planner/finalPlan";
    }
+   
    @GetMapping("/placeDetail")
-   public String placeDetail(@RequestParam("placeId") Long placeId, Model model) {
+   public String placeDetail(@RequestParam("placeId") Long placeId, 
+                       @RequestParam("selectedDay") int selectedDay, Model model) {
       PlaceEntity place = placeRepository.findById(placeId)
             .orElseThrow(() -> new IllegalAccessError("해당 장소를 찾을 수 없습니다"));
       model.addAttribute("place", place);
+       model.addAttribute("selectedDay", selectedDay);
       
       model.addAttribute("placeName",place.getPlaceName());
       model.addAttribute("placeAddress",place.getPlaceAddress());
@@ -153,5 +160,8 @@ public class TripPlannerController {
       
       return "planner/placeDetail";
    }
-   
+
    }
+
+   
+   
