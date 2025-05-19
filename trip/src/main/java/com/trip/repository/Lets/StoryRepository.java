@@ -1,5 +1,6 @@
 package com.trip.repository.Lets;
 
+
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Repository;
 
 import com.trip.entity.Lets.StoryEntity;
+import com.trip.entity.Member.UserEntity;
 @Repository
 public interface StoryRepository extends JpaRepository<StoryEntity,Long> {
 	
@@ -50,4 +52,8 @@ public interface StoryRepository extends JpaRepository<StoryEntity,Long> {
 	List<StoryEntity> findTop2ByOrderByWriteAtDesc();
 
 	List<StoryEntity> findTop2ByOrderByLikes();
+
+	StoryEntity findByUserId(UserEntity userEntity);
+
+	List<StoryEntity> findAllByUserId(Long id);
 }
