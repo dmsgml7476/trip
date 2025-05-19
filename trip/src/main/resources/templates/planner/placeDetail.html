@@ -5,7 +5,7 @@
       layout:decorate="~{layout/default}">
 <head>
     <th:block layout:fragment="css"></th:block>
-	<title>Trip</title>
+   <title>Trip</title>
 </head>
 <body>
 
@@ -59,11 +59,29 @@ function saveToScheduleAndBack() {
     // 다시 저장
     localStorage.setItem('selectedPlaces', JSON.stringify(savedPlaces));
 
-    // 돌아가기
+    fetch('/addPlaceToMyList', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newPlace)
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("DB 저장 실패");
+        return response.text();
+    })
+    .then(msg => console.log(msg))
+    .catch(error => console.error(error));
+
+    // ✅ 2-3. 페이지 이동
     window.location.href = "/placeListOption";
 }
+    
+    
+
+
 </script>
-	<script src="/javascript/regionListOption.js"></script>
+   <script src="/javascript/regionListOption.js"></script>
 </th:block>
 
 </body>

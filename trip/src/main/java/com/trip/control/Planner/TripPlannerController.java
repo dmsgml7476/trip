@@ -11,11 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.trip.config.auth.CustomUserDetails;
 import com.trip.dto.Planner.PlaceSelectDto;
 import com.trip.dto.Planner.RegionSelectDto;
+import com.trip.entity.Member.UserEntity;
 import com.trip.entity.Planner.PlaceEntity;
 import com.trip.entity.Planner.RegionEntity;
 import com.trip.entity.Planner.VehicleEntity;
@@ -157,5 +160,8 @@ public class TripPlannerController {
       
       return "planner/placeDetail";
    }
-   
+
    }
+
+   
+   

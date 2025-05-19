@@ -88,6 +88,5 @@ window.onload = function () {
            ul.appendChild(li);
        }
    });
-});
-
+  });
 

@@ -87,6 +87,12 @@ public class UserEntity {
 			this.password = encodedPassword;
 		}
 	}
+
+
+	public UserEntity orElseThrow(Object object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

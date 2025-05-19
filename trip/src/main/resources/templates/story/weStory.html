@@ -42,23 +42,26 @@
       margin-bottom: 20px;
     }
 
-    .story-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: space-between;
-    }
+  .story-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 50px; /* 푸터와 카드 사이 적당한 간격 */
+  background-color: #f9f9f9; /* 연한 회색 배경 */
+  padding: 15px; /* 카드와 컨테이너 가장자리 사이 여백 추가 */
+  border-radius: 8px; /* 약간 둥근 모서리도 추가 가능 */
+}
 
-    .story-card {
-      background-color: white;
-      border-radius: 16px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      padding: 16px;
-      box-sizing: border-box;
-      width: calc(50% - 10px);
-      display: flex;
-      flex-direction: column;
-    }
+.story-card {
+  width: 40%;
+  border: 1px solid #ccc;
+  padding: 15px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+  border-radius: 12px; /* 테두리 둥글게 */
+  background-color: white; /* 카드 배경은 흰색으로 */
+}
+
 
     .login-id {
       font-weight: bold;
@@ -136,61 +139,71 @@
       }
     }
     
-    /* 팝업 오버레이 (처음엔 숨김) */
-.modal-overlay {
-  display: none; /* 처음에는 숨겨놔요 */
-  position: fixed; /* 화면에 고정 */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* 반투명 검정 배경 */
-  justify-content: center; /* 내용을 가운데 정렬 - flexbox 또는 grid 필요 */
-  align-items: center; /* 내용을 세로 가운데 정렬 - flexbox 또는 grid 필요 */
-  z-index: 1000; /* 다른 요소들 위에 보이도록 z-index 높게 설정 */
-  /* 아래 두 줄은 가운데 정렬을 위해 추가 (필요에 따라 display: flex 사용) */
-  display: flex; /* 이것으로 가운데 정렬 활성화 */
-}
+       .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
 
-/* 팝업 내용 영역 */
-.modal-content {
-  background-color: #fff; /* 하얀 배경 */
-  padding: 20px;
-  border-radius: 8px; /* 모서리를 둥글게 */
-  width: 90%; /* 너비 */
-  max-width: 500px; /* 최대 너비 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
-  position: relative; /* 닫기 버튼 위치 조정을 위해 */
-  max-height: 80vh; /* 화면 높이의 80%를 넘지 않도록 */
-  overflow-y: auto; /* 내용이 넘치면 스크롤바 생성 */
-}
+    .modal-overlay.visible {
+      display: flex;
+    }
 
-/* 닫기 버튼 */
-.close-button {
-  position: absolute; /* modal-content 기준 위치 설정 */
-  top: 10px;
-  right: 20px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #aaa;
-  cursor: pointer; /* 마우스 오버 시 손가락 모양 */
-}
+    .modal-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
 
-.close-button:hover,
-.close-button:focus {
-  color: #777; /* 마우스 오버 시 색상 변경 */
-}
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #aaa;
+      cursor: pointer;
+    }
 
-/* 팝업이 보일 때 */
-.modal-overlay.visible {
-    display: flex; /* JavaScript에서 이 클래스를 추가해서 보이게 할 거야 */
-}
+    .close-button:hover {
+      color: #777;
+    }
 
-/* 댓글 목록 영역 스타일 (선택 사항) */
-#comments-area {
-    margin-top: 15px;
-    /* 댓글 목록 스타일을 여기에 추가할 수 있어 */
-}
+    #comments-area .comment {
+      margin-bottom: 10px;
+    }
+
+    #comment-input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #submit-comment {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #submit-comment:hover {
+      background-color: #005fa3;
+    }
   </style>
 </head>
 <body>
@@ -200,44 +213,39 @@
     <input id="text-input" type="text" placeholder="당신의 이야기를 기다리고 있어요. 👉" onclick="clearInPut(this)" readonly />
   </a>
 
-  <div class="main-content">
-    <div class="story-header">우리의 스토리</div>
-
-    <div class="story-container">
-      <div class="story-card" th:each="story : ${cardList}">
-        <div class="login-id" th:text="'@' + ${story.loginId}">아이디</div>
-        <div class="story-title" th:text="${story.storyTitle}">스토리 제목</div>
-
-        <!-- 이미지가 있는 경우만 출력 -->
-<img class="story-image"
-     th:if="${story.storyImgUrl != null and !#strings.isEmpty(story.storyImgUrl)}"
-     th:src="${story.storyImgUrl}" alt="story image" />
-
-        <!-- 항상 출력되는 내용 -->
-        <div class="story-content" th:text="${story.storyContent}">내용</div>
-
-        <!-- 해시태그 출력 -->
-        <div class="hashtags" th:if="${story.hashTags != null}">
-          <span th:each="tag : ${story.hashTags}" th:text="'#' + ${tag} + ' '"></span>
-        </div>
-
-        <div class="actions">
-          <span class="like-button" th:data-id="${story.storyId}" th:text="${story.isLike} ? '💗 공감취소' : '💗 공감'"></span>
-          <span class="like-count" th:text="${story.likes}">0</span>
-          <span class="comment-button" onclick="toggleComment(this)">💬 댓글쓰기</span>
-        </div>
-
-        <div class="comments comment-section">
-          <form method="post" th:object="${storyCommentDto}"  action="/comment">
-          	<input type="hidden" name="storyId"  th:value="${story.storyId}">
-            <input type="text" th:field="*{commentContent}" placeholder="댓글을 입력하세요" />
-            <button type="submit">등록</button>
-          </form>
-          <div class="comment-list">
-			    <a href="/story/detail" class="more-comments">댓글 더보기</a>
-			</div>
-        </div>
+  <div class="story-container" id="story-container">
+    <div class="story-card" th:each="story, iterStat : ${cardList}"
+         th:if="${iterStat.index} < 4"
+         th:data-story-id="${story.storyId}"
+         th:data-login-id="${story.loginId}"
+        th:onclick="'window.location.href=\'/StoryDetail?id=' + ${story.storyId} + '\''" style="cursor: pointer;">
+      <div class="login-id" th:text="'@' + ${story.loginId}">아이디</div>
+      <div class="story-title" th:text="${story.storyTitle}">스토리 제목</div>
+      <img class="story-image"
+           th:if="${story.storyImgUrl != null and !#strings.isEmpty(story.storyImgUrl)}"
+           th:src="${story.storyImgUrl}" alt="story image" />
+      <div class="story-content" th:text="${story.storyContent}">내용</div>
+      <div class="hashtags" th:if="${story.hashTags != null}">
+        <span th:each="tag : ${story.hashTags}" th:text="'#' + ${tag} + ' '"></span>
       </div>
+      <div class="actions">
+        <span class="like-button" th:data-id="${story.storyId}" th:text="${story.isLike} ? '💗 공감취소' : '💗 공감'"></span>
+        <span class="like-count" th:text="${story.likes}">0</span>
+        <span class="comment-button" onclick="openCommentPopup(event, this)">💬 댓글쓰기</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 댓글 팝업 -->
+  <div class="modal-overlay" id="comment-modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h3>댓글</h3>
+      <div id="comments-area">
+        <p>댓글을 불러오는 중...</p>
+      </div>
+      <input type="text" id="comment-input" placeholder="댓글을 입력하세요" />
+      <button id="submit-comment">등록</button>
     </div>
   </div>
 
@@ -247,133 +255,62 @@
     function clearInPut(el) {
       if (el.value === "당신의 이야기를 기다리고 있어요.") el.value = "";
     }
-    
-    function goToMyStory() {
-        window.location.href = "/myStory";
-      }
 
-    function toggleComment(button) {
+    // 댓글 팝업 관련
+    const commentModal = document.getElementById("comment-modal");
+    const commentsArea = document.getElementById("comments-area");
+    const closeButton = document.querySelector(".close-button");
+    const commentInput = document.getElementById("comment-input");
+    const submitButton = document.getElementById("submit-comment");
+
+    let currentStoryId = null;
+
+    function openCommentPopup(event, button) {
+      event.stopPropagation(); // 카드 클릭 막기
       const storyCard = button.closest(".story-card");
-      const commentSection = storyCard.querySelector(".comment-section");
-      if (commentSection) {
-        commentSection.style.display =
-          commentSection.style.display === "none" || commentSection.style.display === ""
-            ? "block"
-            : "none";
+      currentStoryId = storyCard.getAttribute("data-story-id");
+      commentModal.classList.add("visible");
+      loadComments(currentStoryId);
+    }
+
+    function closeModal() {
+      commentModal.classList.remove("visible");
+      commentsArea.innerHTML = "<p>댓글을 불러오는 중...</p>";
+      commentInput.value = "";
+    }
+
+    closeButton.addEventListener("click", closeModal);
+
+    window.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && commentModal.classList.contains("visible")) {
+        closeModal();
       }
-    }
-    
-   // 댓글 더보기 
-   document.addEventListener('DOMContentLoaded', function() {
-    // 필요한 요소들을 가져와요 (이전과 동일)
-    const moreCommentsLink = document.querySelector('.more-comments');
-    const commentModal = document.getElementById('comment-modal');
-    const closeButton = commentModal.querySelector('.close-button');
-    const commentsArea = document.getElementById('comments-area');
-
-    // '댓글 더보기' 버튼 클릭 이벤트 리스너
-    if (moreCommentsLink) {
-        moreCommentsLink.addEventListener('click', function(event) {
-            event.preventDefault(); // 기본 링크 이동 막기
-
-            // 팝업창
-            commentModal.classList.add('visible');
-
-            // 팝업창이 나타날 때 댓글
-            loadComments(); // 댓글을 불러오는 함수 호출
-
-            console.log('팝업창을 보이게 하고 댓글을 불러오는 중...');
-        });
-    }
-
-    // 닫기 버튼 클릭 이벤트 리스너 (이전과 동일)
-    if (closeButton) {
-        closeButton.addEventListener('click', function() {
-            commentModal.classList.remove('visible');
-            // 팝업 닫을 때 댓글 목록을 비우기
-            commentsArea.innerHTML = "<p>댓글을 불러오는 중...</p>"; 
-            console.log('팝업창을 닫았어요.');
-        });
-    }
-
-    // 팝업 오버레이 배경 클릭 시 닫기 (선택 사항, 이전과 동일)
-    if (commentModal) {
-        commentModal.addEventListener('click', function(event) {
-            if (event.target === commentModal) {
-                commentModal.classList.remove('visible');
-                commentsArea.innerHTML = "<p>댓글을 불러오는 중...</p>";
-                console.log('팝업 오버레이 배경을 클릭하여 팝업을 닫았어요.');
-            }
-        });
-    }
-
-    // Esc 키 눌렀을 때 팝업 닫기 (선택 사항, 이전과 동일)
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && commentModal.classList.contains('visible')) {
-            commentModal.classList.remove('visible');
-            commentsArea.innerHTML = "<p>댓글을 불러오는 중...</p>";
-            console.log('Esc 키를 눌러 팝업을 닫았어요.');
-        }
     });
 
-    // === 댓글 데이터를 불러오는 비동기 함수 ===
-    function loadComments() {
-        
-        const commentsApiUrl = 'https://jsonplaceholder.typicode.com/posts/1/comments'; 
+    commentModal.addEventListener("click", function (event) {
+      if (event.target === commentModal) {
+        closeModal();
+      }
+    });
+    submitButton.addEventListener("click", function () {
+      const comment = commentInput.value.trim();
+      if (!comment) return alert("댓글을 입력하세요.");
 
-        // 댓글 로딩 시작 시 메시지 표시
-        commentsArea.innerHTML = "<p>댓글을 불러오는 중...</p>";
+      commentsArea.innerHTML += `
+        <div class="comment">
+          <strong>나</strong><br>
+          <p>${comment}</p>
+        </div>
+        <hr />
+      `;
+      commentInput.value = "";
+    });
 
-        // Fetch API를 사용하여 데이터 가져오기
-        fetch(commentsApiUrl)
-            .then(response => {
-                // HTTP 응답 상태 확인
-                if (!response.ok) {
-                    // 응답이 성공적이지 않으면 에러를 발생시켜 catch 블록으로 넘겨요
-                    throw new Error('HTTP error! status: ' + response.status);
-                }
-               
-                return response.json();
-            })
-            .then(comments => {
-                // JSON 파싱이 완료되면 댓글 데이터
-                console.log('댓글 데이터를 성공적으로 불러왔어요:', comments);
-
-                // commentsArea를 비워주고 새로운 댓글 목록
-                commentsArea.innerHTML = ''; // 이전 내용 삭제
-
-                if (comments && comments.length > 0) {
-                    // 댓글 데이터가 있다면 목록
-                    let commentsHtml = '';
-                    comments.forEach(comment => {
-                      
-                        commentsHtml += `
-                            <div class="comment">
-                                <strong>${comment.name}</strong> (${comment.email})<br>
-                                <p>${comment.body}</p>
-                            </div>
-                            <hr> <!-- 댓글 구분선 -->
-                        `;
-                    });
-                    commentsArea.innerHTML = commentsHtml; 
-
-                } else {
-                    // 댓글 데이터가 없을 경우 메시지 표시
-                    commentsArea.innerHTML = "<p>아직 작성된 댓글이 없습니다.</p>";
-                }
-            })
-            .catch(error => {
-                // 데이터 가져오기나 처리 과정에서 에러가 발생
-                console.error('댓글 데이터를 불러오는 중 에러 발생:', error);
-                commentsArea.innerHTML = "<p>댓글을 불러오는 데 실패했습니다. 잠시 후 다시 시도해주세요.</p>";
-            });
-    }
-});
-
+    // 공감 처리
     document.addEventListener("DOMContentLoaded", function () {
-      // 공감 버튼 클릭 처리
       document.querySelectorAll(".like-button").forEach((btn) => {
-        btn.addEventListener("click", function () {
+        btn.addEventListener("click", function (e) {
+          e.stopPropagation();
           const card = this.closest(".story-card");
           const countSpan = card.querySelector(".like-count");
           let count = parseInt(countSpan.textContent) || 0;
