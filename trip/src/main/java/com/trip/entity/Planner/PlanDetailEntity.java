@@ -20,7 +20,7 @@ public class PlanDetailEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long planDetailId;
-	private int planDateId;
+	private Long planDateId;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="place_id", nullable=false)
 	private PlaceEntity place;

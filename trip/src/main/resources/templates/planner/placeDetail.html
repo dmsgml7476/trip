@@ -22,7 +22,7 @@
                <p>주소:<span th:text="${placeAddress}"></span></p>
                <p>설명:<span th:text="${placeInfo}"></span></p>
             </div>
-            <a href="/finalPlan"><button>내 관광지 목록에 추가</button></a>
+            <button onclick="saveToScheduleAndBack()">내 관광지 목록에 추가</button>
             
         </div>
     </div>
@@ -33,6 +33,36 @@
 
 
 <th:block layout:fragment="script">
+<script th:inline="javascript">
+function saveToScheduleAndBack() {
+    const placeId = /*[[${place.placeId}]]*/ 0;
+    const placeName = /*[[${placeName}]]*/ '장소이름';
+    const selectedDay = /*[[${selectedDay}]]*/ 1;
+
+    const newPlace = {
+        placeId: placeId,
+        placeName: placeName,
+        day: selectedDay
+    };
+
+    // 기존 배열 가져오기 (없으면 빈 배열)
+    let savedPlaces = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+
+    // 중복 방지 (같은 day + placeId)
+    const isDuplicate = savedPlaces.some(
+        (p) => p.placeId === newPlace.placeId && p.day === newPlace.day
+    );
+    if (!isDuplicate) {
+        savedPlaces.push(newPlace);
+    }
+
+    // 다시 저장
+    localStorage.setItem('selectedPlaces', JSON.stringify(savedPlaces));
+
+    // 돌아가기
+    window.location.href = "/placeListOption";
+}
+</script>
 	<script src="/javascript/regionListOption.js"></script>
 </th:block>
 
