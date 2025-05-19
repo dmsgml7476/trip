@@ -37,7 +37,8 @@
                     <th:block th:each="placeInfo : ${placeType}">
                     	<option 
      					    th:value="${placeInfo.placeId}"
-       						th:text="${placeInfo.placeName}" /></option>
+       						th:text="${placeInfo.placeName}" />
+       					</option>
                     </th:block>
 
                 </select>
@@ -48,17 +49,28 @@
             	<button type="submit" onclick="nextPage()">다음</button>
             </form>
             
+            <button>마무리</button>
+            
             
         </div>
-    
+        <div class="schedule-container">
+        	<div class="schedule-group">
+        		<button clsss="schedule">1일차</button>
+        			<ul class="scheduleList" id="day1List">
+        				
+        			</ul>
+        			<p class="noPlaceMsg">
+        				여행 갈 장소를 선택해주세요
+        			</p>
+        		
+        	</div>
+        	
+        </div>
     </div>
     
     
-    
-    
-
-
 </div>
+
 
 
 <th:block layout:fragment="script">

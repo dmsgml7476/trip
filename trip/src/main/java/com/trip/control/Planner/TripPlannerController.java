@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.trip.config.auth.CustomUserDetails;
@@ -15,9 +16,13 @@ import com.trip.dto.Planner.PlaceSelectDto;
 import com.trip.dto.Planner.RegionSelectDto;
 import com.trip.entity.Planner.PlaceEntity;
 import com.trip.entity.Planner.RegionEntity;
+import com.trip.entity.Planner.VehicleEntity;
 import com.trip.repository.Planner.PlaceRepository;
 import com.trip.repository.Planner.RegionRepository;
 import com.trip.service.Planner.PlanService;
+import com.trip.service.Planner.TripPlanService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class TripPlannerController {
@@ -31,6 +36,9 @@ public class TripPlannerController {
 	@Autowired
 	private RegionRepository regionRepository;
 	
+	@Autowired
+	private TripPlanService tripPlanService; 
+	
 	@GetMapping("/tripMain")
 	public String tripMain(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
 		
@@ -40,7 +48,10 @@ public class TripPlannerController {
 	
 	//여행 지역, 여행 인원, 교통수단 선택
 	@GetMapping("/tripBasicOption")//사용자가 요청한 주소
-	public String tripBasicOption(Model model) {
+	public String tripBasicOption(@RequestParam(name="startDate") String startDate,
+			@RequestParam(name="endDate") String endDate, Model model, HttpSession session) {
+		session.setAttribute("startDate",startDate);
+		session.setAttribute("endDate",endDate);
 		List<RegionSelectDto> regionList = regionRepository.findAll()
 				.stream()
 				.map(RegionSelectDto::from)
@@ -49,6 +60,8 @@ public class TripPlannerController {
 		model.addAttribute("regionList",regionList);
 		model.addAttribute("vehicleType",planService.allVehicleName());
 		
+		System.out.println("시작날짜들어옴 : " + startDate );
+		System.out.println("끝나는 날짜 들어옴: " + endDate);
 		
 		return "planner/tripBasicOption";
 		
@@ -59,24 +72,46 @@ public class TripPlannerController {
 	}
 	
 	@GetMapping("/placeListOption")
-	public String placeListOption(Model model) {
-		
-		List<PlaceSelectDto> dtoList = placeRepository.findAll().stream()
-		.map(p -> new PlaceSelectDto(
-					p.getPlaceId(),
-					p.getPlaceName(),
-					p.getCategory().getCategoryId()
-				))
-		.collect(Collectors.toList());
-		
-		
-		model.addAttribute("placeType",dtoList);
+	public String placeListOption(HttpSession session, Model model) {
+	    Long regionId = (Long) session.getAttribute("regionId");
+	    Long vehicleId = (Long) session.getAttribute("vehicleId");
 
-		return "planner/placeListOption";
-		
-	
+	    if (regionId != null && vehicleId != null) {
+	        RegionEntity region = tripPlanService.findRegionById(regionId);
+	        VehicleEntity vehicle = tripPlanService.findVehicleById(vehicleId);
+
+	        model.addAttribute("region", region);
+	        model.addAttribute("vehicle", vehicle);
+	    }
+
+	    List<PlaceSelectDto> dtoList = placeRepository.findAll().stream()
+	    		.filter(p->p.getRegion().getRegionId().equals(regionId))
+	            .map(p -> new PlaceSelectDto(
+	                    p.getPlaceId(),
+	                    p.getPlaceName(),
+	                    p.getCategory().getCategoryId()
+	            ))
+	            .collect(Collectors.toList());
+
+	    model.addAttribute("placeType", dtoList);
+	    
+	    System.out.println("지역아이디:" + regionId);
+	    System.out.println("차량수단:"+vehicleId);
+
+	    return "planner/placeListOption";
 	}
+
 	
+	@PostMapping("/tripStep2")
+	public String tripStep2(@RequestParam(name="regionId") Long regionId, @RequestParam(name="vehicleId") Long vehicleId, HttpSession session, Model model) {
+		
+
+		session.setAttribute("regionId", regionId);
+		session.setAttribute("vehicleId", vehicleId);
+		
+
+		return "redirect:/placeListOption";
+	}
 		
 	
 	

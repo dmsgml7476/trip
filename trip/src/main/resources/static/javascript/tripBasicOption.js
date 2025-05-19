@@ -32,3 +32,17 @@ upperRegionSelect.addEventListener('change',function(){
 		}
 	});
 });
+
+
+document.getElementById("subRegion").addEventListener("change", function () {
+    const selectedSubRegionId = Number(this.value); // regionId는 Long 타입이므로 숫자로
+
+    const region = window.regionList.find(r => r.regionId === selectedSubRegionId);
+    if (region) {
+        document.getElementById("regionIdInput").value = region.regionId;
+        console.log("🟢 regionId 설정됨:", region.regionId);
+    } else {
+        console.warn("❗ region을 찾지 못했습니다", selectedSubRegionId);
+    }
+});
+
