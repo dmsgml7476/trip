@@ -12,7 +12,7 @@ import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import com.trip.control.Lets.Story;
-import com.trip.control.Lets.StoryDetailDto;
+import com.trip.dto.StoryDetailDto;
 import com.trip.dto.Lets.BoardFormDto;
 import com.trip.dto.Lets.StoryCardDto;
 import com.trip.dto.Lets.StoryCommentDto;
@@ -220,10 +220,32 @@ public class StoryService {
 			}
 
 
-			public StoryDetailDto getStoryDetail(Long storyId) {
-				// TODO Auto-generated method stub
-				return null;
+			public StoryCardDto getStoryDetail(Long storyId) {
+				StoryEntity entity = storyRepository.findByStoryId(storyId);
+		        
+				StoryCardDto storyCardDto = new StoryCardDto();
+				
+				List<UserHashtagEntity> userHashtagEntityList = userHashtagRepository.findAllByUserId(entity.getUser().getId());
+				if(  !userHashtagEntityList.isEmpty() ) { // 해시 태그 있으면 실행
+					List<String> tempTag = new ArrayList<>(); // 모든 해시 태그 담아두기 위한 임시공간
+					for( UserHashtagEntity userHashtagEntity : userHashtagEntityList) { // 해시 태그 갯수만큼 반복 그래야 모든 해시 태그 다가져올수 있음
+						tempTag.add(userHashtagEntity.getHashtags().getHashtag()); // 해시 태그 하나씩 임시공간에 저장
+					}
+					// 임시공간에 저장된 해시 태그 DTO의 배열에 저장
+					storyCardDto.setHashTags( tempTag.toArray(new String[0]));
+				}
+				storyCardDto.setLoginId(entity.getUser().getLoginId());
+				storyCardDto.setStoryId(entity.getStoryId());
+				storyCardDto.setStoryTitle(entity.getStoryTitle());
+				storyCardDto.setStoryContent(entity.getStoryContent());
+				storyCardDto.setStoryImgUrl(entity.getImageUrl());
+				storyCardDto.setStoryContent(entity.getStoryContent());
+				storyCardDto.setLikes(entity.getLikes());
+				
+				return storyCardDto;
+			
 			}
+		
 
 
 

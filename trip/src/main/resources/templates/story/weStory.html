@@ -218,7 +218,7 @@
          th:if="${iterStat.index} < 4"
          th:data-story-id="${story.storyId}"
          th:data-login-id="${story.loginId}"
-         onclick="window.location.href = '[[@{/story/detail(id=${story.storyId})}]]'" style="cursor: pointer;">
+        th:onclick="'window.location.href=\'/StoryDetail?id=' + ${story.storyId} + '\''" style="cursor: pointer;">
       <div class="login-id" th:text="'@' + ${story.loginId}">아이디</div>
       <div class="story-title" th:text="${story.storyTitle}">스토리 제목</div>
       <img class="story-image"

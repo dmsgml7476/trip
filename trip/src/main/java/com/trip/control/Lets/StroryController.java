@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trip.dto.StoryDetailDto;
 import com.trip.dto.Lets.BoardFormDto;
 import com.trip.dto.Lets.StoryCardDto;
 import com.trip.dto.Lets.StoryCommentDto;
@@ -99,13 +100,13 @@ public class StroryController  {
 			}
 			
 			//스토리 상세보기
-			@GetMapping("/detail/{id}")
-			public String getStoryDetail(@PathVariable("id") Long storyId, Model model) {
-			    StoryDetailDto storyDetail = storyService.getStoryDetail(storyId); // 상세 DTO로 가져오기
-			    model.addAttribute("story", storyDetail);                         // 게시글 정보
-			    model.addAttribute("commentFormDto", new StoryCommentDto());      // 댓글 입력 폼 전달
-			    return "story/detail"; // detail.html 렌더링
+			@GetMapping("/StoryDetail")
+			public String getStoryDetail(@RequestParam("id") Long id, Model model) {
+			   
+			    model.addAttribute("story", storyService.getStoryDetail(id));
+			    return "story/StoryDetail"; // templates/story/StoryDetail.html
 			}
+
 			
 			
 			
