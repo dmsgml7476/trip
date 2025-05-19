@@ -4,7 +4,10 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
+      
+      
 <head>
+	<link rel="stylesheet" th:href="@{/css/tripDateOption.css}" />
     <th:block layout:fragment="css">
        <style>
        
@@ -25,6 +28,8 @@
   border: 1px solid black;
   width: 80px;
   height: 48px;
+  color: darkolivegreen;
+  background-color: white;
 }
 .calender-area {
   border: 1px solid black;
@@ -33,6 +38,9 @@
   flex-direction: column;
   background-image: url(image/tourSymbol.png);
   background-size: 600px;
+  font-weight: bold;
+  
+  
 
   align-items: center;
 }
@@ -75,7 +83,7 @@
 <body>
 
 <div layout:fragment="main" id="main">
-
+	<!-- 날짜 -->
    <div>여행 하실 날짜를 선택하시오</div>
     <div class="calender-area">
       <div class="year-month">
@@ -104,9 +112,12 @@
       <div id="cal"></div>
     </div>
 
-    <form action="/tripBasicOption" method="get">
-      <button>다음</button>
-    </form>
+	<div class="button-area">
+		 <form action="/tripBasicOption" method="get" class="next-button-wrapper">
+      		<button>다음</button>
+   		 </form>
+	</div>
+   
     <script src="tripDateOption.js"></script>
 
 

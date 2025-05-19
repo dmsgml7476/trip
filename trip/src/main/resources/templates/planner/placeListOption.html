@@ -4,6 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <head>
+	<link rel=stylesheet th:href="@{/css/tripPlace.css}"/>
     <th:block layout:fragment="css"></th:block>
 	<title>Trip</title>
 </head>
@@ -15,9 +16,15 @@
   <div>
         <div>
          
-        <div>
+        <div class="tourPlaces">
             <p>인근/맞춤추천/별점 순</p>
+            <div class="image-row">
+            	<img src="/image/koreaPlace1.jpg"/>
+            	<img src="/image/koreaPlace2.jpg"/>
+            	<img src="/image/koreaPlace3.jpg"/>
             <form method="get" th:action="@{/placeDetail}">
+            </div>
+           
             <div>
                 <select id="typeSelect">
                     <option value="">유형</option>
