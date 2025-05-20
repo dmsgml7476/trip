@@ -75,7 +75,6 @@
                 type="email"
                 th:field="*{email}"
                 id="emailInput"
-                required
               />
               <button class="button" id="sendChkNum">인증번호</button>
               <div id="emailSendMsg" class="msg"></div>
@@ -88,7 +87,7 @@
             </div>
 
             <div class="input-box">
-              <input type="text" id="emailCodeInput" required />
+              <input type="text" id="emailCodeInput" />
               <button type="button" id="chkNumCheck">인증</button>
               <div id="emailVerifyMsg" class="msg"></div>
             </div>

@@ -309,6 +309,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		const idCheckMsg = document.getElementById("idCheckMsg");
 
 		form.addEventListener("submit", function (e) {
+		  e.preventDefault();
+		  
 		  const loginId = loginIdInput.value.trim();
 		  const pw = pwInput.value.trim();
 		  const pwChk = pwChkInput.value.trim();

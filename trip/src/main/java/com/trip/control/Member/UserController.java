@@ -66,6 +66,8 @@ public class UserController {
     @PostMapping("/signUp")
     public String signup(@ModelAttribute UserSignUpDto dto, @RequestParam(name = "alertAgree", required = false) String alertAgree, HttpSession session) {
         Boolean isVerified = (Boolean) session.getAttribute("authSuccess");
+        
+        
         if (isVerified == null || !isVerified) {
             throw new IllegalStateException("이메일 인증이 완료되지 않았습니다.");
         }
