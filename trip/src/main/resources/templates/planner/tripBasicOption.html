@@ -5,7 +5,8 @@
       layout:decorate="~{layout/default}">
 <head>
     <th:block layout:fragment="css">
-    	 <link rel="stylesheet" href="tripPlan.css" />
+    <link rel="stylesheet" th:href="@{/css/tripBasicOption.css}" />
+
     </th:block>
 
 	 <title>Trip</title>
@@ -42,7 +43,7 @@
              </select>
             
              <input class="regionInput" type="hidden" name="regionId" id="regionIdInput">
-             <button type="submit">다음</button>
+             <button type="submit" class="toPlaceList">다음</button>
           
         	 <div>
           		<!--여행 인원 선택-->

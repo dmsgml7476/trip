@@ -28,5 +28,20 @@
   font-weight: bold;
 }
 
+.next{
+	background-color:purple;
+	color:white;
+}
+
+
+#store{
+	background-color:pink
+}
+
+#finish{
+	background-color:red;
+	color: white;
+}
+
 
 
