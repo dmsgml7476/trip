@@ -98,7 +98,7 @@
 
 <div layout:fragment="main" id="main">
 	<!-- 날짜 -->
-   <div>여행 하실 날짜를 선택하시오</div>
+   <div id="dateChoice">여행 하실 날짜를 선택하시오</div>
    <form action = "/tripBasicOption" get="post">
    		 <div class="calender-area">
       <div class="year-month">
@@ -130,7 +130,7 @@
 	<input type="hidden" name="endDate" id="endDateInput"/>
 	<div class="button-area">
 	
-      		<button type="submit">다음</button>
+      		<button type="submit" id="toBasic">다음</button>
 	</div>
    </form>
    

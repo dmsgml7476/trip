@@ -11,3 +11,20 @@
   justify-content: flex-end;
   margin-top: 20px;
 }
+
+#toBasic{
+	background-color: purple;
+	color: white;
+}
+
+#dateChoice{
+	font-size: 30px;
+}
+
+.current-year{
+	color:white;
+}
+
+.current-month{
+	color:white;
+}
