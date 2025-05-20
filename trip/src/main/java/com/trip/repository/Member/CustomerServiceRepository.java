@@ -20,5 +20,7 @@ public interface CustomerServiceRepository extends JpaRepository<CustomerService
 	List<CustomerServiceEntity> findByUser_LoginIdContainingIgnoreCaseOrderByQuestionTimeDesc(String loginId);
 	
 	Page<CustomerServiceEntity> findByUser_LoginIdContainingIgnoreCase(String loginId, Pageable pageable);
+	
+	Page<CustomerServiceEntity> findByUserId(Long userId, Pageable pageable);
 
 }

@@ -25,9 +25,14 @@ a:visited {
   align-items: center;
 }
 
+.page-num a.active {
+  font-weight: bold;
+  color: darkgreen;
+}
+
 .wrap-box {
   width: 900px;
-  border: 1px solid black;
+
   height: 700px;
   display: flex;
   align-items: stretch;

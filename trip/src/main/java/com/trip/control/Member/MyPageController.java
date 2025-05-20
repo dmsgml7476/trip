@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -371,12 +372,24 @@ public class MyPageController {
 	}
 	
 	@GetMapping("/csMyList")
-	public String myCsListView(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
-		Long userId = userDetails.getUser().getId();
-		List<MyCsListDto> csList = myPageService.getMyCsList(userId);
-		model.addAttribute("csList", csList);
-		
-		return "/member/myCsList";
+	public String myCsListView(@AuthenticationPrincipal CustomUserDetails userDetails,
+			 @RequestParam(value = "page", defaultValue = "1") int page,
+	                           Model model) {
+	    Long userId = userDetails.getUser().getId();
+	    int pageSize = 10;
+
+	    Page<MyCsListDto> csPage = myPageService.getMyCsList(userId, page, pageSize);
+	    List<MyCsListDto> csList = csPage.getContent();
+
+	    int totalPages = csPage.getTotalPages();
+	    int currentPageGroup = (int) Math.ceil((double) page / 5);
+	    
+	    model.addAttribute("csList", csList);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("currentPageGroup", currentPageGroup);
+	    model.addAttribute("totalPages", totalPages);
+	    
+	    return "/member/myCsList";
 	}
 	
 	

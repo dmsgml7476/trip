@@ -43,6 +43,7 @@ public class UserDetailEntity {
 				.email(dto.getEmail())
 				.tel(dto.getTel())
 				.address(dto.getAddress())
+				.profileImg(dto.getProfileImg())
 				.build();
 	}
 	

@@ -130,41 +130,41 @@
         
           <div class="my-mainstory-boxs">
             <div class="my-mainstory-box">
-              <a href="">
+              <a href="/myStory">
                 <img class="plus-icon" src="/image/plus.png" />
               </a>
             </div>
             <div class="my-mainstory-box">
             	<a th:if="${mainStoryImages['ONE']} != null"
-            		th:href="@{/westory/weShow/{id}(id=${mainStoryIds['ONE']})}"
+            		th:href="@{/StoryDetail(id=${mainStoryIds['ONE']})}"
             		class="a-mainstory-box">
 	              <img alt="대표스토리 ONE" th:src="${mainStoryImages['ONE']}"/>
             	</a>
             </div>
             <div class="my-mainstory-box">
            		<a th:if="${mainStoryImages['TWO']} != null"
-            		th:href="@{/westory/weShow/{id}(id=${mainStoryIds['TWO']})}"
+            		th:href="@{/StoryDetail(id=${mainStoryIds['TWO']})}"
             		class="a-mainstory-box">
 	              <img alt="대표스토리 TWO" th:src="${mainStoryImages['TWO']}"/>
             	</a>
             </div>
             <div class="my-mainstory-box">
             	<a th:if="${mainStoryImages['THREE']} != null"
-            		th:href="@{/westory/weShow/{id}(id=${mainStoryIds['THREE']})}"
+            		th:href="@{/StoryDetail(id=${mainStoryIds['THREE']})}"
             		class="a-mainstory-box">
 	              <img alt="대표스토리 THREE" th:src="${mainStoryImages['THREE']}"/>
             	</a>
             </div>
             <div class="my-mainstory-box">
             	<a th:if="${mainStoryImages['FORE']} != null"
-            		th:href="@{/westory/weShow/{id}(id=${mainStoryIds['FORE']})}"
+            		th:href="@{/StoryDetail(id=${mainStoryIds['FORE']})}"
             		class="a-mainstory-box">
 	              <img alt="대표스토리 FORE" th:src="${mainStoryImages['FORE']}"/>
             	</a>
             </div>
             <div class="my-mainstory-box">
             	<a th:if="${mainStoryImages['FIVE']} != null"
-            		th:href="@{/westory/weShow/{id}(id=${mainStoryIds['FIVE']})}"
+            		th:href="@{/StoryDetail(id=${mainStoryIds['FIVE']})}"
             		class="a-mainstory-box">
 	              <img alt="대표스토리 FIVE" th:src="${mainStoryImages['FIVE']}"/>
             	</a>
@@ -188,7 +188,8 @@
             </div>
 
             <div class="like-story-box-area">
-              <div class="like-story-small-box" id="prev-story-box">
+              <div class="like-story-small-box" id="prev-story-box"
+              		th:attr="data-id=${likeStoryList[0].storyId}">
                 <div class="story-img">
                   <img
                     src="https://cdn.pixabay.com/photo/2022/01/06/07/25/south-korea-6918828_1280.jpg"

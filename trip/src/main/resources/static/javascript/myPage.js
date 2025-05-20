@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
       box.addEventListener("click", function () {
         const storyId = this.getAttribute("data-id");
         if (storyId) {
-          window.location.href = `/westory/weShow/${storyId}`;
+          window.location.href = `/StoryDetail?id=${storyId}`;
         }
       });
     }
